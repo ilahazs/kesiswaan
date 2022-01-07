@@ -1,0 +1,56 @@
+<div class="mb-3">
+               <label for="kelas" class="form-label">Kelas</label>
+               {{-- <div class="row">
+                  <div class="col-md-4">
+                     <select class="form-control" name="kelas_id" id="kelas">
+                        <option disabled selected>Select Category</option>
+                        @foreach ($classes as $class)
+                           @foreach ([$class->tingkatan] as $t)
+                              <option>{{ $t }}</option>
+
+                           @endforeach
+                        @endforeach
+                     </select>
+
+                  </div>
+                  <div class="col-md-4">
+                     <select class="form-control" name="kelas_id" id="kelas">
+                        <option disabled selected>Select Category</option>
+                     </select>
+                  </div>
+                  <div class="col-md-4">
+                     <select class="form-control" name="kelas_id" id="kelas">
+                        <option disabled selected>Select Category</option>
+                     </select>
+                  </div>
+               </div> --}}
+               <select class="form-control" name="class_id" id="kelas">
+                  <option disabled selected>Select Kelas</option>
+                  @foreach ($classes as $kelas)
+                     @php
+                        $romawiTingkat = '';
+                        switch ($kelas->tingkatan) {
+                            case '10':
+                                $romawiTingkat = 'X';
+                                break;
+                            case '11':
+                                $romawiTingkat = 'XI';
+                                break;
+                            case '12':
+                                $romawiTingkat = 'XII';
+                                break;
+                            default:
+                                $romawiTingkat = 'Gaada';
+                                break;
+                        }
+                     @endphp
+                     @if (old('class_id') == $kelas->id)
+                        <option value="{{ $kelas->id }}" selected>
+                           {{ $romawiTingkat . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}</option>
+                     @else
+                        <option value="{{ $kelas->id }}">
+                           {{ $romawiTingkat . ' ' . $kelas->jurusan . ' ' . $kelas->nama }}</option>
+                     @endif
+                  @endforeach
+               </select>
+            </div>

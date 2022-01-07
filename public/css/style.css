@@ -1,0 +1,58 @@
+* {
+   font-family: 'SF Compact Text';
+   font-weight: 500;
+}
+
+a.btn-bd-login>span {
+   background-color: #000;
+   color: white;
+   padding: 5px 10px;
+   font-weight: bold;
+   border: 2px solid rgb(105, 105, 105);
+   border-radius: 20px;
+   transition: 0.3s;
+}
+
+a.btn-bd-login:hover>span {
+   background-color: #fff;
+   color: rgb(0, 0, 0);
+   padding: 5px 10px;
+   font-weight: bold;
+   border: 2px solid #000;
+}
+
+span.btn-bd-logout {
+   background-color: #000;
+   color: white;
+   padding: 5px 10px;
+   font-weight: bold;
+   border: 2px solid rgb(105, 105, 105);
+   border-radius: 20px;
+   transition: 0.3s;
+}
+
+span.btn-bd-logout:hover>span {
+   background-color: #fff;
+   color: rgb(0, 0, 0);
+   padding: 5px 10px;
+   font-weight: bold;
+   border: 2px solid #000;
+}
+
+button.btn-reverse-outline-dark {
+   background-color: #000;
+   color: white;
+   padding: 5px 10px;
+   font-weight: bold;
+   border: 2px solid rgb(105, 105, 105);
+   border-radius: 20px;
+   transition: 0.3s;
+}
+
+button.btn-reverse-outline-dark:hover {
+   background-color: #fff;
+   color: rgb(0, 0, 0);
+   padding: 5px 10px;
+   font-weight: bold;
+   border: 2px solid #000;
+}
