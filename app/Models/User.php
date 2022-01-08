@@ -52,7 +52,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    function authenticated(Request $request, AuthUser $user)
+    public function authenticated(Request $request, AuthUser $user)
     {
         Auth::user()->update([
             'last_login_at' => Carbon::now()->toDateTimeString(),

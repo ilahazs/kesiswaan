@@ -16,11 +16,29 @@
             </a>
          </li>
          <li class="nav-item">
-            <a class="nav-link {{ Request::is('students*') ? 'active' : '' }}" href="{{ route('students.index') }}">
+            <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}"
+               href="{{ route('dashboard.profile') }}">
                <span data-feather="database"></span>
-               Students
+               My Profile
             </a>
          </li>
+         @can('admin')
+            <li class="nav-item">
+               <a class="nav-link {{ Request::is('students*') ? 'active' : '' }}" href="{{ route('students.index') }}">
+                  <span data-feather="database"></span>
+                  Students
+               </a>
+            </li>
+         @endcan
+         @can('siswa')
+
+            <li class="nav-item">
+               <a class="nav-link {{ Request::is('shop*') ? 'active' : '' }}" href="{{ route('siswa.rekap') }}">
+                  <span data-feather="database"></span>
+                  Data Rekap
+               </a>
+            </li>
+         @endcan
 
       </ul>
 

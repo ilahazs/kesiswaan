@@ -14,6 +14,7 @@ use App\Http\Controllers\StudentPelanggaranController;
 use App\Http\Controllers\StudentPenghargaanController;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\IsAdmin;
+use App\Http\Middleware\Siswa;
 use App\Models\Category;
 use App\Models\Pelanggaran;
 use App\Models\User;
@@ -86,4 +87,14 @@ Route::middleware([IsAdmin::class, 'auth'])->group(function () {
     /* Pelanggaran dan Penghargaan */
     Route::resource('/pelanggaran', PelanggaranController::class);
     Route::resource('/penghargaan', PenghargaanController::class);
+});
+
+Route::middleware([Siswa::class, 'auth'])->group(function () {
+    Route::get('/data-rekap', function () {
+        return view('dashboard.siswa-pages.rekap', [
+            'title' => 'Data Rekapku',
+            'users' => User::all()
+        ]);
+    })->name('siswa.rekap');
+    /* Khusus untuk role siswa */
 });
