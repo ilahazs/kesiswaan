@@ -1,0 +1,7 @@
+Step by Step :
+-Make sure composer and PHP in the latest version 
+-Run composer install and composer update 
+-Configure your .ENV file to match into your preferences
+-Run each artisan command
+-Open it with artisan server or with valet
+
