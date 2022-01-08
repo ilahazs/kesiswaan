@@ -75,8 +75,6 @@
                </div>
             </div>
          </div>
-         {{-- {!! Form::hidden('poin', 20) !!} --}}
-         {{-- <input type="hidden" name="poin" value="0"> --}}
       </div>
       <div class="col-lg-5">
          <div class="card shadow-sm">
@@ -84,37 +82,11 @@
                <h4 class="card-title">Aktivitas</h4>
                <p class="card-text">Terakhir login : {{ Auth::user()->updated_at->diffForHumans() }}</p>
             </div>
-            {{-- <ul class="list-group list-group-flush">
-            @forelse ($student->pelanggarans as $pelanggaran)
-               @php
-                  $jenis = '';
-                  $color = '';
-                  
-                  if ($pelanggaran->poin <= 20) {
-                      $color = 'success';
-                      $jenis = 'ringan';
-                  } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
-                      $color = 'warning';
-                      $jenis = 'sedang';
-                  } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
-                      $color = 'danger';
-                      $jenis = 'berat';
-                  } else {
-                      $color = 'secondary';
-                      $jenis = 'error';
-                  }
-               @endphp
-               <li class="list-group-item d-flex justify-content-between align-items-center">{{ $pelanggaran->nama }}
-                  <span class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
-               </li>
-            @empty
-               <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ __('Data masih kosong!') }}
-                  <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
-               </li>
-            @endforelse
-         </ul> --}}
+            <div class="card-footer">
+               <a href="{{ route('exportstudents') }}" class="btn btn-success">Export Data Siswa</a>
+            </div>
          </div>
+
       </div>
    </div>
 

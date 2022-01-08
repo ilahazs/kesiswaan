@@ -5,18 +5,18 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.students.index') }}" class="text-decoration-none">All Student</a>
+      <a href="{{ route('students.index') }}" class="text-decoration-none">All Student</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.students.create') }}"
-         class="text-decoration-none {{ Request::is('dashboard/students/create') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      <a href="{{ route('students.create') }}"
+         class="text-decoration-none {{ Request::is('students/create') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
 
    <div class="row mb-5">
       <div class="col-lg-8">
-         <form method="POST" action="{{ route('dashboard.students.store') }}">
+         <form method="POST" action="{{ route('students.store') }}">
             @csrf
             <div class="mb-3">
                <div class="row">

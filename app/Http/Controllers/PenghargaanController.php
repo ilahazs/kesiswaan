@@ -71,7 +71,7 @@ class PenghargaanController extends Controller
         Penghargaan::create($validatedData);
         $title = $validatedData['nama'];
 
-        return redirect(route('dashboard.penghargaan.index'))->with('success', "Data Penghargaan Baru: <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
+        return redirect(route('penghargaan.index'))->with('success', "Data Penghargaan Baru: <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
     }
 
     /**
@@ -135,7 +135,7 @@ class PenghargaanController extends Controller
         Penghargaan::where('id', $penghargaan->id)->update($validatedData);
         $title = $penghargaan->nama;
 
-        return redirect(route('dashboard.penghargaan.index'))->with('success', "Data Penghargaan: <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        return redirect(route('penghargaan.index'))->with('success', "Data Penghargaan: <strong>$title</strong> berhasil <strong>diubah</strong>!");
     }
 
     /**

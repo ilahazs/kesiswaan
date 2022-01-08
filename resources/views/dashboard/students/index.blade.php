@@ -5,8 +5,8 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.students.index') }}"
-         class="text-decoration-none {{ Request::is('dashboard/students') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      <a href="{{ route('students.index') }}"
+         class="text-decoration-none {{ Request::is('students') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
@@ -21,7 +21,9 @@
    @endif
 
    <div class="table-responsive mt-3 col-lg-12">
-      <a href="{{ route('dashboard.students.create') }}" class="btn btn-primary mb-3">Create new student</a>
+      <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Create new student</a>
+
+      <a href="{{ route('exportstudents') }}" class="btn btn-success mx-2 mb-3">Export Data Siswa</a>
 
       <table class="table table-bordered table-sm">
          <thead>
@@ -30,8 +32,8 @@
                <th scope="col">Nama</th>
                <th scope="col">NIS</th>
                <th scope="col">Kelas</th>
-               <th scope="col">Point</th>
-               <th scope="col">Rekap</th>
+               <th scope="col">Pelanggaran</th>
+               <th scope="col">Penghargaan</th>
                <th scope="col">Updated</th>
                <th scope="col" class="text-center">Aksi</th>
             </tr>
@@ -66,9 +68,9 @@
                      {{ $concatKelas }}
                   </td>
                   <td class="{{ $student->point >= 70 ? 'text-primary' : 'text-danger' }}">
-                     {{ $student->point }}</td>
+                     {{ $student->poin_pelanggaran }}</td>
                   <td>
-                     {{ $student->point }}
+                     {{ $student->poin_penghargaan }}
                      {{-- @foreach ($student->pelanggarans as $pelanggaran)
                         {{ $pelanggaran->nama }}
                      @endforeach --}}
@@ -76,7 +78,7 @@
 
                   <td>{{ $student->updated_at->diffForHumans() }}</td>
                   <td class="d-flex justify-content-center">
-                     {{-- <a href="{{ route('dashboard.students.show', $student->nis) }}"
+                     {{-- <a href="{{ route('students.show', $student->nis) }}"
                         class="badge bg-primary text-decoration-none text-white">
                         <span data-feather="eye"></span>
                      </a> --}}
@@ -85,11 +87,11 @@
                         <span data-feather="eye"></span>
                      </button>
                      @include('dashboard.students.modal.show')
-                     <a href="{{ route('dashboard.students.edit', $student->nis) }}"
+                     <a href="{{ route('students.edit', $student->nis) }}"
                         class="badge bg-success text-decoration-none text-white mx-2">
                         <span data-feather="edit"></span>
                      </a>
-                     <form action="{{ route('dashboard.students.destroy', $student->nis) }}" method="POST">
+                     <form action="{{ route('students.destroy', $student->nis) }}" method="POST">
                         @method('delete')
                         @csrf
                         <button class="badge btn-danger text-decoration-none text-white border-0"

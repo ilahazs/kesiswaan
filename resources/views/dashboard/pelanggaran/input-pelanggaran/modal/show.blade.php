@@ -2,7 +2,7 @@
 
 <div class="modal fade text-left" id="showDataStudent{{ $student->id }}" data-bs-backdrop="static"
    data-bs-keyboard="false" tabindex="-1" aria-labelledby="showDataStudent{{ $student->id }}Label" aria-hidden="true">
-   <div class="modal-dialog modal-lg">
+   <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="showDataStudent{{ $student->id }}Label">{{ __('Detail Rekap Siswa') }}
@@ -128,8 +128,12 @@
                               @endphp
                               <li class="list-group-item d-flex justify-content-between align-items-center">
                                  {{ $pelanggaran->nama }}
-                                 <span
-                                    class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
+                                 <div class="justify-content-end">
+                                    <span
+                                       class="badge bg-secondary badge-pill">{{ $pelanggaran->created_at->diffForHumans() }}</span>
+                                    <span
+                                       class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
+                                 </div>
                               </li>
                            @empty
                               <li class="list-group-item d-flex justify-content-between align-items-center">

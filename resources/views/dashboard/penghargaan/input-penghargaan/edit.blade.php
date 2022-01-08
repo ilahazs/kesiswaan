@@ -5,10 +5,10 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.penghargaan.index') }}" class="text-decoration-none">Data Penghargaan</a>
+      <a href="{{ route('penghargaan.index') }}" class="text-decoration-none">Data Penghargaan</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.penghargaan.edit', $penghargaan->id) }}"
+      <a href="{{ route('penghargaan.edit', $penghargaan->id) }}"
          class="text-decoration-none {{ Request::is('dashboard/penghargaan/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
@@ -16,7 +16,7 @@
 
    <div class="row mb-5">
       <div class="col-lg-8">
-         <form method="POST" action="{{ route('dashboard.penghargaan.update', $penghargaan->id) }}">
+         <form method="POST" action="{{ route('penghargaan.update', $penghargaan->id) }}">
             @csrf
             @method('put')
 

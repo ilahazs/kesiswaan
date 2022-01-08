@@ -9,6 +9,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RuleDataController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\StudentDismissPelanggaranController;
 use App\Http\Controllers\StudentPelanggaranController;
 use App\Http\Controllers\StudentPenghargaanController;
 use App\Http\Middleware\Admin;
@@ -27,9 +28,9 @@ Route::get('/about', function () {
     return view('about', ['title' => 'About']);
 });
 
-// Route::resource('/posts', PostController::class);
+/* // Route::resource('/posts', PostController::class);
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
-Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show');
+Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show'); */
 
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
@@ -53,7 +54,7 @@ Route::get('/dashboard/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/', [DashboardContoller::class, 'index'])->name('dashboard.index');
-    Route::get('/dashboard/profile', [DashboardContoller::class, 'profile'])->name('dashboard.profile');
+    Route::get('/profile', [DashboardContoller::class, 'profile'])->name('dashboard.profile');
 });
 
 // Dashboard for as admin authority
@@ -64,29 +65,25 @@ Route::middleware([IsAdmin::class, 'auth'])->group(function () {
             'users' => User::all()
         ]);
     })->name('admin.user');
+    /* Memasukkan rekap Pelanggaran dan Penghargaan */
+    Route::put('/hapus-pelanggaran/students/{student}', [StudentDismissPelanggaranController::class, 'dismissdata'])->name('pelanggaran.students.dismissdata');
+    Route::get('/hapus-pelanggaran/students/{student}/dismiss', [StudentDismissPelanggaranController::class, 'dismiss'])->name('pelanggaran.students.dismiss');
 
-    // Route::resource('/dashboard/ruledata', RuleDataController::class, ['as' => 'dashboard'])->except('show');
 
-    Route::resource('/dashboard/pelanggaran', PelanggaranController::class, [
-        'as' => 'dashboard'
-    ]);
-    Route::resource('/dashboard/penghargaan', PenghargaanController::class, [
-        'as' => 'dashboard'
-    ]);
-    Route::resource('/dashboard/students', StudentController::class, [
-        'as' => 'dashboard'
-    ]);
     Route::resource('/pelanggaran/students', StudentPelanggaranController::class, [
-        'as' => 'dashboard.pelanggaran'
+        'as' => 'pelanggaran'
     ]);
     Route::resource('/penghargaan/students', StudentPenghargaanController::class, [
-        'as' => 'dashboard.penghargaan'
+        'as' => 'penghargaan'
     ]);
+
+    /* Pengelola students */
+    Route::resource('/students', StudentController::class);
+    Route::get('/students/export', [StudentController::class, 'exportview'])->name('exportview');
+
+    Route::get('export', [StudentController::class, 'exportstudents'])->name('exportstudents');
+
+    /* Pelanggaran dan Penghargaan */
+    Route::resource('/pelanggaran', PelanggaranController::class);
+    Route::resource('/penghargaan', PenghargaanController::class);
 });
-/* Dashboard Students Controller */
-// Route::get('/dashboard/posts/checkSlug', [DashboardPostController::class, 'checkSlug'])->middleware('auth')->name('dashboard.posts.checkSlug');
-
-// data-penghargaan
-// data-pelanggaran
-
-// 

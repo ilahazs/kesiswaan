@@ -86,6 +86,7 @@ class StudentPelanggaranController extends Controller
         //     dd($p->poin);
         // }
 
+        // dd($request->pelanggaran);
 
         $student->pelanggarans()->attach($request->pelanggaran);
         // foreach ($request->pelanggaran as $pelanggaranBaru) {
@@ -102,8 +103,9 @@ class StudentPelanggaranController extends Controller
         $student->save();
         // Student::where('id', $student->id)->update($student);
         $title = $student->nama;
-        return redirect(route('dashboard.pelanggaran.students.index'))->with('success', "Data Siswa <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        return redirect(route('pelanggaran.students.index'))->with('success', "Data Siswa <strong>$title</strong> berhasil <strong>diubah</strong>!");
     }
+
 
     /**
      * Remove the specified resource from storage.

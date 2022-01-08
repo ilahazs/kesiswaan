@@ -5,8 +5,8 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.pelanggaran.index') }}"
-         class="text-decoration-none {{ Request::is('dashboard/pelanggaran*') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      <a href="{{ route('pelanggaran.index') }}"
+         class="text-decoration-none {{ Request::is('pelanggaran*') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
@@ -21,7 +21,7 @@
    @endif
 
    <div class="table-responsive mt-3 col-lg-12">
-      <a href="{{ route('dashboard.pelanggaran.create') }}" class="btn btn-primary mb-3">Tambah data aturan
+      <a href="{{ route('pelanggaran.create') }}" class="btn btn-primary mb-3">Tambah data aturan
          pelanggaran</a>
 
       <table class="table table-bordered table-sm">
@@ -75,11 +75,11 @@
                         <span data-feather="eye"></span>
                      </button>
                      @include('dashboard.pelanggaran.modal.show')
-                     <a href="{{ route('dashboard.pelanggaran.edit', $pelanggaran->id) }}"
+                     <a href="{{ route('pelanggaran.edit', $pelanggaran->id) }}"
                         class="badge bg-success text-decoration-none text-white mx-2">
                         <span data-feather="edit"></span>
                      </a>
-                     <form action="{{ route('dashboard.pelanggaran.destroy', $pelanggaran->id) }}" method="POST">
+                     <form action="{{ route('pelanggaran.destroy', $pelanggaran->id) }}" method="POST">
                         @method('delete')
                         @csrf
                         <button class="badge btn-danger text-decoration-none text-white border-0"

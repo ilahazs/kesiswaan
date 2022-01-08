@@ -10,7 +10,7 @@
    </li>
    <li class="breadcrumb-item" aria-current="page">
       <a href="{{ route('pelanggaran.students.edit', $student->id) }}"
-         class="text-decoration-none {{ Request::is('pelanggaran/students/' . $student->nis . '/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
+         class="text-decoration-none {{ Request::is('pelanggaran/students/' . $student->nis . '/dismiss') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
@@ -161,15 +161,15 @@
    <div class="row mb-4">
       <div class="col-lg-12">
          <div class="card">
-            <form method="POST" action="{{ route('pelanggaran.students.update', $student->nis) }}">
+            <form method="POST" action="{{ route('pelanggaran.students.dismissdata', $student->nis) }}">
                @csrf
                @method('put')
-
                <div class="card-header">
-                  Tambah pelanggaran baru
+                  Pelanggaran yang telah didapatkan
+
                </div>
                <ul class="list-group list-group-flush">
-                  @forelse ($pelanggarans as $pelanggaran)
+                  @forelse ($student->pelanggarans as $pelanggaran)
                      @php
                         $color = '';
                         if ($pelanggaran->poin <= 20) {
@@ -188,12 +188,10 @@
                            <span class="badge bg-{{ $color }} badge-pill me-3">{{ $pelanggaran->poin }}</span>
                            <div class="form-check form-check-inline d-inline-flex">
                               <input class="form-check-input" type="checkbox" name="pelanggaran[]" id="x"
-                                 value="{{ $pelanggaran->id }}">
+                                 value="{{ $pelanggaran->id }}" checked>
+                              {{-- <input type="hidden" name="pelanggaran[]" value="0"> --}}
                            </div>
-
-
                         </div>
-
                      </li>
                   @empty
                      <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -201,7 +199,6 @@
                         <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
                      </li>
                   @endforelse
-
                   <div class="d-flex justify-content-center my-1 mx-3">
                      <div class="row col-lg-2">
                         <button type="submit" class="btn btn-primary">Save</button>
@@ -209,7 +206,6 @@
                   </div>
                </ul>
             </form>
-
          </div>
       </div>
    </div>

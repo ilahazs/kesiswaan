@@ -2,9 +2,15 @@
 
 namespace App\Models;
 
+// use Auth;
+use Illuminate\Support\Facades\Auth;
+
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Foundation\Auth\User as AuthUser;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
@@ -21,6 +27,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'last_login_at',
+        'last_login_ip',
     ]; */
     protected $guarded = ['id'];
     protected $load = ['author', 'category'];
@@ -43,6 +51,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function authenticated(Request $request, AuthUser $user)
+    {
+        Auth::user()->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
+        ]);
+    }
 
     public function hasRole($role)
     {

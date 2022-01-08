@@ -5,11 +5,11 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.input-pelanggaran.index') }}" class="text-decoration-none">Data Pelanggaran</a>
+      <a href="{{ route('pelanggaran.students.index') }}" class="text-decoration-none">Data Pelanggaran</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
       <a href="{{ route('dashboard.input-pelanggaran.create') }}"
-         class="text-decoration-none {{ Request::is('dashboard/input-pelanggaran/create') ? 'text-secondary' : '' }}">{{ $title }}</a>
+         class="text-decoration-none {{ Request::is('pelanggaran/students/create') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
@@ -19,7 +19,7 @@
 
    <div class="row mb-5">
       <div class="col-lg-8">
-         <form method="POST" action="{{ route('dashboard.input-pelanggaran.store') }}">
+         <form method="POST" action="{{ route('pelanggaran.students.store') }}">
             @csrf
 
             <div class="mb-3">

@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Models\Kelas;
 use App\Models\Pelanggaran;
 use App\Models\Penghargaan;
-use App\Models\RuleData;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
 {
@@ -16,6 +17,20 @@ class StudentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function exportstudents()
+    {
+        // $filename = urlencode("students-export-" . date("Y-m-d H:i:s") . ".csv");
+        $filename = "students-export-" . date("Y-m-d H:i:s") . ".csv";
+        return Excel::download(new StudentExport,  $filename, null, ["NO", "ID", "NAMA", "NIS", "JENIS_KELAMIN", "POIN_PELANGGARAN", "POIN_PENGHARGAAN", "CREATED_AT", "UPDATED_AT"]);
+
+        // return redirect(route('dashboard.index'))->with('success', "Data para siswa telah <strong>berhasil </strong><strong>diexport</strong>!");
+    }
+
+    public function exportview()
+    {
+        return view('dashboard.utills.export', ['title' => 'Thanks for using our service']);
+    }
+
     public function index()
     {
         return view('dashboard.students.index', [
@@ -111,7 +126,7 @@ class StudentController extends Controller
 
         $title = $validatedData['nama'];
 
-        return redirect(route('dashboard.students.index'))->with('success', "Data Siswa <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
+        return redirect(route('students.index'))->with('success', "Data Siswa <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
     }
 
     /**
@@ -180,7 +195,7 @@ class StudentController extends Controller
 
         $title = $student->nama;
 
-        return redirect(route('dashboard.students.index'))->with('success', "Data siswa <strong>$title</strong> telah berhasil <strong>diubah!</strong>");
+        return redirect(route('students.index'))->with('success', "Data siswa <strong>$title</strong> telah berhasil <strong>diubah!</strong>");
     }
 
     /**
@@ -194,6 +209,6 @@ class StudentController extends Controller
         Student::destroy($student->id);
 
         $title = $student->nama;
-        return redirect(route('dashboard.students.index'))->with('success', "Siswa <strong>$title</strong> telah <strong>dihapus!</strong>");
+        return redirect(route('students.index'))->with('success', "Siswa <strong>$title</strong> telah <strong>dihapus!</strong>");
     }
 }

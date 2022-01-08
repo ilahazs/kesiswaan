@@ -26,6 +26,6 @@ class DatabaseSeeder extends Seeder
         ]);
         User::factory(3)->create();
         // Student::factory(20)->create();
-        Student::find(2)->pelanggarans()->attach([1, 2, 3]);
+        // Student::find(2)->pelanggarans()->attach([1, 2, 3]);
     }
 }

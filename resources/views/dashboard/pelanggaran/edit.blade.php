@@ -5,18 +5,18 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.pelanggaran.index') }}" class="text-decoration-none">Data Pelanggaran</a>
+      <a href="{{ route('pelanggaran.index') }}" class="text-decoration-none">Data Pelanggaran</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.pelanggaran.edit', $pelanggaran->id) }}"
-         class="text-decoration-none {{ Request::is('dashboard/pelanggaran/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      <a href="{{ route('pelanggaran.edit', $pelanggaran->id) }}"
+         class="text-decoration-none {{ Request::is('pelanggaran/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
 
    <div class="row mb-5">
       <div class="col-lg-8">
-         <form method="POST" action="{{ route('dashboard.pelanggaran.update', $pelanggaran->id) }}">
+         <form method="POST" action="{{ route('pelanggaran.update', $pelanggaran->id) }}">
             @csrf
             @method('put')
 

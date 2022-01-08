@@ -5,7 +5,7 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('dashboard.pelanggaran.students.index') }}"
+      <a href="{{ route('pelanggaran.students.index') }}"
          class="text-decoration-none {{ Request::is('pelanggaran/students*') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
@@ -21,7 +21,7 @@
    @endif
 
    <div class="table-responsive mt-3 col-lg-12">
-      <a href="{{ route('dashboard.pelanggaran.create') }}" class="btn btn-primary mb-3">Tambah rekap pelanggaran
+      <a href="{{ route('pelanggaran.students.create') }}" class="btn btn-primary mb-3">Tambah rekap pelanggaran
          siswa</a>
 
       <table class="table table-bordered table-sm">
@@ -106,17 +106,20 @@
                            <span data-feather="eye"></span>
                         </button>
                         @include('dashboard.pelanggaran.input-pelanggaran.modal.show')
-                        <a href="{{ route('dashboard.pelanggaran.students.edit', $student->nis) }}"
-                           class="badge bg-success text-decoration-none text-white mx-2">
+                        <a href="{{ route('pelanggaran.students.edit', $student->nis) }}"
+                           class="badge bg-success text-decoration-none text-white mx-1">
                            <span data-feather="edit"></span>
                         </a>
-                        <form action="{{ route('dashboard.pelanggaran.students.destroy', $student->nis) }}"
-                           method="POST">
+                        <a href="{{ route('pelanggaran.students.dismiss', $student->nis) }}"
+                           class="badge bg-danger text-decoration-none text-white me-1">
+                           <span data-feather="edit"></span>
+                        </a>
+                        {{-- <form action="{{ route('pelanggaran.students.destroy', $student->nis) }}" method="POST">
                            @method('delete')
                            @csrf
                            <button class="badge btn-danger text-decoration-none text-white border-0"
                               onclick="return confirm('yes/no?')"><span data-feather="trash-2"></span></button>
-                        </form>
+                        </form> --}}
                      </div>
                   </td>
                </tr>

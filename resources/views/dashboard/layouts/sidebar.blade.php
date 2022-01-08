@@ -16,8 +16,7 @@
             </a>
          </li>
          <li class="nav-item">
-            <a class="nav-link {{ Request::is('dashboard/students*') ? 'active' : '' }}"
-               href="{{ route('dashboard.students.index') }}">
+            <a class="nav-link {{ Request::is('students*') ? 'active' : '' }}" href="{{ route('students.index') }}">
                <span data-feather="database"></span>
                Students
             </a>
@@ -44,29 +43,32 @@
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('dashboard/penghargaan*') ? 'active' : '' }}"
-                  href="{{ route('dashboard.penghargaan.index') }}">
+               <a class="nav-link {{ Request::is('penghargaan*') ? 'active' : '' }}"
+                  href="{{ route('penghargaan.index') }}">
                   <span data-feather="grid"></span>
                   Data Penghargaan
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('dashboard/pelanggaran*') ? 'active' : '' }}"
-                  href="{{ route('dashboard.pelanggaran.index') }}">
+               <a class="nav-link 
+                  @if (Request::is('pelanggaran*') && !Request::is('pelanggaran/students*')) 
+                     active
+                  @endif"
+                  href="{{ route('pelanggaran.index') }}">
                   <span data-feather="grid"></span>
                   Data Pelanggaran
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('dashboard/pelanggaran/students*') ? 'active' : '' }}"
-                  href="{{ route('dashboard.pelanggaran.students.index') }}">
+               <a class="nav-link {{ Request::is('pelanggaran/students*') ? 'active' : '' }}"
+                  href="{{ route('pelanggaran.students.index') }}">
                   <span data-feather="thumbs-down"></span>
                   Input Pelanggaran
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('dashboard/penghargaan/students*') ? 'active' : '' }}"
-                  href="{{ route('dashboard.penghargaan.students.index') }}">
+               <a class="nav-link {{ Request::is('penghargaan/students*') ? 'active' : '' }}"
+                  href="{{ route('penghargaan.students.index') }}">
                   <span data-feather="thumbs-up"></span>
                   Input Penghargaan
                </a>
