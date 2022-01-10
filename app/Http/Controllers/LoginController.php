@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,6 +24,12 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+
+            Auth::user()->update([
+                'last_login_at' => Carbon::now()->toDateTimeString(),
+                'last_login_ip' => $request->getClientIp()
+            ]);
+
             return redirect()->intended('/dashboard')->with('status', 'Login successfully!');
         }
 

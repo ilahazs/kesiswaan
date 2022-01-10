@@ -12,11 +12,13 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentDismissPelanggaranController;
 use App\Http\Controllers\StudentPelanggaranController;
 use App\Http\Controllers\StudentPenghargaanController;
+use App\Http\Controllers\UpdateProfileContoller;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\Siswa;
 use App\Models\Category;
 use App\Models\Pelanggaran;
+use App\Models\Student;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -55,7 +57,13 @@ Route::get('/dashboard/', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/', [DashboardContoller::class, 'index'])->name('dashboard.index');
-    Route::get('/profile', [DashboardContoller::class, 'profile'])->name('dashboard.profile');
+
+
+
+    Route::prefix('profile')->group(function () {
+        Route::get('edit', [UpdateProfileContoller::class, 'edit'])->name('profile');
+        Route::put('update', [UpdateProfileContoller::class, 'update'])->name('profile.update');
+    });
 });
 
 // Dashboard for as admin authority
@@ -90,11 +98,57 @@ Route::middleware([IsAdmin::class, 'auth'])->group(function () {
 });
 
 Route::middleware([Siswa::class, 'auth'])->group(function () {
-    Route::get('/data-rekap', function () {
+    /* Khusus untuk role siswa */
+    Route::get('/siswa/rekap', function () {
+        // $student = Student::where('id', Auth::user()->student_id)->get();
+        // Check and assign data for student who is have relation with user
+        $siswa = '';
+        $pelanggarans = '';
+        $siswas = Student::all();
+        $userEmail = Auth::user()->email;
+        $strChanged = str_replace("@", " ", $userEmail);
+        $userNISDump = explode(" ", $strChanged);
+        $userNIS = $userNISDump[0];
+
+        foreach ($siswas as $s) {
+            // $smendekati = $s->user_id == Auth::user()->id;
+            if ($s->user_id != null && $s->user_id == Auth::user()->id && $s->nis == $userNIS) {
+                // dd($s->pelanggarans);
+                // dd($s->nis);
+                $siswa = $s;
+                $pelanggarans = $s->pelanggarans;
+            }
+        }
+
         return view('dashboard.siswa-pages.rekap', [
             'title' => 'Data Rekapku',
-            'users' => User::all()
+            'student' => $siswa,
+            'pelanggarans' => $pelanggarans,
         ]);
     })->name('siswa.rekap');
-    /* Khusus untuk role siswa */
+
+    Route::get('/siswa/shop', function () {
+        $siswa = '';
+        $mypoin = 0;
+        $siswas = Student::all();
+        $userEmail = Auth::user()->email;
+        $strChanged = str_replace("@", " ", $userEmail);
+        $userNISDump = explode(" ", $strChanged);
+        $userNIS = $userNISDump[0];
+
+        foreach ($siswas as $s) {
+            // $smendekati = $s->user_id == Auth::user()->id;
+            if ($s->user_id != null && $s->user_id == Auth::user()->id && $s->nis == $userNIS) {
+                // dd($s->pelanggarans);
+                // dd($s->nis);
+                $siswa = $s;
+                $mypoin = $s->poin_penghargaan;
+            }
+        }
+        return view('dashboard.siswa-pages.shop', [
+            'title' => 'Shop Poin',
+            'student' => $siswa,
+            'mypoin' => $siswa->poin_penghargaan,
+        ]);
+    })->name('siswa.shop');
 });

@@ -22,7 +22,6 @@ class CreateUsersTable extends Migration
             // $table->enum('role', ['admin', 'author', 'guru', 'siswa'])->nullable();
             // $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            // $table->boolean('is_admin')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

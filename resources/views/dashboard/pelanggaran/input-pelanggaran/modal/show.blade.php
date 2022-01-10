@@ -130,7 +130,7 @@
                                  {{ $pelanggaran->nama }}
                                  <div class="justify-content-end">
                                     <span
-                                       class="badge bg-secondary badge-pill">{{ $pelanggaran->created_at->diffForHumans() }}</span>
+                                       class="badge bg-secondary badge-pill">{{ $pelanggaran->updated_at->diffForHumans() }}</span>
                                     <span
                                        class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
                                  </div>

@@ -12,6 +12,11 @@ class Student extends Model
     protected $guarded = ['id'];
     protected $with = ['kelas', 'pelanggarans', 'penghargaans'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'class_id');

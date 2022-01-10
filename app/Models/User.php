@@ -52,12 +52,8 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function authenticated(Request $request, AuthUser $user)
+    public function authenticated(Request $request, $user)
     {
-        Auth::user()->update([
-            'last_login_at' => Carbon::now()->toDateTimeString(),
-            'last_login_ip' => $request->getClientIp()
-        ]);
     }
 
     public function hasRole($role)
@@ -69,8 +65,8 @@ class User extends Authenticatable
         return false;
     }
 
-    public function posts()
+    public function address()
     {
-        return $this->hasMany(Post::class);
+        return $this->hasOne(Address::class, 'user_id', 'id');
     }
 }

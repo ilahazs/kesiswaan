@@ -82,7 +82,9 @@
          <div class="card shadow-sm">
             <div class="card-body">
                <h4 class="card-title">Aktivitas</h4>
-               <p class="card-text">Terakhir login : {{ Auth::user()->updated_at->diffForHumans() }}</p>
+               <p class="card-text">Terakhir login :
+                  {{ date(Auth::user()->last_login_at) }} <br> {{ 'di ' . Auth::user()->last_login_ip }}
+               </p>
             </div>
             {{-- <ul class="list-group list-group-flush">
             @forelse ($student->pelanggarans as $pelanggaran)

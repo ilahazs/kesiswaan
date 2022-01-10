@@ -41,7 +41,13 @@
          align-items: center;
          padding-top: 40px;
          padding-bottom: 40px;
-         background-color: #f5f5f5;
+         /* background-color: #f5f5f5; */
+         /* background-image: url('../../public/img/background-auth.jpg'); */
+         background-image: url('{{ asset('img/background-auth.jpg') }}');
+         background-repeat: no-repeat;
+         background-attachment: fixed;
+         background-size: cover;
+
       }
 
       .form-signin {

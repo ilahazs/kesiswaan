@@ -16,9 +16,8 @@
             </a>
          </li>
          <li class="nav-item">
-            <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}"
-               href="{{ route('dashboard.profile') }}">
-               <span data-feather="database"></span>
+            <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="{{ route('profile') }}">
+               <span data-feather="user"></span>
                My Profile
             </a>
          </li>
@@ -33,12 +32,15 @@
          @can('siswa')
 
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('shop*') ? 'active' : '' }}" href="{{ route('siswa.rekap') }}">
+               <a class="nav-link {{ Request::is('siswa/rekap-data*') ? 'active' : '' }}"
+                  href="{{ route('siswa.rekap') }}">
                   <span data-feather="database"></span>
                   Data Rekap
                </a>
             </li>
          @endcan
+
+
 
       </ul>
 
@@ -93,6 +95,31 @@
             </li>
          </ul>
       @endcan
+
+      @auth
+         @if (Auth::user()->role == 'siswa')
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+               <span>Menu</span>
+            </h6>
+            <ul class="nav flex-column">
+
+               <li class="nav-item">
+                  <a class="nav-link {{ Request::is('siswa/rekap*') ? 'active' : '' }}"
+                     href="{{ route('siswa.rekap') }}">
+                     <span data-feather="list"></span>
+                     Data Rekap
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link {{ Request::is('siswa/shop') ? 'active' : '' }}"
+                     href="{{ route('siswa.shop') }}">
+                     <span data-feather="shopping-cart"></span>
+                     Shop Poin
+                  </a>
+               </li>
+            </ul>
+         @endif
+      @endauth
 
       {{-- @auth
          @if (Auth::user()->role == 'admin')

@@ -11,6 +11,8 @@
 @endsection
 @section('container')
 
+   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
+
    @if (session('success'))
       <div class="col-lg-11">
          <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -24,7 +26,7 @@
       <a href="{{ route('pelanggaran.students.create') }}" class="btn btn-primary mb-3">Tambah rekap pelanggaran
          siswa</a>
 
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm" id="datasiswa-pelanggaran">
          <thead>
             <tr>
                <th scope="col">#</th>
@@ -128,7 +130,12 @@
          </tbody>
       </table>
    </div>
-
-
+   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+   <script>
+      const dataTable = new simpleDatatables.DataTable("#datasiswa-pelanggaran", {
+         searchable: true,
+         fixedHeight: true,
+      })
+   </script>
 
 @endsection

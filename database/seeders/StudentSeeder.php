@@ -49,5 +49,21 @@ class StudentSeeder extends Seeder
             'class_id' => 3,
             'jenis_kelamin' => 'L',
         ]);
+
+        Student::create([
+            'nama' => 'Siswa Hebat',
+            'nis' => '192011014',
+            'class_id' => 4,
+            'jenis_kelamin' => 'L',
+            'user_id' => '3'
+        ]);
+
+        Student::create([
+            'nama' => 'Ilham',
+            'nis' => '1920118111',
+            'class_id' => 5,
+            'jenis_kelamin' => 'L',
+            'user_id' => '4'
+        ]);
     }
 }

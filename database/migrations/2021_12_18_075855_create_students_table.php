@@ -21,6 +21,8 @@ class CreateStudentsTable extends Migration
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
             $table->integer('poin_pelanggaran')->default(0);
             $table->integer('poin_penghargaan')->default(0);
+            $table->foreignId('user_id')->nullable();
+
             $table->timestamps();
         });
     }

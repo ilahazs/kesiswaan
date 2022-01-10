@@ -10,6 +10,7 @@
    </li>
 @endsection
 @section('container')
+   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
    @if (session('success'))
       <div class="col-lg-11">
@@ -25,7 +26,7 @@
 
       <a href="{{ route('exportstudents') }}" class="btn btn-success mx-2 mb-3">Export Data Siswa</a>
 
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm" id="master-students">
          <thead>
             <tr>
                <th scope="col">#</th>
@@ -105,5 +106,12 @@
       </table>
    </div>
 
+   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+   <script>
+      const dataTable = new simpleDatatables.DataTable("#master-students", {
+         searchable: true,
+         fixedHeight: true,
+      })
+   </script>
 
 @endsection
