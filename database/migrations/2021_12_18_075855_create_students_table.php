@@ -19,6 +19,7 @@ class CreateStudentsTable extends Migration
             $table->string('nama');
             $table->string('nis', 12)->unique();
             $table->enum('jenis_kelamin', ['L', 'P'])->nullable();
+            $table->string('notelp', 13)->nullable();
             $table->integer('poin_pelanggaran')->default(0);
             $table->integer('poin_penghargaan')->default(0);
             $table->foreignId('user_id')->nullable();

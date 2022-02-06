@@ -14,12 +14,12 @@ class StudentFactory extends Factory
     public function definition()
     {
         return [
-            'class_id' => mt_rand(1, 9),
-            'rule_data_id' => mt_rand(1, 5),
+            'class_id' => mt_rand(1, 54),
             'nama' => $this->faker->name(),
-            'nis' => $this->faker->unique()->bothify('1920118###'),
+            'nis' => $this->faker->unique()->bothify('192011####'),
             'jenis_kelamin' => $this->faker->randomElement(['L', 'P']),
-            'point' => mt_rand(20, 100),
+            'poin_penghargaan' => 0,
+            'poin_penghargaan' => 0,
         ];
     }
 }

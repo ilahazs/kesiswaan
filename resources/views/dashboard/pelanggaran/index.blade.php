@@ -56,7 +56,7 @@
                      $colorPoint = 'text-danger';
                      $jenis = 'berat';
                   } else {
-                     $colorPoint = 'text-secondary';
+                     $colorPoint = 'text-danger';
                      $jenis = 'error';
                   }
                @endphp">

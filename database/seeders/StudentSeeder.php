@@ -61,9 +61,10 @@ class StudentSeeder extends Seeder
         Student::create([
             'nama' => 'Ilham',
             'nis' => '1920118111',
-            'class_id' => 5,
+            'class_id' => 8,
             'jenis_kelamin' => 'L',
-            'user_id' => '4'
+            'user_id' => '5',
+            'notelp' => '081324086956'
         ]);
     }
 }

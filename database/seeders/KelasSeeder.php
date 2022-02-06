@@ -53,6 +53,7 @@ class KelasSeeder extends Seeder
             'nama' => '2',
             'jurusan' => 'RPL',
             'tingkatan' => '12',
+            'teacher_id' => 1,
         ]);
         Kelas::create([
             'nama' => '3',

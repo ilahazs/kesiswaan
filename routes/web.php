@@ -12,13 +12,17 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentDismissPelanggaranController;
 use App\Http\Controllers\StudentPelanggaranController;
 use App\Http\Controllers\StudentPenghargaanController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UpdateProfileContoller;
 use App\Http\Middleware\Admin;
+use App\Http\Middleware\Guru;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\Siswa;
 use App\Models\Category;
+use App\Models\Kelas;
 use App\Models\Pelanggaran;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
@@ -75,8 +79,11 @@ Route::middleware([IsAdmin::class, 'auth'])->group(function () {
         ]);
     })->name('admin.user');
     /* Memasukkan rekap Pelanggaran dan Penghargaan */
-    Route::put('/hapus-pelanggaran/students/{student}', [StudentDismissPelanggaranController::class, 'dismissdata'])->name('pelanggaran.students.dismissdata');
-    Route::get('/hapus-pelanggaran/students/{student}/dismiss', [StudentDismissPelanggaranController::class, 'dismiss'])->name('pelanggaran.students.dismiss');
+    Route::put('/hapus-pelanggaran/students/{student}', [StudentDismissPelanggaranController::class, 'dismisspelanggarandata'])->name('pelanggaran.students.dismissdata');
+    Route::get('/hapus-pelanggaran/students/{student}/dismiss', [StudentDismissPelanggaranController::class, 'dismisspelanggaranview'])->name('pelanggaran.students.dismiss');
+
+    Route::put('/hapus-penghargaan/students/{student}', [StudentDismissPelanggaranController::class, 'dismisspenghargaandata'])->name('penghargaan.students.dismissdata');
+    Route::get('/hapus-penghargaan/students/{student}/dismiss', [StudentDismissPelanggaranController::class, 'dismisspenghargaanview'])->name('penghargaan.students.dismiss');
 
 
     Route::resource('/pelanggaran/students', StudentPelanggaranController::class, [
@@ -109,17 +116,21 @@ Route::middleware([Siswa::class, 'auth'])->group(function () {
         $strChanged = str_replace("@", " ", $userEmail);
         $userNISDump = explode(" ", $strChanged);
         $userNIS = $userNISDump[0];
-
+        // dd(Auth::user()->id);
         foreach ($siswas as $s) {
             // $smendekati = $s->user_id == Auth::user()->id;
+            // if ($s->user_id == Auth::user()->id) {
+            //     dd('yeah');
+            // }
             if ($s->user_id != null && $s->user_id == Auth::user()->id && $s->nis == $userNIS) {
-                // dd($s->pelanggarans);
+                // dd($s);
                 // dd($s->nis);
                 $siswa = $s;
                 $pelanggarans = $s->pelanggarans;
             }
         }
-
+        // dd($s->user_id);
+        // dd($siswa->pelanggarans());
         return view('dashboard.siswa-pages.rekap', [
             'title' => 'Data Rekapku',
             'student' => $siswa,
@@ -151,4 +162,58 @@ Route::middleware([Siswa::class, 'auth'])->group(function () {
             'mypoin' => $siswa->poin_penghargaan,
         ]);
     })->name('siswa.shop');
+});
+
+Route::middleware([Guru::class, 'auth'])->group(function () {
+    /* Khusus untuk role siswa */
+    Route::get('/guru/rekap', function () {
+        $k = '';
+        $guru = '';
+        foreach (Teacher::all() as $teacher) {
+            if ($teacher->user_id == Auth::user()->id) {
+                $guru = $teacher;
+            }
+        }
+        // dd($guru->nama);
+        foreach (Kelas::all() as $kelas) {
+            if ($kelas->teacher_id != null && $kelas->teacher_id == $guru->id) {
+                $k = $kelas;
+            }
+        }
+
+        $students = Student::where('class_id', $k->id)->get();
+
+        // Student::where('id', 7)->update([
+        //     'notelp' => '081324086956'
+        // ]);
+
+        return view('dashboard.guru-pages.rekap', [
+            'title' => 'Data Kelasku',
+            'students' => $students,
+            // 'pelanggarans' => $pelanggarans,
+        ]);
+    })->name('guru.rekap');
+
+    Route::get('/guru', function () {
+        $k = '';
+        $guru = '';
+        foreach (Teacher::all() as $teacher) {
+            if ($teacher->user_id == Auth::user()->id) {
+                $guru = $teacher;
+            }
+        }
+        // dd($guru->nama);
+        foreach (Kelas::all() as $kelas) {
+            if ($kelas->teacher_id != null && $kelas->teacher_id == $guru->id) {
+                $k = $kelas;
+            }
+        }
+        return view('dashboard.guru-pages.guru', [
+            'title' => 'Data Guru',
+            'guru' => $guru,
+            'kelas' => $k
+        ]);
+    })->name('guru.index');
+
+    Route::get('exportkelas', [TeacherController::class, 'export_students_kelas'])->name('exportkelas');
 });

@@ -47,9 +47,11 @@ class PenghargaanController extends Controller
         $rules = [
             'nama' => 'required',
             'jenis' => 'required',
+            'keterangan' => 'max:255',
         ];
 
         $requestData = $request->all();
+        // dd($requestData);
 
         if ($request->jenis == 'ringan') {
             $requestData['poin'] = 20;
@@ -67,6 +69,7 @@ class PenghargaanController extends Controller
         // return $request->all();
 
         $validatedData = $request->validate($rules);
+        // dd($validatedData);
 
         Penghargaan::create($validatedData);
         $title = $validatedData['nama'];
@@ -149,6 +152,6 @@ class PenghargaanController extends Controller
         $title = $penghargaan->nama;
         Penghargaan::destroy($penghargaan->id);
 
-        return redirect(route('dashboard.penghargaan.index'))->with('success', "Data Penghargaan: <strong>$title</strong> berhasil <strong>dihapus</strong>!");
+        return redirect(route('penghargaan.index'))->with('success', "Data Penghargaan: <strong>$title</strong> berhasil <strong>dihapus</strong>!");
     }
 }

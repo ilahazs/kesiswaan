@@ -56,7 +56,7 @@
                      $colorPoint = 'text-danger';
                      $jenis = 'tinggi';
                   } else {
-                     $colorPoint = 'text-secondary';
+                     $colorPoint = 'text-danger';
                      $jenis = 'error';
                   }
                @endphp">

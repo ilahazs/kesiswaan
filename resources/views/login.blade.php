@@ -52,7 +52,7 @@
 
       .form-signin {
          width: 100%;
-         max-width: 330px;
+         max-width: 380px;
          padding: 15px;
          margin: auto;
       }
@@ -95,7 +95,7 @@
          <img class="mb-4" src="{{ asset('img/logo-smkn4bdg.png') }}" alt="Logo SMKN 4 Bandung" width="70"
             height="70">
       </a>
-      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+      <h1 class="h3 mb-3 fw-normal">{{ config('app.name') }}</h1>
 
       @if (session()->has('status'))
          <div class="alert alert-success fade show" role="alert">
@@ -131,16 +131,25 @@
 
 
          <div class="row mb-3">
-            <div class="col-lg-12 text-center">
-               <span>Doesn't have account?
-                  <a href="{{ route('register') }}" class="text-decoration-none">
-                     Register here!</a></span>
+            <div class="col-lg-12 text-center d-flex justify-content-end">
+               <span>
+                  <a href="{{ route('password.email') }}" class="text-decoration-none">
+                     Forgot Password?</a></span>
             </div>
          </div>
 
          <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
-         <p class="mt-5 mb-3 text-muted">&copy; 2021-2025</p>
       </form>
+
+      {{-- <div class="row mt-3">
+         <div class="col-lg-12 text-center">
+            <span>Doesn't have account?
+               <a href="{{ route('register') }}" class="text-decoration-none">
+                  Register here!</a></span>
+         </div>
+      </div> --}}
+      <p class="mt-5 mb-3 text-muted">&copy; 2021-2025</p>
+
 
    </main>
 

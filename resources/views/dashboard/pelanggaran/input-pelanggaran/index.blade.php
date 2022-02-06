@@ -70,13 +70,13 @@
                         $jenis = '';
                         $colorPoint = '';
                         
-                        if ($student->poin <= 20) {
+                        if ($student->poin_pelanggaran <= 20) {
                             $colorPoint = 'text-success';
                             $jenis = 'ringan';
-                        } elseif ($student->poin <= 30 && $student->poin >= 21) {
+                        } elseif ($student->poin_pelanggaran <= 30 && $student->poin_pelanggaran >= 21) {
                             $colorPoint = 'text-warning';
                             $jenis = 'sedang';
-                        } elseif ($student->poin <= 50 && $student->poin >= 31) {
+                        } elseif ($student->poin_pelanggaran <= 50 && $student->poin_pelanggaran >= 31) {
                             $colorPoint = 'text-danger';
                             $jenis = 'berat';
                         } else {
@@ -89,7 +89,7 @@
                   <td>
                      <div class="my-1 mx-1">
                         <select class="form-control form-control-sm" name="rekap_pelanggaran" id="rekap_pelanggaran">
-                           <option disabled selected>List Pelanggaran</option>
+                           <option disabled selected>List pelanggaran</option>
                            @foreach ($student->pelanggarans as $pelanggaran)
                               <option disabled>{{ $pelanggaran->nama . ' | ' . $pelanggaran->poin }}</option>
                            @endforeach

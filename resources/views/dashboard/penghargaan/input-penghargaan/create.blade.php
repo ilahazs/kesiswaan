@@ -5,11 +5,11 @@
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('penghargaan.students.index') }}" class="text-decoration-none">Data Penghargaan</a>
+      <a href="{{ route('pelanggaran.students.index') }}" class="text-decoration-none">Data Pelanggaran</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('penghargaan.students.create') }}"
-         class="text-decoration-none {{ Request::is('penghargaan/create') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      <a href="{{ route('dashboard.input-pelanggaran.create') }}"
+         class="text-decoration-none {{ Request::is('pelanggaran/students/create') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
@@ -19,7 +19,7 @@
 
    <div class="row mb-5">
       <div class="col-lg-8">
-         <form method="POST" action="{{ route('penghargaan.students.store') }}">
+         <form method="POST" action="{{ route('pelanggaran.students.store') }}">
             @csrf
 
             <div class="mb-3">
@@ -62,7 +62,7 @@
                                   $besarPoin = 20;
                               } elseif ($j == 'sedang') {
                                   $besarPoin = 30;
-                              } elseif ($j == 'tinggi') {
+                              } elseif ($j == 'berat') {
                                   $besarPoin = 50;
                               } else {
                                   $besarPoin = 0;

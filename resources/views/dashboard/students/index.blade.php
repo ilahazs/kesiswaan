@@ -12,6 +12,11 @@
 @section('container')
    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
+   {{-- <link href="{{ asset('assets-niceadmin/css/style.css') }}" rel="stylesheet"> --}}
+
+   <link href="{{ asset('assets-niceadmin/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+
+
    @if (session('success'))
       <div class="col-lg-11">
          <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -26,7 +31,14 @@
 
       <a href="{{ route('exportstudents') }}" class="btn btn-success mx-2 mb-3">Export Data Siswa</a>
 
-      <table class="table table-bordered table-sm" id="master-students">
+      {{-- <div class="search-bar">
+         <form class="search-form d-flex align-items-center" method="POST" action="#">
+            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+         </form>
+      </div><!-- End Search Bar --> --}}
+
+      <table class="table table-bordered table-sm datatable" id="master-students">
          <thead>
             <tr>
                <th scope="col">#</th>
@@ -62,6 +74,38 @@
                              break;
                      }
                      $concatKelas = $romawiTingkatan . ' ' . $student->kelas->jurusan . ' ' . $student->kelas->nama;
+                     
+                     $jenis = '';
+                     $colorPelanggaran = '';
+                     
+                     if ($student->poin_pelanggaran <= 20) {
+                         $colorPelanggaran = 'text-success';
+                         $jenis = 'ringan';
+                     } elseif ($student->poin_pelanggaran <= 30 && $student->poin_pelanggaran >= 21) {
+                         $colorPelanggaran = 'text-warning';
+                         $jenis = 'sedang';
+                     } elseif ($student->poin_pelanggaran <= 50 && $student->poin_pelanggaran >= 31) {
+                         $colorPelanggaran = 'text-danger';
+                         $jenis = 'berat';
+                     } else {
+                         $colorPelanggaran = 'text-danger';
+                         $jenis = 'error';
+                     }
+                     $colorPenghargaan = 'text-success';
+                     
+                     // if ($student->poin_penghargaan <= 20) {
+                     //     $colorPenghargaan = 'text-success';
+                     //     $jenis = 'ringan';
+                     // } elseif ($student->poin_penghargaan <= 30 && $student->poin_penghargaan >= 21) {
+                     //     $colorPenghargaan = 'text-warning';
+                     //     $jenis = 'sedang';
+                     // } elseif ($student->poin_penghargaan <= 50 && $student->poin_penghargaan >= 31) {
+                     //     $colorPenghargaan = 'text-danger';
+                     //     $jenis = 'berat';
+                     // } else {
+                     //     $colorPenghargaan = 'text-secondary';
+                     //     $jenis = 'error';
+                     // }
                      
                   @endphp
                   <td>
@@ -107,11 +151,26 @@
    </div>
 
    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+   {{-- <script src="{{ asset('assets-niceadmin/vendor/simple-datatables/simple-datatables.js') }}">
+   </script> --}}
+   {{-- <script src="{{ asset('assets-niceadmin/js/main.js') }}">
+   </script> --}}
    <script>
       const dataTable = new simpleDatatables.DataTable("#master-students", {
          searchable: true,
          fixedHeight: true,
       })
+
+      /**
+       * Initiate Datatables
+       */
+      /* const dataTables = select('.datatable', true);
+
+      dataTables.forEach(datatable => {
+         new simpleDatatables.DataTable(datatable);
+         searchable: true,
+            fixedHeight: true,
+      }) */
    </script>
 
 @endsection

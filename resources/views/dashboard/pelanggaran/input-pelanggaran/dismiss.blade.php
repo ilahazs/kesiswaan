@@ -10,7 +10,7 @@
    </li>
    <li class="breadcrumb-item" aria-current="page">
       <a href="{{ route('pelanggaran.students.edit', $student->id) }}"
-         class="text-decoration-none {{ Request::is('pelanggaran/students/' . $student->nis . '/dismiss') ? 'text-secondary' : '' }}">{{ $title }}</a>
+         class="text-decoration-none {{ Request::is('hapus-pelanggaran/students/' . $student->nis . '/dismiss') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
@@ -179,7 +179,7 @@
                         } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
                             $color = 'danger';
                         } else {
-                            $color = 'secondary';
+                            $color = 'danger';
                         }
                      @endphp
                      <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -195,7 +195,7 @@
                      </li>
                   @empty
                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ __('Data Pelanggaran masih kosong!') }}
+                        {{ __('Data pelanggaran masih kosong!') }}
                         <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
                      </li>
                   @endforelse

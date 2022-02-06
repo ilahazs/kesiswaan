@@ -144,6 +144,8 @@
                      </select>
                   </div>
 
+                  <input type="hidden" name="class_id" value="0">
+
                </div>
             </div>
 

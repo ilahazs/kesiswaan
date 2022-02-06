@@ -10,10 +10,15 @@ class Kelas extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
-    protected $load = ['kelas', 'rule_data'];
+    protected $load = ['kelas', 'teacher'];
 
     public function students()
     {
         return $this->hasMany(Student::class);
+    }
+
+    public function teacher()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id');
     }
 }

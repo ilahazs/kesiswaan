@@ -21,77 +21,138 @@
       </div>
    @endif
 
-   <div class="table-responsive mt-3 col-lg-12">
-      <a href="{{ route('siswa.rekap') }}" class="btn btn-primary mb-3">Kunjungi shop poin</a>
+   <div class="table-responsive mt-3 col-lg-12  mb-4">
 
-      <table class="table table-bordered table-hover table-sm" id="table-siswa-pelanggaran">
-         <thead>
+      <div class="d-flex justify-content-between align-items-center">
+         <h3>Data Pelanggaran</h3>
+         <div class="justify-content-end">
+            <a href="{{ route('siswa.rekap') }}" class="btn btn-primary mb-3">Kunjungi shop poin</a>
+         </div>
+      </div>
+
+   </div>
+   <table class="table table-bordered table-hover table-sm" id="table-siswa-pelanggaran">
+      <thead>
+         <tr>
+            <th scope="col">#</th>
+            <th scope="col">Pelanggaran</th>
+            <th scope="col">Poin</th>
+            <th scope="col">Keterangan</th>
+            <th scope="col">Updated</th>
+            <th scope="col" class="text-center">Aksi</th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach ($pelanggarans as $pelanggaran)
             <tr>
-               <th scope="col">#</th>
-               <th scope="col">Pelanggaran</th>
-               <th scope="col">Poin</th>
-               <th scope="col">Keterangan</th>
-               <th scope="col">Updated</th>
-               <th scope="col" class="text-center">Aksi</th>
+               <td>{{ $loop->iteration }}</td>
+               <td>{{ $pelanggaran->nama }}</td>
+               <td class="text-center">
+                  @php
+                     $jenis = '';
+                     $colorPoint = '';
+                     
+                     if ($pelanggaran->poin <= 20) {
+                         $colorPoint = 'text-success';
+                         $jenis = 'ringan';
+                     } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
+                         $colorPoint = 'text-warning';
+                         $jenis = 'sedang';
+                     } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
+                         $colorPoint = 'text-danger';
+                         $jenis = 'berat';
+                     } else {
+                         $colorPoint = 'text-secondary';
+                         $jenis = 'error';
+                     }
+                  @endphp
+                  <span class="{{ $colorPoint }}">{{ $pelanggaran->poin }}</span>
+               </td>
+               <td>{{ $pelanggaran->keterangan }}</td>
+               <td>{{ $student->updated_at->diffForHumans() }}</td>
+
+
+               <td class="">
+                  <div class="d-flex align-items-center justify-content-center h-100">
+
+                     <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
+                        data-bs-toggle="modal" data-bs-target="#DetailPelanggaran{{ $pelanggaran->id }}">
+                        <span data-feather="eye"></span>
+                     </button>
+                     @include('dashboard.siswa-pages.modal.show')
+                  </div>
+               </td>
             </tr>
-         </thead>
-         <tbody>
-            @foreach ($student->pelanggarans as $pelanggaran)
-               <tr>
-                  <td>{{ $loop->iteration }}</td>
-                  <td>{{ $pelanggaran->nama }}</td>
-                  <td class="text-center">
-                     @php
-                        $jenis = '';
-                        $colorPoint = '';
-                        
-                        if ($pelanggaran->poin <= 20) {
-                            $colorPoint = 'text-success';
-                            $jenis = 'ringan';
-                        } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
-                            $colorPoint = 'text-warning';
-                            $jenis = 'sedang';
-                        } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
-                            $colorPoint = 'text-danger';
-                            $jenis = 'berat';
-                        } else {
-                            $colorPoint = 'text-secondary';
-                            $jenis = 'error';
-                        }
-                     @endphp
-                     <span class="{{ $colorPoint }}">{{ $pelanggaran->poin }}</span>
-                  </td>
-                  <td>{{ $pelanggaran->keterangan }}</td>
-                  <td>{{ $pelanggaran->updated_at->diffForHumans() }}</td>
+         @endforeach
+
+      </tbody>
+   </table>
+   <h3 class="mt-2">Data Penghargaan</h3>
+   <table class="table table-bordered table-hover table-sm" id="table-siswa-penghargaan">
+      <thead>
+         <tr>
+            <th scope="col">#</th>
+            <th scope="col">Penghargaan</th>
+            <th scope="col">Poin</th>
+            <th scope="col">Keterangan</th>
+            <th scope="col">Updated</th>
+            <th scope="col" class="text-center">Aksi</th>
+         </tr>
+      </thead>
+      <tbody>
+         @foreach ($student->penghargaans as $penghargaan)
+            <tr>
+               <td>{{ $loop->iteration }}</td>
+               <td>{{ $penghargaan->nama }}</td>
+               <td class="text-center">
+                  @php
+                     $jenis = '';
+                     $colorPoint = '';
+                     
+                     if ($penghargaan->poin <= 20) {
+                         $colorPoint = 'text-success';
+                         $jenis = 'ringan';
+                     } elseif ($penghargaan->poin <= 30 && $penghargaan->poin >= 21) {
+                         $colorPoint = 'text-warning';
+                         $jenis = 'sedang';
+                     } elseif ($penghargaan->poin <= 50 && $penghargaan->poin >= 31) {
+                         $colorPoint = 'text-danger';
+                         $jenis = 'berat';
+                     } else {
+                         $colorPoint = 'text-secondary';
+                         $jenis = 'error';
+                     }
+                  @endphp
+                  <span class="{{ $colorPoint }}">{{ $penghargaan->poin }}</span>
+               </td>
+               <td>{{ $penghargaan->keterangan }}</td>
+               <td>{{ $student->updated_at->diffForHumans() }}</td>
 
 
-                  <td class="">
-                     <div class="d-flex align-items-center justify-content-center h-100">
+               <td class="">
+                  <div class="d-flex align-items-center justify-content-center h-100">
 
-                        <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
-                           data-bs-toggle="modal" data-bs-target="#DetailPelanggaran{{ $pelanggaran->id }}">
-                           <span data-feather="eye"></span>
-                        </button>
-                        @include('dashboard.siswa-pages.modal.show')
-                        {{-- <a href="{{ route('pelanggaran.students.edit', $student->nis) }}"
-                           class="badge bg-success text-decoration-none text-white mx-1">
-                           <span data-feather="edit"></span>
-                        </a>
-                        <a href="{{ route('pelanggaran.students.dismiss', $student->nis) }}"
-                           class="badge bg-danger text-decoration-none text-white me-1">
-                           <span data-feather="edit"></span>
-                        </a> --}}
-                     </div>
-                  </td>
-               </tr>
-            @endforeach
+                     <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
+                        data-bs-toggle="modal" data-bs-target="#DetailPenghargaan{{ $penghargaan->id }}">
+                        <span data-feather="eye"></span>
+                     </button>
+                     @include('dashboard.siswa-pages.modal.show2')
+                  </div>
+               </td>
+            </tr>
+         @endforeach
 
-         </tbody>
-      </table>
+      </tbody>
+   </table>
    </div>
    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
    <script>
       const dataTable = new simpleDatatables.DataTable("#table-siswa-pelanggaran", {
+         searchable: true,
+         fixedHeight: true,
+      })
+
+      const dataTable2 = new simpleDatatables.DataTable("#table-siswa-penghargaan", {
          searchable: true,
          fixedHeight: true,
       })

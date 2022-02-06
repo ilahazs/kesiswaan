@@ -47,6 +47,7 @@ class PelanggaranController extends Controller
         $rules = [
             'nama' => 'required',
             'jenis' => 'required',
+            'keterangan' => 'max:255',
         ];
 
         $requestData = $request->all();
@@ -112,7 +113,7 @@ class PelanggaranController extends Controller
         // dd($request->jenis);
         $rules = [
             'nama' => 'required',
-            'keterangan' => 'required',
+            'keterangan' => 'required|max:255',
             'poin' => 'required',
         ];
 

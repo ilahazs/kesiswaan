@@ -6,10 +6,12 @@
    </li>
    <li class="breadcrumb-item" aria-current="page">
       <a href="{{ route('penghargaan.students.index') }}"
-         class="text-decoration-none {{ Request::is('penghargaan*') ? 'text-secondary' : '' }}">{{ $title }}</a>
+         class="text-decoration-none {{ Request::is('penghargaan/students*') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')
+
+   <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
    @if (session('success'))
       <div class="col-lg-11">
@@ -21,70 +23,100 @@
    @endif
 
    <div class="table-responsive mt-3 col-lg-12">
-      <a href="{{ route('penghargaan.create') }}" class="btn btn-primary mb-3">Tambah data list
-         penghargaan</a>
+      <a href="{{ route('penghargaan.students.create') }}" class="btn btn-primary mb-3">Tambah rekap penghargaan
+         siswa</a>
 
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-sm" id="datasiswa-penghargaan">
          <thead>
             <tr>
                <th scope="col">#</th>
                <th scope="col">Nama</th>
-               <th scope="col">Jenis</th>
-               <th scope="col">Point</th>
-               <th scope="col">Keterangan</th>
+               <th scope="col">NIS</th>
+               <th scope="col">Kelas</th>
+               <th scope="col">Poin</th>
+               <th scope="col">Rekap</th>
                <th scope="col">Updated</th>
                <th scope="col" class="text-center">Aksi</th>
             </tr>
          </thead>
          <tbody>
-            @foreach ($penghargaans as $penghargaan)
+            @foreach ($students as $student)
                <tr>
                   <td>{{ $loop->iteration }}</td>
-                  <td>{{ $penghargaan->nama }}</td>
-                  <td
-                     class="text-uppercase @php
-                     $jenis = '';
-                     $colorPoint = '';
-
-                  if ($penghargaan->poin <= 20) {
-                     $colorPoint = 'text-success';
-                     $jenis = 'ringan';
-                  } elseif ($penghargaan->poin <= 30 && $penghargaan->poin >= 21) {
-                     $colorPoint = 'text-warning';
-                     $jenis = 'sedang';
-                  } elseif ($penghargaan->poin <= 50 && $penghargaan->poin >= 31) {
-                     $colorPoint = 'text-danger';
-                     $jenis = 'tinggi';
-                  } else {
-                     $colorPoint = 'text-secondary';
-                     $jenis = 'error';
-                  }
-               @endphp">
-                     <strong>{{ $jenis }}</strong>
+                  <td>{{ $student->nama }}</td>
+                  <td>{{ $student->nis }}</td>
+                  @php
+                     $romawiTingkatan = '';
+                     switch ($student->kelas->tingkatan) {
+                         case '10':
+                             $romawiTingkatan = 'X';
+                             break;
+                         case '11':
+                             $romawiTingkatan = 'XI';
+                             break;
+                         case '12':
+                             $romawiTingkatan = 'XII';
+                             break;
+                         default:
+                             $romawiTingkatan = 'None';
+                             break;
+                     }
+                     $concatKelas = $romawiTingkatan . ' ' . $student->kelas->jurusan . ' ' . $student->kelas->nama;
+                     
+                  @endphp
+                  <td>{{ $concatKelas }}</td>
+                  <td class="text-center">
+                     @php
+                        $jenis = '';
+                        $colorPoint = '';
+                        if ($student->poin_penghargaan == 0) {
+                            $colorPoint = 'text-dark';
+                        } elseif ($student->poin_penghargaan <= 20 && $student->poin_penghargaan > 0) {
+                            $colorPoint = 'text-success';
+                            $jenis = 'ringan';
+                        } elseif ($student->poin_penghargaan <= 30 && $student->poin_penghargaan >= 21) {
+                            $colorPoint = 'text-success';
+                            $jenis = 'sedang';
+                        } elseif ($student->poin_penghargaan <= 50 && $student->poin_penghargaan >= 31) {
+                            $colorPoint = 'text-success';
+                            $jenis = 'tinggi';
+                        } else {
+                            $colorPoint = 'text-success';
+                        }
+                     @endphp
+                     <span class="{{ $colorPoint }}">{{ $student->poin_penghargaan }}</span>
                   </td>
                   <td>
-                     <span class="{{ $colorPoint }}">{{ $penghargaan->poin }}</span>
+                     <div class="my-1 mx-1">
+                        <select class="form-control form-control-sm" name="rekap_penghargaan" id="rekap_penghargaan">
+                           <option disabled selected>List penghargaan</option>
+                           @foreach ($student->penghargaans as $penghargaan)
+                              <option disabled>{{ $penghargaan->nama . ' | ' . $penghargaan->poin }}</option>
+                           @endforeach
+                        </select>
+                     </div>
+
                   </td>
-                  <td>{{ $penghargaan->keterangan }}</td>
-                  <td>{{ $penghargaan->updated_at->diffForHumans() }}</td>
+                  <td>{{ $student->updated_at->diffForHumans() }}</td>
 
 
-                  <td class="d-flex justify-content-center text-">
-                     <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
-                        data-bs-toggle="modal" data-bs-target="#showPenghargaan{{ $penghargaan->id }}">
-                        <span data-feather="eye"></span>
-                     </button>
-                     @include('dashboard.penghargaan.modal.show')
-                     <a href="{{ route('penghargaan.students.edit', $penghargaan->id) }}"
-                        class="badge bg-success text-decoration-none text-white mx-2">
-                        <span data-feather="edit"></span>
-                     </a>
-                     <form action="{{ route('penghargaan.students.destroy', $penghargaan->id) }}" method="POST">
-                        @method('delete')
-                        @csrf
-                        <button class="badge btn-danger text-decoration-none text-white border-0"
-                           onclick="return confirm('yes/no?')"><span data-feather="trash-2"></span></button>
-                     </form>
+                  <td class="">
+                     <div class="d-flex align-items-center justify-content-center h-100">
+
+                        <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
+                           data-bs-toggle="modal" data-bs-target="#showDataStudent{{ $student->id }}">
+                           <span data-feather="eye"></span>
+                        </button>
+                        @include('dashboard.penghargaan.input-penghargaan.modal.show')
+                        <a href="{{ route('penghargaan.students.edit', $student->nis) }}"
+                           class="badge bg-success text-decoration-none text-white mx-1">
+                           <span data-feather="edit"></span>
+                        </a>
+                        <a href="{{ route('penghargaan.students.dismiss', $student->nis) }}"
+                           class="badge bg-danger text-decoration-none text-white me-1">
+                           <span data-feather="edit"></span>
+                        </a>
+                     </div>
                   </td>
                </tr>
             @endforeach
@@ -92,7 +124,12 @@
          </tbody>
       </table>
    </div>
-
-
+   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
+   <script>
+      const dataTable = new simpleDatatables.DataTable("#datasiswa-penghargaan", {
+         searchable: true,
+         fixedHeight: true,
+      })
+   </script>
 
 @endsection

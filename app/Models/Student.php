@@ -12,6 +12,11 @@ class Student extends Model
     protected $guarded = ['id'];
     protected $with = ['kelas', 'pelanggarans', 'penghargaans'];
 
+    // public function scopeExclude($query, $value = [])
+    // {
+    //     return $query->select(array_diff($this->columns, (array) $value));
+    // }
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -21,6 +26,7 @@ class Student extends Model
     {
         return $this->belongsTo(Kelas::class, 'class_id');
     }
+
     public function pelanggarans()
     {
         return $this->belongsToMany(Pelanggaran::class, 'student_pelanggaran', 'student_id', 'pelanggaran_id');

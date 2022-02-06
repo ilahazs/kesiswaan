@@ -13,57 +13,62 @@
          <div class="modal-body">
             <h4>
                {{ $pelanggaran->nama }}</h4>
-            <div class="card mb-3">
-               <div class="card-body" style="font-size: 16px">
-                  {{-- <h3 class="card-title">{{ $pelanggaran->nama }}</h4> --}}
-                  <div class="mb-3 row">
-                     <div class="col-md-3">
-                        <label for="staticEmail" class="col-form-label">Keterangan</label>
-                     </div>
-                     <div class="col-md-1 mt-1">
-                        <label>:</label>
-                     </div>
-                     <div class="col-md-8">
-                        <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                           value="{{ $pelanggaran->keterangan }}">
-                     </div>
-                  </div>
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="card mb-3 px-0 py-0">
+                     <div class="card-body" style="font-size: 16px">
+                        {{-- <h3 class="card-title">{{ $student->nama }}</h4> --}}
 
-                  <div class="mb-3 row">
-                     <div class="col-md-3">
-                        <label for="staticEmail" class="col-form-label">Jenis</label>
-                     </div>
-                     <div class="col-md-1 mt-1">
-                        <label>:</label>
-                     </div>
-                     <div class="col-md-8">
-                        <input type="text" readonly class="form-control-plaintext {{ $colorPoint }}" id="staticEmail"
-                           value="{{ $jenis }}">
-                     </div>
-                  </div>
-                  <div class="mb-3 row">
-                     <div class="col-md-3">
-                        <label for="staticEmail" class="col-form-label">Besar Point</label>
-                     </div>
-                     <div class="col-md-1 mt-1">
-                        <label>:</label>
-                     </div>
-                     <div class="col-md-8">
-                        <input type="text" readonly class="form-control-plaintext {{ $colorPoint }}" id="staticEmail"
-                           value="{{ $pelanggaran->poin }}">
-                     </div>
-                  </div>
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="staticEmail" class="col-form-label">Nama</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white" id="staticEmail"
+                                 value="{{ $pelanggaran->nama }}">
+                           </div>
+                        </div>
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="staticEmail" class="col-form-label">Jenis</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white {{ $colorPoint }}"
+                                 id="staticEmail" value="{{ $jenis }}">
+                           </div>
+                        </div>
 
-                  <div class="mb-3 row">
-                     <div class="col-md-3">
-                        <label for="staticEmail" class="col-form-label">Updated</label>
-                     </div>
-                     <div class="col-md-1 mt-1">
-                        <label>:</label>
-                     </div>
-                     <div class="col-md-8">
-                        <input type="text" readonly class="form-control-plaintext" id="staticEmail"
-                           value="{{ $pelanggaran->created_at->diffForHumans() }}">
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="staticEmail" class="col-form-label">Poin</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white {{ $colorPoint }}"
+                                 id="staticEmail" value="{{ $pelanggaran->poin }}">
+                           </div>
+                        </div>
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="staticEmail" class="col-form-label">Keterangan</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white " id="staticEmail"
+                                 value="{{ $pelanggaran->keterangan }}">
+                           </div>
+                        </div>
+
                      </div>
                   </div>
                </div>

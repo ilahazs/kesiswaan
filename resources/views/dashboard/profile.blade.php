@@ -45,19 +45,68 @@
                            </div>
                         </div>
                         <div class="row mt-3">
-                           <div class="col-md-10">
-                              <label class="labels">Alamat Email</label>
-                              <input type="email" class="form-control" placeholder="example@gmail.com"
-                                 value="{{ $user->email }}" name="email">
-                           </div>
-                           <div class="col-md-2">
-                              <label class="labels">Sebagai</label>
-                              <input type="text" class="form-control" value="{{ $user->role }}" name="role" disabled
-                                 readonly>
-                           </div>
+
+                           @if (Auth::user()->role == 'siswa')
+                              <div class="col-md-6">
+                                 <label class="labels">Alamat Email</label>
+                                 <input type="email" class="form-control" placeholder="example@gmail.com"
+                                    value="{{ $user->email }}" name="email">
+                              </div>
+                              <div class="col-md-2">
+                                 <label class="labels">Sebagai</label>
+                                 <input type="text" class="form-control bg-white" value="{{ $user->role }}" name="role"
+                                    disabled readonly>
+                              </div>
+                              <div class="col-md-2">
+                                 <label class="labels">Penghargaan</label>
+                                 <input type="text" class="form-control bg-white" value="{{ $poinPenghargaan }}"
+                                    name="role" disabled readonly>
+                              </div>
+                              <div class="col-md-2">
+                                 <label class="labels">Pelanggaran</label>
+                                 <input type="text" class="form-control bg-white" value="{{ $poinPelanggaran }}"
+                                    name="role" disabled readonly>
+                              </div>
+                           @elseif(Auth::user()->role == 'guru')
+                              <div class="col-md-5">
+                                 <label class="labels">Alamat Email</label>
+                                 <input type="email" class="form-control bg-white" value="{{ $user->email }}"
+                                    name="email">
+                              </div>
+                              <div class="col-md-4">
+                                 <label class="labels">NIP</label>
+                                 <input type="nip" class="form-control bg-white" value="{{ $nip }}" name="nip">
+                              </div>
+                              <div class="col-md-2">
+                                 <label class="labels">Sebagai</label>
+                                 <input type="text" class="form-control bg-white" value="{{ $user->role }}" name="role"
+                                    disabled readonly>
+                              </div>
+                           @else
+                              <div class="col-md-10">
+                                 <label class="labels">Alamat Email</label>
+                                 <input type="email" class="form-control bg-white" value="{{ $user->email }}"
+                                    name="email">
+                              </div>
+                              <div class="col-md-2">
+                                 <label class="labels">Sebagai</label>
+                                 <input type="text" class="form-control bg-white" value="{{ $user->role }}" name="role"
+                                    disabled readonly>
+                              </div>
+                           @endif
                         </div>
+                        @if (Auth::user()->role == 'siswa')
+                           <div class="row mt-3">
+                              <div class="col-md-5">
+                                 <label class="labels">NIS</label>
+                                 <input type="text" class="form-control bg-white" value="{{ $nis }}" name="role"
+                                    disabled readonly>
+                              </div>
+                           </div>
+                        @endif
+
                      </div>
-                     <div class="p-3 py-5">
+                     {{-- <div class="p-3 py-5">
                         <div class="d-flex justify-content-between align-items-center experience"><span>SECURITY
                               SETTINGS</span><span class="border px-3 p-1 add-experience"><i
                                  class="fa fa-plus"></i>&nbsp;PASSWORD</span></div><br>
@@ -76,7 +125,7 @@
                            <input type="password" class="form-control" value="{{ old('repeatpassword') }}"
                               name="repeatpassword">
                         </div>
-                     </div>
+                     </div> --}}
 
                      <div class="mt-2 d-flex justify-content-end">
                         <button class="btn btn-primary profile-button px-5" type="submit">Save

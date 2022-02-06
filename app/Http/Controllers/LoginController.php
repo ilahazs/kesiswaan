@@ -35,7 +35,7 @@ class LoginController extends Controller
 
         return back()->with(
             'statusError',
-            'Sorry! wrong an email/password',
+            'Sorry wrong credentials!',
         );
     }
 
@@ -45,6 +45,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/')->with('status', 'Logout successfully!');
+        return redirect('/login')->with('status', 'Logout successfully!');
     }
 }

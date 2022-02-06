@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Kelas;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
@@ -11,29 +13,55 @@ class UpdateProfileContoller extends Controller
 {
     public function edit()
     {
-        // dd(Auth::user()->role == 'siswa');
         if (auth()->user()->role == 'siswa') {
             $siswa = '';
-            $pelanggarans = '';
+            $poinPenghargaan = 0;
+            $poinPelanggaran = 0;
             $siswas = Student::all();
-            $userEmail = auth()->user()->email;
-            $strChanged = str_replace("@", " ", $userEmail);
-            $userNISDump = explode(" ", $strChanged);
+            $userEmail = Auth::user()->email;
+            $strChanged = str_replace('@', ' ', $userEmail);
+            $userNISDump = explode(' ', $strChanged);
             $userNIS = $userNISDump[0];
 
             foreach ($siswas as $s) {
-                if ($s->user_id != null && $s->user_id == auth()->user()->id && $s->nis == $userNIS) {
-
+                // $smendekati = $s->user_id == Auth::user()->id;
+                if ($s->user_id != null && $s->user_id == Auth::user()->id && $s->nis == $userNIS) {
+                    // dd($s->pelanggarans);
+                    // dd($s->nis);
                     $siswa = $s;
-                    $pelanggarans = $s->pelanggarans;
+                    $poinPenghargaan = $s->poin_penghargaan;
+                    $poinPelanggaran = $s->poin_pelanggaran;
                 }
             }
-
+            // dd($siswa);
             return view('dashboard.profile', [
                 'title' => 'Profile',
                 'student' => $siswa,
                 'user' => auth()->user(),
-                'pelanggarans' => $pelanggarans,
+                'nis' => $siswa->nis,
+            ], compact('poinPenghargaan', 'poinPelanggaran'));
+        }
+
+        if (Auth::user()->role == 'guru') {
+            $k = '';
+            $guru = '';
+            foreach (Teacher::all() as $teacher) {
+                if ($teacher->user_id == Auth::user()->id) {
+                    $guru = $teacher;
+                }
+            }
+            // dd($guru->nama);
+            foreach (Kelas::all() as $kelas) {
+                if ($kelas->teacher_id != null && $kelas->teacher_id == $guru->id) {
+                    $k = $kelas;
+                }
+            }
+            return view('dashboard.profile', [
+                'title' => 'Home',
+                'kelas' => $k,
+                'guru' => $guru,
+                'nip' => $guru->nip,
+                'user' => auth()->user(),
             ]);
         }
         return view('dashboard.profile', [

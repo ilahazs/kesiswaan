@@ -7,7 +7,7 @@
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="DetailPelanggaran{{ $pelanggaran->id }}Label">
-               {{ __('Detail Rekap Siswa') }}
+               {{ __('Detail Pelanggaranku') }}
             </h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
          </div>
@@ -30,6 +30,19 @@
                            <div class="col-md-6">
                               <input type="text" disabled readonly class="form-control bg-white" id="staticEmail"
                                  value="{{ $pelanggaran->nama }}">
+                           </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="staticEmail" class="col-form-label">Jenis</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white {{ $colorPoint }}"
+                                 id="staticEmail" value="{{ $jenis }}">
                            </div>
                         </div>
 
@@ -66,7 +79,7 @@
                            </div>
                            <div class="col-md-6">
                               <input type="text" disabled readonly class="form-control bg-white " id="staticEmail"
-                                 value="{{ $pelanggaran->created_at->diffForHumans() }}">
+                                 value="{{ $student->updated_at->diffForHumans() }}">
                            </div>
                         </div>
                      </div>

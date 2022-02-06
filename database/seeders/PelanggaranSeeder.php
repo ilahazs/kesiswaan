@@ -20,18 +20,39 @@ class PelanggaranSeeder extends Seeder
         ]);
 
         Pelanggaran::create([
+            'nama' => 'Pemalsuan izin/surat',
+            'poin' => 50
+        ]);
+
+        Pelanggaran::create([
             'nama' => 'Berkelahi',
             'poin' => 50
         ]);
 
         Pelanggaran::create([
-            'nama' => 'Mencontek',
+            'nama' => 'Mencontek/curang dalam ujian',
+            'poin' => 20
+        ]);
+
+        Pelanggaran::create([
+            'nama' => 'Membuat masalah dengan guru',
             'poin' => 30
         ]);
 
         Pelanggaran::create([
-            'nama' => 'Terlambat',
+            'nama' => 'Kabur dari sekolah',
             'poin' => 30
+        ]);
+
+
+        Pelanggaran::create([
+            'nama' => 'Terlambat',
+            'poin' => 20
+        ]);
+
+        Pelanggaran::create([
+            'nama' => 'Membawa kendaraan dan belum cukup umur',
+            'poin' => 20
         ]);
     }
 }

@@ -15,6 +15,7 @@ class CreateClassesTable extends Migration
     {
         Schema::create('kelas', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('teacher_id')->nullable();
             $table->enum('nama', ['1', '2', '3']);
             $table->enum('jurusan', ['RPL', 'MM', 'TAVI', 'TKJ', 'TOI', 'TITL']);
             $table->enum('tingkatan', [10, 11, 12]);

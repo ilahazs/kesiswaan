@@ -9,7 +9,7 @@
    </li>
    <li class="breadcrumb-item" aria-current="page">
       <a href="{{ route('penghargaan.edit', $penghargaan->id) }}"
-         class="text-decoration-none {{ Request::is('penghargaan/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
+         class="text-decoration-none {{ Request::is('penghargaan/' . $penghargaan->id . 'edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
    </li>
 @endsection
 @section('container')

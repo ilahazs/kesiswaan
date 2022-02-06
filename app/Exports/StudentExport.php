@@ -27,21 +27,6 @@ class StudentExport implements FromCollection, WithHeadings, WithCustomStartCell
 
     public function headings(): array
     {
-        return ["NO", "ID", "NAMA", "NIS", "JENIS_KELAMIN", "PELANGGARAN", "PENGHARGAAN", "CREATED_AT", "UPDATED_AT"];
+        return ["ID", "CLASS_ID", "NAMA", "NIS", "JENIS_KELAMIN", "POIN_PELANGGARAN", "POIN_PENGHARGAAN", "USER_ID", "CREATED_AT", "UPDATED_AT"];
     }
-
-    // public function columnWidths(): array
-    // {
-    //     return [
-    //         'A' => 100,
-    //         'B' => 200,
-    //         'C' => 55,
-    //         'D' => 45,
-    //         'E' => 55,
-    //         'F' => 45,
-    //         'G' => 55,
-    //         'H' => 45,
-    //     ];
-    // }
-
 }

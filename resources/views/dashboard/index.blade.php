@@ -24,23 +24,23 @@
                <p class="card-text">{{ Auth::user()->created_at->diffForHumans() }}</p>
                <div class="mb-3">
                   <div class="row d-flex justify-content-start">
-                     <div class="col-md-8">
+                     <div class="col-md-6">
                         <label for="nama" class="form-label">Nama</label>
                      </div>
-                     <div class="col-md-4">
+                     <div class="col-md-6">
                         <label for="nis" class="form-label">Email</label>
                      </div>
                   </div>
 
                   <div class="row">
-                     <div class="col-md-8">
+                     <div class="col-md-6">
 
                         <input type="text" class="form-control bg-white" id="nama" name="nama"
                            value="{{ Auth::user()->name }}" disabled readonly>
 
                      </div>
 
-                     <div class="col-md-4">
+                     <div class="col-md-6">
 
                         <input type="text" class="form-control bg-white" id="class_id" name="class_id"
                            value="{{ Auth::user()->email }}" disabled readonly>
@@ -52,27 +52,88 @@
 
                <div class="mb-3">
                   <div class="row d-flex justify-content-start">
-                     <div class="col-md-9">
-                        <label for="nama" class="form-label">Username</label>
-                     </div>
-                     <div class="col-md-3">
-                        <label for="nis" class="form-label">Role</label>
-                     </div>
+                     @if (Auth::user()->role == 'guru')
+                        <div class="col-md-5">
+                           <label for="nama" class="form-label">Username</label>
+                        </div>
+                        <div class="col-md-4">
+                           <label for="nama" class="form-label">Walikelas</label>
+                        </div>
+                        <div class="col-md-3">
+                           <label for="nis" class="form-label">Role</label>
+                        </div>
+                     @else
+                        <div class="col-md-9">
+                           <label for="nama" class="form-label">Username</label>
+                        </div>
+                        <div class="col-md-3">
+                           <label for="nis" class="form-label">Role</label>
+                        </div>
+                     @endif
                   </div>
 
                   <div class="row">
-                     <div class="col-md-9">
-                        <input type="text" class="form-control bg-white" id="username" name="username"
-                           value="{{ Auth::user()->username }}" disabled readonly>
-                     </div>
+                     @if (Auth::user()->role == 'guru')
+                        @php
+                           $romawiTingkatan = '';
+                           switch ($kelas->tingkatan) {
+                               case '10':
+                                   $romawiTingkatan = 'X';
+                                   break;
+                               case '11':
+                                   $romawiTingkatan = 'XI';
+                                   break;
+                               case '12':
+                                   $romawiTingkatan = 'XII';
+                                   break;
+                               default:
+                                   $romawiTingkatan = 'None';
+                                   break;
+                           }
+                           $concatKelas = $romawiTingkatan . ' ' . $kelas->jurusan . ' ' . $kelas->nama;
+                        @endphp
+                        <div class="col-md-5">
+                           <input type="text" class="form-control bg-white" id="username" name="username"
+                              value="{{ Auth::user()->username }}" disabled readonly>
+                        </div>
 
-                     <div class="col-md-3">
-                        <input type="text" class="form-control bg-white" id="role" name="role"
-                           value="{{ Auth::user()->role }}" disabled readonly>
-                     </div>
+                        <div class="col-md-4">
+                           <input type="text" class="form-control bg-white" id="kelas" name="kelas"
+                              value="{{ $concatKelas }}" disabled readonly>
+                        </div>
 
+                        <div class="col-md-3">
+                           <input type="text" class="form-control bg-white" id="role" name="role"
+                              value="{{ Auth::user()->role }}" disabled readonly>
+                        </div>
+                     @else
+                        <div class="col-md-9">
+                           <input type="text" class="form-control bg-white" id="username" name="username"
+                              value="{{ Auth::user()->username }}" disabled readonly>
+                        </div>
+
+                        <div class="col-md-3">
+                           <input type="text" class="form-control bg-white" id="role" name="role"
+                              value="{{ Auth::user()->role }}" disabled readonly>
+                        </div>
+                     @endif
                   </div>
+
                </div>
+
+               @if (Auth::user()->role == 'guru')
+                  <div class="row d-flex justify-content-start">
+                     <div class="col-md-6">
+                        <label for="nama" class="form-label">NIP</label>
+                     </div>
+                     <div class="row">
+                        <div class="col-md-6">
+                           <input type="text" class="form-control bg-white" id="nip" name="nip"
+                              value="{{ $nip }}" disabled readonly>
+                        </div>
+                     </div>
+                  </div>
+               @endif
             </div>
          </div>
          {{-- {!! Form::hidden('poin', 20) !!} --}}
@@ -86,36 +147,6 @@
                   {{ date(Auth::user()->last_login_at) }} <br> {{ 'di ' . Auth::user()->last_login_ip }}
                </p>
             </div>
-            {{-- <ul class="list-group list-group-flush">
-            @forelse ($student->pelanggarans as $pelanggaran)
-               @php
-                  $jenis = '';
-                  $color = '';
-                  
-                  if ($pelanggaran->poin <= 20) {
-                      $color = 'success';
-                      $jenis = 'ringan';
-                  } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
-                      $color = 'warning';
-                      $jenis = 'sedang';
-                  } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
-                      $color = 'danger';
-                      $jenis = 'berat';
-                  } else {
-                      $color = 'secondary';
-                      $jenis = 'error';
-                  }
-               @endphp
-               <li class="list-group-item d-flex justify-content-between align-items-center">{{ $pelanggaran->nama }}
-                  <span class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
-               </li>
-            @empty
-               <li class="list-group-item d-flex justify-content-between align-items-center">
-                  {{ __('Data masih kosong!') }}
-                  <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
-               </li>
-            @endforelse
-         </ul> --}}
          </div>
       </div>
    </div>

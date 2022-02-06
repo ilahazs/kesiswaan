@@ -21,7 +21,7 @@ class StudentController extends Controller
     {
         // $filename = urlencode("students-export-" . date("Y-m-d H:i:s") . ".csv");
         $filename = "students-export-" . date("Y-m-d H:i:s") . ".csv";
-        return Excel::download(new StudentExport,  $filename, null, ["NO", "ID", "NAMA", "NIS", "JENIS_KELAMIN", "POIN_PELANGGARAN", "POIN_PENGHARGAAN", "CREATED_AT", "UPDATED_AT"]);
+        return Excel::download(new StudentExport,  $filename, null, ["ID", "CLASS_ID", "NAMA", "NIS", "JENIS_KELAMIN", "POIN_PELANGGARAN", "POIN_PENGHARGAAN", "USER_ID", "CREATED_AT", "UPDATED_AT"]);
 
         // return redirect(route('dashboard.index'))->with('success', "Data para siswa telah <strong>berhasil </strong><strong>diexport</strong>!");
     }
@@ -103,7 +103,7 @@ class StudentController extends Controller
         //         $rules['point']  = 'required';
         //     }
         // }
-
+        // dd($requestData);
         $request->merge(['class_id' => $requestData['class_id']]);
         $request->merge(['point' => $requestData['point']]);
         // $request->merge(['pelanggaran_id' => $requestData['pelanggaran_id']]);

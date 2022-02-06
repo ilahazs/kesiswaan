@@ -56,16 +56,19 @@
          </h6>
 
          <ul class="nav flex-column">
-            <li class="nav-item">
+            {{-- <li class="nav-item">
                <a class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}" href="#">
                   <span data-feather="users"></span>
                   User Management
                </a>
-            </li>
+            </li> --}}
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('penghargaan*') ? 'active' : '' }}"
+               <a class="nav-link  @if (Request::is('penghargaan*') && !Request::is('penghargaan/students*')) 
+               active
+            @endif"
                   href="{{ route('penghargaan.index') }}">
-                  <span data-feather="grid"></span>
+                  <span data-feather="tag"></span>
+                  {{-- asalnya grid --}}
                   Data Penghargaan
                </a>
             </li>
@@ -75,19 +78,23 @@
                      active
                   @endif"
                   href="{{ route('pelanggaran.index') }}">
-                  <span data-feather="grid"></span>
+                  <span data-feather="tag"></span>
                   Data Pelanggaran
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('pelanggaran/students*') ? 'active' : '' }}"
+               <a class="nav-link  @if (Request::is('pelanggaran/students*') || Request::is('hapus-pelanggaran/students*')) 
+                     active
+                  @endif"
                   href="{{ route('pelanggaran.students.index') }}">
                   <span data-feather="thumbs-down"></span>
                   Input Pelanggaran
                </a>
             </li>
             <li class="nav-item">
-               <a class="nav-link {{ Request::is('penghargaan/students*') ? 'active' : '' }}"
+               <a class="nav-link @if (Request::is('penghargaan/students*') || Request::is('hapus-penghargaan/students*')) 
+               active
+            @endif"
                   href="{{ route('penghargaan.students.index') }}">
                   <span data-feather="thumbs-up"></span>
                   Input Penghargaan
@@ -115,6 +122,30 @@
                      href="{{ route('siswa.shop') }}">
                      <span data-feather="shopping-cart"></span>
                      Shop Poin
+                  </a>
+               </li>
+            </ul>
+         @endif
+      @endauth
+
+      @auth
+         @if (Auth::user()->role == 'guru')
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+               <span>Menu</span>
+            </h6>
+            <ul class="nav flex-column">
+
+               <li class="nav-item">
+                  <a class="nav-link {{ Request::is('guru/rekap*') ? 'active' : '' }}"
+                     href="{{ route('guru.rekap') }}">
+                     <span data-feather="users"></span>
+                     Data Rekap Kelas
+                  </a>
+               </li>
+               <li class="nav-item">
+                  <a class="nav-link {{ Request::is('guru') ? 'active' : '' }}" href="{{ route('guru.index') }}">
+                     <span data-feather="info"></span>
+                     Info
                   </a>
                </li>
             </ul>
