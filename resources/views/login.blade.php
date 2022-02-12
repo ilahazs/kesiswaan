@@ -13,7 +13,8 @@
 
 
    <!-- Bootstrap core CSS -->
-   <link href="{{ asset('assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+   <link rel="icon" href="{{ asset('img/logo-smkn4bdg.png') }}">
 
    <style>
       .bd-placeholder-img {
@@ -43,7 +44,7 @@
          padding-bottom: 40px;
          /* background-color: #f5f5f5; */
          /* background-image: url('../../public/img/background-auth.jpg'); */
-         background-image: url('{{ asset('img/background-auth.jpg') }}');
+         background-image: url('{{ asset('img/navy-blue.jpg') }}');
          background-repeat: no-repeat;
          background-attachment: fixed;
          background-size: cover;
@@ -95,7 +96,11 @@
          <img class="mb-4" src="{{ asset('img/logo-smkn4bdg.png') }}" alt="Logo SMKN 4 Bandung" width="70"
             height="70">
       </a>
-      <h1 class="h3 mb-3 fw-normal">{{ config('app.name') }}</h1>
+      <h1 class="h3 mb-2 fw-normal text-white">{{ config('app.name') }}</h1>
+
+      <div class="description mb-3">
+         <span class="text-muted">Enter your credentials and start using our service to manage your data.</span>
+      </div>
 
       @if (session()->has('status'))
          <div class="alert alert-success fade show" role="alert">
@@ -152,7 +157,6 @@
 
 
    </main>
-
 
 
 </body>

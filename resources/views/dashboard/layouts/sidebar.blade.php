@@ -1,163 +1,212 @@
-<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-   <div class="position-sticky pt-3">
-      <ul class="nav flex-column">
-         <li class="nav-item mb-2">
-            <div class="img-sidebar mb-2 d-flex justify-content-start ms-3">
-               <img src="{{ Avatar::create('Y')->toBase64() }}" alt="" width="50px" height="50px">
+<ul class="navbar-nav sidebar sidebar-dark accordion" id="accordionSidebar">
 
-               <a href="#" class="nav-link align-items-center" style="font-size: 20px; ">{{ Auth::user()->name }}</a>
-            </div>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link {{ (Request::is('dashboard') or Request::is('dashboard/index')) ? 'active' : '' }}"
-               aria-current="page" href="{{ route('dashboard.index') }}">
-               <span data-feather="home"></span>
-               Dashboard
-            </a>
-         </li>
-         <li class="nav-item">
-            <a class="nav-link {{ Request::is('profile*') ? 'active' : '' }}" href="{{ route('profile') }}">
-               <span data-feather="user"></span>
-               My Profile
-            </a>
-         </li>
-         @can('admin')
-            <li class="nav-item">
-               <a class="nav-link {{ Request::is('students*') ? 'active' : '' }}" href="{{ route('students.index') }}">
-                  <span data-feather="database"></span>
-                  Students
-               </a>
-            </li>
-         @endcan
-         @can('siswa')
-
-            <li class="nav-item">
-               <a class="nav-link {{ Request::is('siswa/rekap-data*') ? 'active' : '' }}"
-                  href="{{ route('siswa.rekap') }}">
-                  <span data-feather="database"></span>
-                  Data Rekap
-               </a>
-            </li>
-         @endcan
+   <!-- Sidebar - Brand -->
+   <a class="sidebar-brand d-flex align-items-center justify-content-center mb-3">
+      <div class="sidebar-brand-icon">
+         {{-- <i class="fas fa-school"></i> --}}
+         <img src="{{ asset('img/logo-smkn4bdg.png') }}" alt="" width="90%">
+      </div>
+      <div class="sidebar-brand-text mx-3 mt-2" style="font-weight: 500">Kesiswaan MY POIN</div>
+   </a>
+   {{-- <a class="sidebar-brand d-flex align-items-center justify-content-center">
+      <div class="sidebar-brand-text mx-3" style="font-weight: 400">Kesiswaan MY POIN</div>
+   </a> --}}
 
 
+   <!-- Divider 
+      .sidebar > .nav-item > .nav-link > span {
+         display: none;
+      }
+   -->
+   <hr class="sidebar-divider my-0">
+   <!-- Nav Item - Dashboard -->
+   <li class="nav-item {{ Request::is('dashboard') ? 'active' : '' }}">
+      <a class="nav-link" href="{{ route('dashboard.index') }}">
+         <i class="las la-user-circle"></i>
+         <span>Dashboard</span></a>
+   </li>
 
-      </ul>
+   <!-- Divider -->
+   <hr class="sidebar-divider">
 
-      {{-- <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-         <span>Saved reports</span>
-         <a class="link-secondary" href="#" aria-label="Add a new report">
-            <span data-feather="plus-circle"></span>
-         </a>
-      </h6> --}}
-      @can('admin')
-         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-            <span>Administrator</span>
-         </h6>
-
-         <ul class="nav flex-column">
-            {{-- <li class="nav-item">
-               <a class="nav-link {{ Request::is('dashboard/user*') ? 'active' : '' }}" href="#">
-                  <span data-feather="users"></span>
-                  User Management
-               </a>
-            </li> --}}
-            <li class="nav-item">
-               <a class="nav-link  @if (Request::is('penghargaan*') && !Request::is('penghargaan/students*')) 
-               active
-            @endif"
-                  href="{{ route('penghargaan.index') }}">
-                  <span data-feather="tag"></span>
-                  {{-- asalnya grid --}}
-                  Data Penghargaan
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link 
-                  @if (Request::is('pelanggaran*') && !Request::is('pelanggaran/students*')) 
-                     active
-                  @endif"
-                  href="{{ route('pelanggaran.index') }}">
-                  <span data-feather="tag"></span>
-                  Data Pelanggaran
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link  @if (Request::is('pelanggaran/students*') || Request::is('hapus-pelanggaran/students*')) 
-                     active
-                  @endif"
-                  href="{{ route('pelanggaran.students.index') }}">
-                  <span data-feather="thumbs-down"></span>
-                  Input Pelanggaran
-               </a>
-            </li>
-            <li class="nav-item">
-               <a class="nav-link @if (Request::is('penghargaan/students*') || Request::is('hapus-penghargaan/students*')) 
-               active
-            @endif"
-                  href="{{ route('penghargaan.students.index') }}">
-                  <span data-feather="thumbs-up"></span>
-                  Input Penghargaan
-               </a>
-            </li>
-         </ul>
-      @endcan
-
-      @auth
-         @if (Auth::user()->role == 'siswa')
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-               <span>Menu</span>
-            </h6>
-            <ul class="nav flex-column">
-
-               <li class="nav-item">
-                  <a class="nav-link {{ Request::is('siswa/rekap*') ? 'active' : '' }}"
-                     href="{{ route('siswa.rekap') }}">
-                     <span data-feather="list"></span>
-                     Data Rekap
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link {{ Request::is('siswa/shop') ? 'active' : '' }}"
-                     href="{{ route('siswa.shop') }}">
-                     <span data-feather="shopping-cart"></span>
-                     Shop Poin
-                  </a>
-               </li>
-            </ul>
-         @endif
-      @endauth
-
-      @auth
-         @if (Auth::user()->role == 'guru')
-            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-               <span>Menu</span>
-            </h6>
-            <ul class="nav flex-column">
-
-               <li class="nav-item">
-                  <a class="nav-link {{ Request::is('guru/rekap*') ? 'active' : '' }}"
-                     href="{{ route('guru.rekap') }}">
-                     <span data-feather="users"></span>
-                     Data Rekap Kelas
-                  </a>
-               </li>
-               <li class="nav-item">
-                  <a class="nav-link {{ Request::is('guru') ? 'active' : '' }}" href="{{ route('guru.index') }}">
-                     <span data-feather="info"></span>
-                     Info
-                  </a>
-               </li>
-            </ul>
-         @endif
-      @endauth
-
-      {{-- @auth
-         @if (Auth::user()->role == 'admin')
-
-         @endif
-      @endauth --}}
-
-
+   <!-- Heading -->
+   <div class="sidebar-heading">
+      Kelola Data
    </div>
-</nav>
+
+   @can('admin')
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item @if (Request::is('pelanggaran*') && !Request::is('pelanggaran/students*'))
+active
+@endif">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
+            aria-controls="collapseTwo">
+            <i class="fas fa-folder-minus"></i>
+            <span>Data Pelanggaran</span>
+         </a>
+         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Menu :</h6>
+               <a class="collapse-item" href="{{ route('pelanggaran.index') }}">Lihat semua data</a>
+               <a class="collapse-item" href="{{ route('pelanggaran.create') }}">Tambahkan data baru</a>
+            </div>
+         </div>
+      </li>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item {{ Request::is('students*') ? 'active' : '' }}">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true"
+            aria-controls="collapseThree">
+            <i class="las la-user-friends"></i>
+            <span>Data Siswa</span>
+         </a>
+         <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Master siswa :</h6>
+               <a class="collapse-item" href="{{ route('students.index') }}">Lihat semua data</a>
+               <a class="collapse-item" href="{{ route('students.create') }}">Tambahkan data baru</a>
+            </div>
+         </div>
+      </li>
+
+      <!-- Nav Item - Utilities Collapse Menu -->
+      <li class="nav-item @if (Request::is('penghargaan*') && !Request::is('penghargaan/students*'))
+active
+@endif">
+         <a class="nav-link collapsed " href="#" data-toggle="collapse" data-target="#collapseUtilities"
+            aria-expanded="true" aria-controls="collapseUtilities">
+            <i class="fas fa-folder-plus"></i>
+            <span>Data Penghargaan</span>
+         </a>
+         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities"
+            data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Menu :</h6>
+               <a class="collapse-item" href="{{ route('penghargaan.index') }}">Lihat semua data</a>
+               <a class="collapse-item" href="{{ route('penghargaan.create') }}">Tambahkan data baru</a>
+            </div>
+         </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+         Tambah rekap
+      </div>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="nav-item @if (Request::is('pelanggaran/students*') || Request::is('hapus-pelanggaran/students*'))
+active
+@endif">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFour" aria-expanded="true"
+            aria-controls="collapseFour">
+            {{-- <i class="fas fa-fw fa-folder" ></i> --}}
+            {{-- <i class="fa-solid fa-layer-minus" ></i> --}}
+            <i class="fas fa-minus-square"></i>
+            <span>Rekap Pelanggaran</span>
+         </a>
+         <div id="collapseFour" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Menu :</h6>
+               <a class="collapse-item" href="{{ route('pelanggaran.students.index') }}">Lihat semua data</a>
+               <a class="collapse-item" href="{{ route('pelanggaran.students.create') }}">Tambahkan data baru </a>
+            </div>
+         </div>
+      </li>
+
+      <li class="nav-item 
+      @if (Request::is('penghargaan/students*') || Request::is('hapus-penghargaan/students*')) active @endif">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseFive" aria-expanded="true"
+            aria-controls="collapseFive">
+            {{-- <i class="fas fa-trophy" ></i> --}}
+            <i class="fas fa-plus-square"></i>
+            <span>Rekap Penghargaan</span>
+         </a>
+         <div id="collapseFive" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Menu :</h6>
+               <a class="collapse-item" href="{{ route('penghargaan.students.index') }}">Lihat semua data</a>
+               <a class="collapse-item" href="{{ route('penghargaan.students.create') }}">Tambahkan data baru</a>
+            </div>
+         </div>
+      </li>
+
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+         Kelola User
+      </div>
+
+      <li class="nav-item">
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSix" aria-expanded="true"
+            aria-controls="collapseSix">
+            <i class="fas fa-fw fa-wrench"></i>
+            <span>Manajemen User</span>
+         </a>
+         <div id="collapseSix" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+               <h6 class="collapse-header">Role User</h6>
+               <a class="collapse-item" href="utilities-border.html">All</a>
+               <a class="collapse-item" href="utilities-animation.html">Admin</a>
+               <a class="collapse-item" href="utilities-color.html">Guru</a>
+               <a class="collapse-item" href="utilities-border.html">Siswa</a>
+            </div>
+         </div>
+      </li>
+   @endcan
+
+   @auth
+      @if (Auth::user()->role == 'siswa')
+         <li class="nav-item my-0 {{ Request::is('siswa/rekap') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('siswa.rekap') }}">
+               <i class="fas fa-book-open"></i>
+               <span>Lihat rekapan saya</span></a>
+         </li>
+         <li class="nav-item {{ Request::is('siswa/shop') ? 'active' : '' }}" style="margin-top: -15px">
+            <a class="nav-link" href="{{ route('siswa.shop') }}">
+               <i class="fas fa-shopping-cart"></i>
+               <span>Shop poin</span></a>
+         </li>
+      @endif
+   @endauth
+
+   @auth
+      @if (Auth::user()->role == 'guru')
+         <li class="nav-item my-0 {{ Request::is('guru/rekap') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('guru.rekap') }}">
+               <i class="fas fa-book-reader"></i>
+               <span>Lihat rekapan kelasku</span></a>
+         </li>
+         <li class="nav-item {{ Request::is('siswa/shop') ? 'active' : '' }}" style="margin-top: -15px">
+            <a class="nav-link" href="{{ route('siswa.shop') }}">
+               <i class="fas fa-info-circle"></i>
+               <span>Permintaan siswa</span></a>
+         </li>
+      @endif
+   @endauth
+
+
+
+   <!-- Divider -->
+   <hr class="sidebar-divider d-none d-md-block">
+
+   <!-- Sidebar Toggler (Sidebar) -->
+   <div class="text-center d-none d-md-inline">
+      <button class="rounded-circle border-0" id="sidebarToggle"></button>
+      {{-- <i class="fa-solid fa-align-right"></i> --}}
+   </div>
+
+   {{-- <!-- Sidebar Message -->
+   <div class="sidebar-card d-none d-lg-flex">
+      <img class="sidebar-card-illustration mb-2" src="{{ asset('assets/img/undraw_rocket.svg') }}" alt="...">
+      <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and
+         more!</p>
+      <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
+   </div> --}}
+
+</ul>

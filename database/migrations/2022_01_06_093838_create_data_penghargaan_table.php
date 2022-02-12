@@ -16,6 +16,7 @@ class CreateDataPenghargaanTable extends Migration
         Schema::create('data_penghargaan', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
+            $table->string('tingkatan');
             $table->integer('poin');
             $table->string('keterangan')->nullable();
             $table->timestamps();

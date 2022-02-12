@@ -1,20 +1,22 @@
 <!-- Modal -->
 
-<div class="modal fade text-left" id="showDataStudent{{ $student->id }}" data-bs-backdrop="static"
-   data-bs-keyboard="false" tabindex="-1" aria-labelledby="showDataStudent{{ $student->id }}Label" aria-hidden="true">
+<div class="modal fade text-left" id="showDataStudent{{ $student->id }}" data-backdrop="static" data-keyboard="false"
+   tabindex="-1" aria-labelledby="showDataStudent{{ $student->id }}Label" aria-hidden="true">
    <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
          <div class="modal-header">
             <h5 class="modal-title" id="showDataStudent{{ $student->id }}Label">{{ __('Detail Rekap Siswa') }}
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+            </button>
          </div>
          <div class="modal-body">
             <h4>
                {{ $student->nama }}</h4>
             <div class="row">
                <div class="col-md-6">
-                  <div class="card mb-3 px-0 py-0">
+                  <div class="card shadow-sm mb-3 px-0 py-0">
                      <div class="card-body" style="font-size: 16px">
                         {{-- <h3 class="card-title">{{ $student->nama }}</h4> --}}
                         <div class="mb-3 row">
@@ -104,7 +106,7 @@
                   </div>
                </div>
                <div class="col-md-6">
-                  <div class="card mb-3">
+                  <div class="card shadow-sm mb-3">
                      <div class="card-body" style="font-size: 16px">
                         <ul class="list-group">
                            @forelse ($student->pelanggarans as $pelanggaran)
@@ -130,15 +132,15 @@
                                  {{ $pelanggaran->nama }}
                                  <div class="justify-content-end">
                                     <span
-                                       class="badge bg-secondary badge-pill">{{ $student->updated_at->diffForHumans() }}</span>
+                                       class="badge bg-secondary badge-pill my-1 text-white">{{ $student->updated_at->diffForHumans() }}</span>
                                     <span
-                                       class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
+                                       class="badge bg-{{ $color }} badge-pill my-1 text-white">{{ $pelanggaran->poin }}</span>
                                  </div>
                               </li>
                            @empty
                               <li class="list-group-item d-flex justify-content-between align-items-center">
                                  Anda Siswa teladan!
-                                 <span class="badge bg-success badge-pill">kosong</span>
+                                 <span class="badge bg-success badge-pill my-1 text-white">kosong</span>
                               </li>
                            @endforelse
                         </ul>
@@ -151,7 +153,7 @@
          </div>
 
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>

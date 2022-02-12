@@ -1,114 +1,126 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+
    <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
    <meta name="description" content="">
-   <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-   <meta name="generator" content="Hugo 0.84.0">
-   <title> {{ $title . ' | ' . config('app.name') }}</title>
-   {{-- <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css"> --}}
+   <meta name="author" content="">
 
-   <!-- Bootstrap core CSS -->
-   <link href="{{ asset('assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
-   {{-- Trix Editor --}}
-   <link rel="stylesheet" href="{{ asset('assets/trix/trix.css') }}">
-   {{-- Own CSS --}}
-   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+   <title>{{ config('app.name') }} | {{ __('Dashboard') }}</title>
+
+   <!-- Custom fonts for this template-->
+   <link href="{{ asset('assets/line-awesome/css/line-awesome.min.css') }}" rel="stylesheet" type="text/css">
+   <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/all.min.css') }}">
+   <link
+      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+   <link
+      href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+      rel="stylesheet">
+   {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
+   <link rel="stylesheet"
+      href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+   <link rel="icon" href="{{ asset('img/logo-smkn4bdg.png') }}">
+
+   <!-- Custom styles for this template-->
+   <link href="{{ asset('assets/css/sb-admin-2.min.css') }}" rel="stylesheet">
+   {{-- <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"> --}}
+   {{-- <link href="{{ asset('assets/css/sb-admin-2.css') }}" rel="stylesheet"> --}}
+   @toastr_css
    <style>
-      * {
-         font-family: 'SF Compact Text';
-         font-weight: 400;
-      }
-
-
-      .bd-placeholder-img {
-         font-size: 1.125rem;
-         text-anchor: middle;
-         -webkit-user-select: none;
-         -moz-user-select: none;
-         user-select: none;
-      }
-
-      @media (min-width: 768px) {
-         .bd-placeholder-img-lg {
-            font-size: 3.5rem;
-         }
-      }
-
-      /* Trix Editor: remove link file form */
-      trix-toolbar [data-trix-button-group="file-tools"] {
-         display: none;
+      body #toast-container>div {
+         opacity: .9;
       }
 
    </style>
-
-
-   <!-- Custom styles for this template -->
-   <link href="{{ asset('assets/dashboard/dashboard.css') }}" rel="stylesheet">
 </head>
 
-<body>
+<body id="page-top">
+
+   <!-- Page Wrapper -->
+   <div id="wrapper">
+
+      <!-- Sidebar -->
+      @include('dashboard.layouts.sidebar')
+      <!-- End of Sidebar -->
+
+      <!-- Content Wrapper -->
+      <div id="content-wrapper" class="d-flex flex-column">
+
+         <!-- Main Content -->
+         <div id="content">
+
+            <!-- Topbar -->
+            @include('dashboard.layouts.header')
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+               <!-- Page Heading -->
+               <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                  <h1 class="h3 mb-0 text-gray-800">@yield('heading-title')</h1>
+                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-download fa-sm text-white-50"></i> Simpan PDF</a>
+               </div>
+
+               @yield('container')
 
 
-   @include('dashboard.layouts.header')
 
+            </div>
+            <!-- /.container-fluid -->
 
-   {{-- <span class="text-muted">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio doloremque iusto quis
-      suscipit harum, quod et deleniti tempore necessitatibus cumque possimus consequatur recusandae a accusantium sunt
-      distinctio minima qui ea?</span> --}}
+         </div>
+         <!-- End of Main Content -->
 
-   <div class="container-fluid">
-      <div class="row">
-
-         @include('dashboard.layouts.sidebar')
-
-         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="pt-3 border-bottom-0">
-               <ol class="breadcrumb">
-                  @yield('breadcrumb')
-               </ol>
-            </nav>
-
-            {{-- <div
-               class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-
-
-
-
-            </div> --}}
-            {{-- <div class="border-bottom mb-3"> --}}
-            <h1 class="h2">@yield('heading-title')</h1>
-            {{-- </div> --}}
-            <hr>
-
-
-            @yield('container')
-
-
-         </main>
-
+         <!-- Footer -->
+         @include('dashboard.layouts.footer')
+         <!-- End of Footer -->
 
       </div>
+      <!-- End of Content Wrapper -->
+
    </div>
+   <!-- End of Page Wrapper -->
+
+   <!-- Scroll to Top Button-->
+   <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+   </a>
+
+   <!-- Logout Modal-->
+   @include('dashboard.layouts.modal.logout')
 
 
-   {{-- Trix Editor --}}
-   <script src="{{ asset('assets/trix/trix.js') }}"></script>
-   {{-- Bootstrap --}}
-   <script src="{{ asset('assets/dist/js/bootstrap.bundle.min.js') }}"></script>
-   <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-      integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
-   {{-- Jquery --}}
-   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-   {{-- <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-      integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha" crossorigin="anonymous"></script> --}}
-   {{-- <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script> --}}
 
-   <script src="{{ asset('assets/dashboard/dashboard.js') }}"></script>
+
+   <!-- Bootstrap core JavaScript-->
+   <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
+   <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+
+   <!-- Core plugin JavaScript-->
+   <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+
+   <!-- Custom scripts for all pages-->
+   <script src="{{ asset('assets/js/sb-admin-2.min.js') }}"></script>
+
+   <!-- Page level plugins -->
+   <script src="{{ asset('assets/vendor/chart.js/Chart.min.js') }}"></script>
+
+   <!-- Page level custom scripts -->
+   <script src="{{ asset('assets/js/demo/chart-area-demo.js') }}"></script>
+   <script src="{{ asset('assets/js/demo/chart-pie-demo.js') }}"></script>
+
 </body>
+
+@jquery
+@toastr_js
+@toastr_render
 
 </html>

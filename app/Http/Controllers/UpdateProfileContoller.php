@@ -72,15 +72,15 @@ class UpdateProfileContoller extends Controller
 
     public function update(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $rules = [
             'name' => 'required|max:255',
             'username' => 'required',
             // 'email' => 'required',
             // 'email' => 'required',
-            'currentpassword' => 'required',
-            'newpassword' => 'required',
-            'repeatpassword' => 'required',
+            // 'currentpassword' => 'required',
+            // 'newpassword' => 'required',
+            // 'repeatpassword' => 'required',
         ];
 
         // if ($request->nis != $student->nis) {

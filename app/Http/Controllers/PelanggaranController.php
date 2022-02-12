@@ -71,8 +71,8 @@ class PelanggaranController extends Controller
 
         Pelanggaran::create($validatedData);
         $title = $validatedData['nama'];
-
-        return redirect(route('pelanggaran.index'))->with('success', "Data Pelanggaran Baru: <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
+        toastr()->success("Data Pelanggaran baru berhasil <strong>ditambahkan</strong>!");
+        return redirect(route('pelanggaran.index'));
     }
 
     /**
@@ -97,7 +97,7 @@ class PelanggaranController extends Controller
         $jenis = ['ringan', 'sedang', 'berat'];
 
         return view('dashboard.pelanggaran.edit', [
-            'title' => 'Edit Data Pelanggaran',
+            'title' => 'Ubah Data Pelanggaran',
         ], compact('jenis', 'pelanggaran'));
     }
 
@@ -135,8 +135,8 @@ class PelanggaranController extends Controller
         $validatedData = $request->validate($rules);
         Pelanggaran::where('id', $pelanggaran->id)->update($validatedData);
         $title = $pelanggaran->nama;
-
-        return redirect(route('pelanggaran.index'))->with('success', "Data Pelanggaran: <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        toastr()->success("Data Pelanggaran <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        return redirect(route('pelanggaran.index'));
     }
 
     /**
@@ -149,7 +149,10 @@ class PelanggaranController extends Controller
     {
         $title = $pelanggaran->nama;
         Pelanggaran::destroy($pelanggaran->id);
-
-        return redirect(route('pelanggaran.index'))->with('success', "Data Pelanggaran: <strong>$title</strong> berhasil <strong>dihapus</strong>!");
+        // toastr()->error('Error Message');
+        // toastr()->info('Info Message');
+        // toastr()->warning('<Wa></Wa>a></Wa>rning Message');
+        toastr()->success("Data Pelanggaran <strong>$title</strong> berhasil <strong>dihapus</strong>!");
+        return redirect(route('pelanggaran.index'));
     }
 }

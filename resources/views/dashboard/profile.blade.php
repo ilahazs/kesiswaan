@@ -85,8 +85,8 @@
                            @else
                               <div class="col-md-10">
                                  <label class="labels">Alamat Email</label>
-                                 <input type="email" class="form-control bg-white" value="{{ $user->email }}"
-                                    name="email">
+                                 <input type="email" class="form-control bg-white" value="{{ $user->email }}" disabled
+                                    readonly>
                               </div>
                               <div class="col-md-2">
                                  <label class="labels">Sebagai</label>

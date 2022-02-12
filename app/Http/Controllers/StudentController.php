@@ -34,7 +34,7 @@ class StudentController extends Controller
     public function index()
     {
         return view('dashboard.students.index', [
-            'title' => 'All Student',
+            'title' => 'Semua Data Siswa',
             'students' => Student::orderBy('updated_at', 'desc')->get(),
         ]);
     }
@@ -54,7 +54,7 @@ class StudentController extends Controller
         $tipeRule = ['Pelanggaran', 'Penghargaan'];
 
         return view('dashboard.students.create', [
-            'title' => 'Create Student',
+            'title' => 'Tambahkan Siswa Baru',
             'tingkatan' => $tingkatan,
             'jurusan' => $jurusan,
             'tipe_rule' => $tipeRule,
@@ -152,7 +152,7 @@ class StudentController extends Controller
         $jurusan = ['RPL', 'MM', 'TAVI', 'TKJ', 'TOI', 'TITL'];
         $urutan = [1, 2, 3];
         return view('dashboard.students.edit', [
-            'title' => 'Edit Student',
+            'title' => 'Edit Data Siswa',
             'student' => $student,
             'tingkatan' => $tingkatan,
             'jurusan' => $jurusan,

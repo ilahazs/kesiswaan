@@ -11,26 +11,19 @@
 @endsection
 @section('container')
 
-   @if (session('success'))
-      <div class="col-lg-11">
-         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            {!! session('success') !!}
-         </div>
-      </div>
-   @endif
-
+   <div class="card mb-5">
+      <div class="card-body">
    <div class="table-responsive mt-3 col-lg-12">
       <a href="{{ route('penghargaan.create') }}" class="btn btn-primary mb-3">Tambah data list
          penghargaan</a>
 
-      <table class="table table-bordered table-sm">
+      <table class="table table-bordered table-md">
          <thead>
             <tr>
-               <th scope="col">#</th>
+               <th scope="col">NO</th>
                <th scope="col">Nama</th>
-               <th scope="col">Jenis</th>
-               <th scope="col">Point</th>
+               <th scope="col">Tingkatan</th>
+               <th scope="col">Poin</th>
                <th scope="col">Keterangan</th>
                <th scope="col">Updated</th>
                <th scope="col" class="text-center">Aksi</th>
@@ -42,35 +35,39 @@
                   <td>{{ $loop->iteration }}</td>
                   <td>{{ $penghargaan->nama }}</td>
                   <td
-                     class="text-uppercase @php
-                     $jenis = '';
-                     $colorPoint = '';
+                     class="text-uppercase 
+                  @php
 
-                  if ($penghargaan->poin <= 20) {
+                  if ($penghargaan->poin > 0 ) {
                      $colorPoint = 'text-success';
-                     $jenis = 'ringan';
-                  } elseif ($penghargaan->poin <= 30 && $penghargaan->poin >= 21) {
-                     $colorPoint = 'text-warning';
-                     $jenis = 'sedang';
-                  } elseif ($penghargaan->poin <= 50 && $penghargaan->poin >= 31) {
-                     $colorPoint = 'text-danger';
-                     $jenis = 'tinggi';
                   } else {
-                     $colorPoint = 'text-danger';
-                     $jenis = 'error';
+                     $colorPoint = 'text-secondary';
                   }
-               @endphp">
-                     <strong>{{ $jenis }}</strong>
+                  @endphp">
+                     <strong>{{ $penghargaan->tingkatan }}</strong>
                   </td>
                   <td>
                      <span class="{{ $colorPoint }}">{{ $penghargaan->poin }}</span>
                   </td>
                   <td>{{ $penghargaan->keterangan }}</td>
                   <td>{{ $penghargaan->updated_at->diffForHumans() }}</td>
+                  <td class="d-flex justify-content-center">
+                     <button type="button" class="badge bg-primary border-0 text-decoration-none text-white" data-toggle="modal" data-target="#showPenghargaan{{ $penghargaan->id }}">
+                        show
+                     </button>
+                     @include('dashboard.penghargaan.modal.show')
+
+                     <span class="badge btn-success mx-1 border-0" style="padding-top: 5px"><a href="{{ route('penghargaan.edit', $penghargaan->id) }}" class=" text-decoration-none text-white">edit</a></span>
+
+                     <form action="{{ route('penghargaan.destroy', $penghargaan->id) }}" method="POST">
+                        @method('delete')
+                        @csrf
+                        <button class="badge btn-danger text-decoration-none py-1 text-white border-0" onclick="return confirm('yes/no?')">delete
+                        </button>
+                     </form>
 
 
-                  <td class="d-flex justify-content-center text-">
-                     <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
+                     {{-- <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
                         data-bs-toggle="modal" data-bs-target="#showPenghargaan{{ $penghargaan->id }}">
                         <span data-feather="eye"></span>
                      </button>
@@ -84,13 +81,15 @@
                         @csrf
                         <button class="badge btn-danger text-decoration-none text-white border-0"
                            onclick="return confirm('yes/no?')"><span data-feather="trash-2"></span></button>
-                     </form>
+                     </form> --}}
                   </td>
                </tr>
             @endforeach
 
          </tbody>
       </table>
+   </div>
+   </div>
    </div>
 
 

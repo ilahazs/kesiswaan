@@ -46,26 +46,27 @@ class PenghargaanController extends Controller
         // dd($request->all());
         $rules = [
             'nama' => 'required',
-            'jenis' => 'required',
+            'tingkatan' => 'required',
+            'poin' => 'required',
             'keterangan' => 'max:255',
         ];
 
-        $requestData = $request->all();
+        // $requestData = $request->all();
         // dd($requestData);
 
-        if ($request->jenis == 'ringan') {
-            $requestData['poin'] = 20;
-            $rules['poin'] = 'required';
-        } elseif ($request->jenis == 'sedang') {
-            $requestData['poin'] = 30;
-            $rules['poin'] = 'required';
-        } elseif ($request->jenis == 'tinggi') {
-            $requestData['poin'] = 50;
-            $rules['poin'] = 'required';
-        }
+        // if ($request->jenis == 'ringan') {
+        //     $requestData['poin'] = 20;
+        //     $rules['poin'] = 'required';
+        // } elseif ($request->jenis == 'sedang') {
+        //     $requestData['poin'] = 30;
+        //     $rules['poin'] = 'required';
+        // } elseif ($request->jenis == 'tinggi') {
+        //     $requestData['poin'] = 50;
+        //     $rules['poin'] = 'required';
+        // }
 
 
-        $request->merge(['poin' => $requestData['poin']]);
+        // $request->merge(['poin' => $requestData['poin']]);
         // return $request->all();
 
         $validatedData = $request->validate($rules);
@@ -74,7 +75,9 @@ class PenghargaanController extends Controller
         Penghargaan::create($validatedData);
         $title = $validatedData['nama'];
 
-        return redirect(route('penghargaan.index'))->with('success', "Data Penghargaan Baru: <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
+
+        toastr()->success("Data Penghargaan baru berhasil <strong>ditambahkan</strong>!");
+        return redirect(route('penghargaan.index'));
     }
 
     /**
@@ -138,7 +141,8 @@ class PenghargaanController extends Controller
         Penghargaan::where('id', $penghargaan->id)->update($validatedData);
         $title = $penghargaan->nama;
 
-        return redirect(route('penghargaan.index'))->with('success', "Data Penghargaan: <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        toastr()->success("Data Penghargaan: <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        return redirect(route('penghargaan.index'));
     }
 
     /**
@@ -151,7 +155,7 @@ class PenghargaanController extends Controller
     {
         $title = $penghargaan->nama;
         Penghargaan::destroy($penghargaan->id);
-
-        return redirect(route('penghargaan.index'))->with('success', "Data Penghargaan: <strong>$title</strong> berhasil <strong>dihapus</strong>!");
+        toastr()->success("Data Penghargaan <strong>$title</strong> berhasil <strong>dihapus</strong>!");
+        return redirect(route('penghargaan.index'));
     }
 }

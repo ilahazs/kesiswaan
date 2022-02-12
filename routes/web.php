@@ -3,24 +3,18 @@
 use App\Http\Controllers\DashboardContoller;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelanggaranController;
-use App\Http\Controllers\PelanggaranSiswaController;
 use App\Http\Controllers\PenghargaanController;
-use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\RuleDataController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\StudentDismissPelanggaranController;
 use App\Http\Controllers\StudentPelanggaranController;
 use App\Http\Controllers\StudentPenghargaanController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UpdateProfileContoller;
-use App\Http\Middleware\Admin;
 use App\Http\Middleware\Guru;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\Siswa;
-use App\Models\Category;
 use App\Models\Kelas;
-use App\Models\Pelanggaran;
 use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
@@ -109,6 +103,8 @@ Route::middleware([Siswa::class, 'auth'])->group(function () {
     Route::get('/siswa/rekap', function () {
         // $student = Student::where('id', Auth::user()->student_id)->get();
         // Check and assign data for student who is have relation with user
+
+
         $siswa = '';
         $pelanggarans = '';
         $siswas = Student::all();
@@ -139,6 +135,7 @@ Route::middleware([Siswa::class, 'auth'])->group(function () {
     })->name('siswa.rekap');
 
     Route::get('/siswa/shop', function () {
+
         $siswa = '';
         $mypoin = 0;
         $siswas = Student::all();

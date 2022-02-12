@@ -1,13 +1,15 @@
 <!-- Modal -->
 
-<div class="modal fade text-left" id="showStudent{{ $student->id }}" data-bs-backdrop="static" data-bs-keyboard="false"
+<div class="modal fade text-left" id="showStudent{{ $student->id }}" data-backdrop="static" data-keyboard="false"
    tabindex="-1" aria-labelledby="showStudent{{ $student->id }}Label" aria-hidden="true">
    <div class="modal-dialog modal-xl modal-dialog-scrollable">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="showStudent{{ $student->id }}Label">{{ __('Detail Rekap Siswa') }}
+            <h5 class="modal-title" id="showStudent{{ $student->id }}Label">{{ __('Data Siswa') }}
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+            </button>
          </div>
          <div class="modal-body">
             <h4>
@@ -147,15 +149,15 @@
                                  {{ $pelanggaran->nama }}
                                  <div class="justify-content-end">
                                     <span
-                                       class="badge bg-secondary badge-pill">{{ $student->updated_at->diffForHumans() }}</span>
+                                       class="badge bg-secondary badge-pill text-white">{{ $student->updated_at->diffForHumans() }}</span>
                                     <span
-                                       class="badge bg-{{ $colorPelanggaran }} badge-pill">{{ $pelanggaran->poin }}</span>
+                                       class="badge bg-{{ $colorPelanggaran }} badge-pill text-white">{{ $pelanggaran->poin }}</span>
                                  </div>
                               </li>
                            @empty
                               <li class="list-group-item d-flex justify-content-between align-items-center">
                                  Anda Siswa teladan!
-                                 <span class="badge bg-success badge-pill">kosong</span>
+                                 <span class="badge bg-success badge-pill text-white">kosong</span>
                               </li>
                            @endforelse
                         </ul>
@@ -193,15 +195,15 @@
                                  {{ $penghargaan->nama }}
                                  <div class="justify-content-end">
                                     <span
-                                       class="badge bg-secondary badge-pill">{{ $student->updated_at->diffForHumans() }}</span>
+                                       class="badge bg-secondary badge-pill text-white">{{ $student->updated_at->diffForHumans() }}</span>
                                     <span
-                                       class="badge bg-{{ $colorPenghargaan }} badge-pill">{{ $penghargaan->poin }}</span>
+                                       class="badge bg-{{ $colorPenghargaan }} badge-pill text-white">{{ $penghargaan->poin }}</span>
                                  </div>
                               </li>
                            @empty
                               <li class="list-group-item d-flex justify-content-between align-items-center">
                                  Anda belum memperoleh penghargaan!
-                                 <span class="badge bg-success badge-pill">kosong</span>
+                                 <span class="badge bg-success badge-pill text-white">kosong</span>
                               </li>
                            @endforelse
                         </ul>
@@ -214,7 +216,7 @@
          </div>
 
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>

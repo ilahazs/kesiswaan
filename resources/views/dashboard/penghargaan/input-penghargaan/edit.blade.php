@@ -143,12 +143,12 @@
                      }
                   @endphp
                   <li class="list-group-item d-flex justify-content-between align-items-center">{{ $penghargaan->nama }}
-                     <span class="badge bg-{{ $color }} badge-pill">{{ $penghargaan->poin }}</span>
+                     <span class="badge bg-{{ $color }} badge-pill text-white">{{ $penghargaan->poin }}</span>
                   </li>
                @empty
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                      {{ __('Data masih kosong!') }}
-                     <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
+                     <span class="badge bg-success badge-pill text-white">{{ __('kosong') }}</span>
                   </li>
                @endforelse
             </ul>
@@ -181,12 +181,15 @@
                         } else {
                             $color = 'secondary';
                         }
+                        $color = 'success';
+                        
                      @endphp
                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ $penghargaan->nama }}
                         <div class="justify-content-end">
-                           <span class="badge bg-{{ $color }} badge-pill me-3">{{ $penghargaan->poin }}</span>
-                           <div class="form-check form-check-inline d-inline-flex">
+                           <span
+                              class="badge bg-{{ $color }} badge-pill text-white me-3 px-2">{{ $penghargaan->poin }}</span>
+                           <div class="form-check form-check-inline d-inline-flex ms-3 py-1 px-3">
                               <input class="form-check-input" type="checkbox" name="penghargaan[]" id="x"
                                  value="{{ $penghargaan->id }}">
                            </div>
@@ -198,7 +201,7 @@
                   @empty
                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ __('Data penghargaan masih kosong!') }}
-                        <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
+                        <span class="badge bg-success badge-pill text-white">{{ __('kosong') }}</span>
                      </li>
                   @endforelse
 

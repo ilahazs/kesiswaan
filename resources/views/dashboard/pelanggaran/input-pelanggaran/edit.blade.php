@@ -143,12 +143,12 @@
                      }
                   @endphp
                   <li class="list-group-item d-flex justify-content-between align-items-center">{{ $pelanggaran->nama }}
-                     <span class="badge bg-{{ $color }} badge-pill">{{ $pelanggaran->poin }}</span>
+                     <span class="badge bg-{{ $color }} badge-pill text-white">{{ $pelanggaran->poin }}</span>
                   </li>
                @empty
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                      {{ __('Data masih kosong!') }}
-                     <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
+                     <span class="badge bg-success badge-pill text-white">{{ __('kosong') }}</span>
                   </li>
                @endforelse
             </ul>
@@ -166,7 +166,20 @@
                @method('put')
 
                <div class="card-header">
-                  Tambah pelanggaran baru
+                  <span class="mb-0"> Tambah pelanggaran baru</span>
+                  <div class="row d-flex justify-content-start">
+                     <div class="row justify-content-end col-lg-12">
+                        <button type="submit" class="btn btn-primary "
+                           style="padding: 5px 70px; margin-top: -25px">Save</button>
+                     </div>
+                  </div>
+
+                  {{-- <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                     <span class="mb-0 text-gray-800">Tambah pelanggaran baru</span>
+                     <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+                        <button type="submit" class="btn btn-primary px-5">Save</button>
+                     </a>
+                  </div> --}}
                </div>
                <ul class="list-group list-group-flush">
                   @forelse ($pelanggarans as $pelanggaran)
@@ -184,9 +197,10 @@
                      @endphp
                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ $pelanggaran->nama }}
-                        <div class="justify-content-end">
-                           <span class="badge bg-{{ $color }} badge-pill me-3">{{ $pelanggaran->poin }}</span>
-                           <div class="form-check form-check-inline d-inline-flex">
+                        <div class="justify-content-end px-2">
+                           <span
+                              class="badge bg-{{ $color }} badge-pill me-3 text-white px-2">{{ $pelanggaran->poin }}</span>
+                           <div class="form-check form-check-inline d-inline-flex ms-3 py-1 px-3">
                               <input class="form-check-input" type="checkbox" name="pelanggaran[]" id="x"
                                  value="{{ $pelanggaran->id }}">
                            </div>
@@ -198,13 +212,13 @@
                   @empty
                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ __('Data Pelanggaran masih kosong!') }}
-                        <span class="badge bg-success badge-pill">{{ __('kosong') }}</span>
+                        <span class="badge bg-success badge-pill text-white">{{ __('kosong') }}</span>
                      </li>
                   @endforelse
 
-                  <div class="d-flex justify-content-center my-1 mx-3">
-                     <div class="row col-lg-2">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                  <div class="d-flex justify-content-center">
+                     <div class="row col-lg-2 my-2">
+                        <button type="submit" class="btn btn-primary" style="padding: 5px 50px">Save</button>
                      </div>
                   </div>
                </ul>

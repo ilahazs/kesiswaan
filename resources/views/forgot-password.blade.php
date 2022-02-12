@@ -13,7 +13,9 @@
 
 
    <!-- Bootstrap core CSS -->
-   <link href="{{ asset('assets/dist/css/bootstrap.min.css') }}" rel="stylesheet">
+   <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+   <link rel="icon" href="{{ asset('img/logo-smkn4bdg.png') }}">
+
 
    <style>
       .bd-placeholder-img {
@@ -43,7 +45,7 @@
          padding-bottom: 40px;
          /* background-color: #f5f5f5; */
          /* background-image: url('../../public/img/background-auth.jpg'); */
-         background-image: url('{{ asset('img/background-auth.jpg') }}');
+         background-image: url('{{ asset('img/navy-blue.jpg') }}');
          background-repeat: no-repeat;
          background-attachment: fixed;
          background-size: cover;
@@ -95,7 +97,7 @@
          <img class="mb-4" src="{{ asset('img/logo-smkn4bdg.png') }}" alt="Logo SMKN 4 Bandung" width="70"
             height="70">
       </a>
-      <h1 class="h3 mb-3 fw-normal">Reset Password</h1>
+      <h1 class="h3 mb-3 fw-normal text-white">Reset Password</h1>
 
       @if (session()->has('status'))
          <div class="alert alert-success fade show" role="alert">
@@ -137,7 +139,7 @@
 
       <div class="row mt-3">
          <div class="col-lg-12 text-center">
-            <span>Already remember?
+            <span class="text-muted">Already remember?</span><span>
                <a href="{{ route('login') }}" class="text-decoration-none">
                   Login here!</a></span>
          </div>
