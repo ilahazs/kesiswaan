@@ -1,34 +1,35 @@
 @extends('dashboard.layouts.main')
 @section('heading-title', $title)
+@section('flash-message')
+   @if (session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+         <button type="button" class="btn-close close" data-dismiss="alert" aria-label="Close"><span
+               aria-hidden="true">×</span></button>
+         {!! session('success') !!}
+      </div>
+   @endif
+@endsection
 @section('breadcrumb')
-   <li class="breadcrumb-item">
-      <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
-   </li>
-   <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('pelanggaran.students.index') }}"
-         class="text-decoration-none {{ Request::is('pelanggaran/students*') ? 'text-secondary' : '' }}">{{ $title }}</a>
-   </li>
+   <li class="breadcrumb-item"><a href="{{ route('dashboard.index') }}">Home</a></li>
+   <li class="breadcrumb-item active" aria-current="page">{{ $title }}</li>
 @endsection
 @section('container')
 
    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
-   @if (session('success'))
-      <div class="col-lg-12">
-         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close close" data-dismiss="alert" aria-label="Close"><span
-                  aria-hidden="true">×</span></button>
-            {!! session('success') !!}
-         </div>
-      </div>
-   @endif
 
 
    <div class="card">
       <div class="card-body">
+         <a href="{{ route('pelanggaran.students.create') }}" class="btn btn-primary btn-new-data">Tambah rekap
+            pelanggaran
+            siswa</a>
+         {{-- <button type="button" class="btn btn-primary btn-new-data" data-toggle="modal"
+            data-target="#showDataStudent{{ $student->id }}">
+            Tambah rekap pelanggaran
+            siswa></button>
+         @include('dashboard.pelanggaran.input-pelanggaran.modal.create') --}}
          <div class="table-responsive mt-3 col-lg-12">
-            <a href="{{ route('pelanggaran.students.create') }}" class="btn btn-primary mb-3">Tambah rekap pelanggaran
-               siswa</a>
 
             <table class="table table-bordered table-sm" id="datasiswa-pelanggaran">
                <thead>
@@ -84,7 +85,7 @@
                                   $colorPoint = 'text-danger';
                                   $jenis = 'berat';
                               } else {
-                                  $colorPoint = 'text-secondary';
+                                  $colorPoint = 'text-danger';
                                   $jenis = 'error';
                               }
                            @endphp

@@ -23,9 +23,11 @@ class DatabaseSeeder extends Seeder
             KelasSeeder::class,
             TeacherSeeder::class,
             PelanggaranSeeder::class,
+            KlasifikasiPelanggaranSeeder::class,
             PenghargaanSeeder::class,
+            KlasifikasiPenghargaanSeeder::class,
         ]);
-        User::factory(3)->create();
+        // User::factory(3)->create();
         Student::factory(50)->create();
         // Student::find(2)->pelanggarans()->attach([1, 2, 3]);
     }

@@ -14,7 +14,7 @@
 
 <!-- Remove the container if you want to extend the Footer to full width. -->
 
-<footer class="bg-dark text-center text-lg-start text-white">
+<footer class="bg-dark text-center text-lg-start text-white" style="margin-top: 80px">
    <!-- Grid container -->
    {{-- <div class="container p-4">
       <!--Grid row-->
@@ -105,9 +105,10 @@
    <!-- Grid container --> --}}
 
    <!-- Copyright -->
-   <div class="text-center p-3" style="background-color: rgba(0, 20, 66, 0.4)">
-      © 2021 Copyright:
-      <a class="text-white" href="https://id.linkedin.com/in/ilhamprabuzakys">ilahazs</a>
+   <div class="text-center text-sm-center p-3" style="background-color: rgba(0, 20, 66, 0.4)">
+      © 2021 Copyright All right served to :
+      <span class="text-sm-center"><a class="text-white"
+            href="https://id.linkedin.com/in/ilhamprabuzakys">ilahazs</a></span>
    </div>
    <!-- Copyright -->
 </footer>

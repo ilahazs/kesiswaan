@@ -16,7 +16,9 @@ class CreateDataPelanggaranTable extends Migration
         Schema::create('data_pelanggaran', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
-            $table->integer('poin');
+            $table->foreignId('klasifikasi_id');
+
+            $table->integer('poin')->nullable();
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

@@ -15,27 +15,23 @@ class PenghargaanSeeder extends Seeder
     public function run()
     {
         Penghargaan::create([
-            'nama' => 'Disiplin',
-            'tingkatan' => 'Sekolah',
-            'poin' => 20
+            'nama' => 'Ranking 1',
+            'klasifikasi_id' => 1,
         ]);
 
         Penghargaan::create([
             'nama' => 'Juara LKS',
-            'tingkatan' => 'Sekolah',
-            'poin' => 50
+            'klasifikasi_id' => 2,
         ]);
 
         Penghargaan::create([
-            'nama' => 'Ranking 1 Kelas',
-            'tingkatan' => 'Sekolah',
-            'poin' => 50
+            'nama' => 'Berpartisipasi Kelombaan',
+            'klasifikasi_id' => 1,
         ]);
 
         Penghargaan::create([
-            'nama' => 'Melaksanakan piket',
-            'tingkatan' => 'Sekolah',
-            'poin' => 20
+            'nama' => 'Juara Hackathon Nasional',
+            'klasifikasi_id' => 3,
         ]);
     }
 }

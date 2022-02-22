@@ -19,7 +19,8 @@ class StudentPelanggaranController extends Controller
         $students = Student::orderBy('updated_at', 'desc')->get();
 
         return view('dashboard.pelanggaran.input-pelanggaran.index',  [
-            'title' => 'Kelola Data Pelanggaran',
+            'title' => 'Data Pelanggaran
+            Siswa',
         ], compact('pelanggarans', 'students'));
     }
 

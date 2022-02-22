@@ -13,71 +13,63 @@
             </button>
          </div>
          <div class="modal-body">
-            <h4>
-               {{ $pelanggaran->nama }}</h4>
             <div class="row">
                <div class="col-md-12">
-                  <div class="card mb-3 px-0 py-0">
+                  <div class="card shadow-sm px-0 py-0">
                      <div class="card-body" style="font-size: 16px">
                         {{-- <h3 class="card-title">{{ $student->nama }}</h4> --}}
 
                         <div class="mb-3 row">
-                           <div class="col-md-2">
+                           <div class="col-md-5">
                               <label for="staticEmail" class="col-form-label">Nama</label>
                            </div>
                            <div class="col-md-1 mt-1">
                               <label>:</label>
                            </div>
-                           <div class="col-md-9">
+                           <div class="col-md-6">
                               <input type="text" disabled readonly class="form-control bg-white" id="staticEmail"
                                  value="{{ $pelanggaran->nama }}">
                            </div>
                         </div>
-                        <div class="mb-3 row d-flex justify-content-between">
-                           <div class="col-lg-5">
-                              <div class="row">
-                                 <div class="col-md-5">
-                                    <label for="staticEmail" class="col-form-label">Jenis</label>
-                                 </div>
-                                 <div class="col-md-1 mt-1">
-                                    <label>:</label>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <input type="text" disabled readonly class="form-control bg-white" id="staticEmail"
-                                       value="{{ $jenis }}">
-                                 </div>
-                              </div>
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="jenis" class="col-form-label">Jenis</label>
                            </div>
-                           <div class="col-lg-5">
-                              <div class="row">
-                                 <div class="col-md-5">
-                                    <label for="staticEmail" class="col-form-label">Poin</label>
-                                 </div>
-                                 <div class="col-md-1 mt-1">
-                                    <label>:</label>
-                                 </div>
-                                 <div class="col-md-6">
-                                    <input type="text" disabled readonly
-                                       class="form-control bg-white {{ $colorPoint }}" id="staticEmail"
-                                       value="{{ $pelanggaran->poin }}">
-                                 </div>
-                              </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white" id="jenis"
+                                 value="{{ $pelanggaran->klasifikasi->jenis }}">
                            </div>
                         </div>
 
                         <div class="mb-3 row">
-                           <div class="col-md-2">
+                           <div class="col-md-5">
+                              <label for="poin" class="col-form-label">Poin</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white text-success" id="poin"
+                                 value="{{ $pelanggaran->klasifikasi->poin }}">
+                           </div>
+                        </div>
+
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
                               <label for="staticEmail" class="col-form-label">Keterangan</label>
                            </div>
                            <div class="col-md-1 mt-1">
                               <label>:</label>
                            </div>
-                           <div class="col-md-9">
+                           <div class="col-md-6">
                               {{-- <input type="text" disabled readonly class="form-control bg-white " id="staticEmail" value="{{ $pelanggaran->keterangan }}"> --}}
 
                               <textarea disabled readonly class="form-control bg-white" id="keterangan"
                                  value="{{ $pelanggaran->keterangan }}"
-                                 rows="3">{{ $pelanggaran->keterangan }}</textarea>
+                                 rows="4">{{ $pelanggaran->keterangan }}</textarea>
 
                            </div>
                         </div>
@@ -89,6 +81,8 @@
          </div>
 
          <div class="modal-footer">
+            <button type="button" class="btn btn-success" id="inside-show" data-dismiss="modal" data-toggle="modal"
+               data-target="#editPelanggaran{{ $pelanggaran->id }}">Edit This</button>
             <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
          </div>
       </div>

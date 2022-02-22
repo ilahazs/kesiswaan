@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\DashboardContoller;
+use App\Http\Controllers\KlasifikasiPelanggaranController;
+use App\Http\Controllers\KlasifikasiPenghargaanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\PenghargaanController;
@@ -10,7 +12,9 @@ use App\Http\Controllers\StudentDismissPelanggaranController;
 use App\Http\Controllers\StudentPelanggaranController;
 use App\Http\Controllers\StudentPenghargaanController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\TeacherManageController;
 use App\Http\Controllers\UpdateProfileContoller;
+use App\Http\Controllers\UserManageController;
 use App\Http\Middleware\Guru;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\Siswa;
@@ -34,7 +38,7 @@ Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/{post:slug}', [PostController::class, 'show'])->name('posts.show'); */
 
 // Login
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/login', [LoginController::class, 'index'])->middleware('guest')->name('login');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('login-authenticate');
 Route::post('/logout',  [LoginController::class, 'logout'])->middleware('auth')->name('logout');
 
@@ -95,7 +99,16 @@ Route::middleware([IsAdmin::class, 'auth'])->group(function () {
 
     /* Pelanggaran dan Penghargaan */
     Route::resource('/pelanggaran', PelanggaranController::class);
+    Route::resource('/klasifikasi-pelanggaran', KlasifikasiPelanggaranController::class);
     Route::resource('/penghargaan', PenghargaanController::class);
+    Route::resource('/klasifikasi-penghargaan', KlasifikasiPenghargaanController::class);
+
+    /* Manage Data */
+    /* Manage User */
+    Route::resource('/users', UserManageController::class);
+
+    /* Manage Teacher */
+    Route::resource('/teachers', TeacherManageController::class);
 });
 
 Route::middleware([Siswa::class, 'auth'])->group(function () {
@@ -112,12 +125,15 @@ Route::middleware([Siswa::class, 'auth'])->group(function () {
         $strChanged = str_replace("@", " ", $userEmail);
         $userNISDump = explode(" ", $strChanged);
         $userNIS = $userNISDump[0];
+        // dd($userNIS);
         // dd(Auth::user()->id);
         foreach ($siswas as $s) {
             // $smendekati = $s->user_id == Auth::user()->id;
             // if ($s->user_id == Auth::user()->id) {
             //     dd('yeah');
             // }
+            // dd($s->user_id);
+
             if ($s->user_id != null && $s->user_id == Auth::user()->id && $s->nis == $userNIS) {
                 // dd($s);
                 // dd($s->nis);

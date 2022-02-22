@@ -1,5 +1,14 @@
 @extends('dashboard.layouts.main')
 @section('heading-title', $title)
+@section('flash-message')
+   @if (session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+         <button type="button" class="btn-close close" data-dismiss="alert" aria-label="Close"><span
+               aria-hidden="true">×</span></button>
+         {!! session('success') !!}
+      </div>
+   @endif
+@endsection
 @section('breadcrumb')
    <li class="breadcrumb-item">
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
@@ -12,16 +21,6 @@
 @section('container')
 
    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
-
-   @if (session('success'))
-      <div class="col-lg-12">
-         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close close" data-dismiss="alert" aria-label="Close"><span
-                  aria-hidden="true">×</span></button>
-            {!! session('success') !!}
-         </div>
-      </div>
-   @endif
 
    <div class="card">
       <div class="card-body">

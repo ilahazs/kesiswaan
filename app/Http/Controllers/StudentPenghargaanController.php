@@ -19,7 +19,8 @@ class StudentPenghargaanController extends Controller
         $students = Student::orderBy('updated_at', 'desc')->get();
 
         return view('dashboard.penghargaan.input-penghargaan.index',  [
-            'title' => 'Kelola Data Penghargaan',
+            'title' => 'Data Penghargaan
+            Siswa',
         ], compact('pelanggarans', 'students'));
     }
 

@@ -22,7 +22,7 @@ class CreateStudentsTable extends Migration
             $table->string('notelp', 13)->nullable();
             $table->integer('poin_pelanggaran')->default(0);
             $table->integer('poin_penghargaan')->default(0);
-            $table->foreignId('user_id')->nullable();
+            $table->foreignId('user_id')->nullable()->unique();
 
             $table->timestamps();
         });

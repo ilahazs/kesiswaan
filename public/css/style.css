@@ -1,6 +1,6 @@
-* {
-   font-family: 'SF Compact Text';
-   font-weight: 500;
+body {
+   font-family: "Poppins";
+   /* font-family: "SF Compact"; */
 }
 
 a.btn-bd-login>span {
@@ -56,4 +56,8 @@ button.btn-reverse-outline-dark:hover {
    padding: 5px 10px;
    font-weight: bold;
    border: 2px solid #000;
+}
+
+.btn-new-data {
+   margin: 0 0 1px 10px
 }

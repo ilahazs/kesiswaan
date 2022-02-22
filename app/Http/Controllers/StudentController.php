@@ -7,7 +7,10 @@ use App\Models\Kelas;
 use App\Models\Pelanggaran;
 use App\Models\Penghargaan;
 use App\Models\Student;
+use App\Models\User;
+use Hash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StudentController extends Controller
@@ -33,9 +36,21 @@ class StudentController extends Controller
 
     public function index()
     {
+        $tingkatan = [10, 11, 12];
+        $jurusan = ['RPL', 'MM', 'TAVI', 'TKJ', 'TOI', 'TITL'];
+        $urutan = [1, 2, 3];
+        $data_pelanggaran = Pelanggaran::all();
+        $data_penghargaan = Penghargaan::all();
+        $tipeRule = ['Pelanggaran', 'Penghargaan'];
+
         return view('dashboard.students.index', [
             'title' => 'Semua Data Siswa',
             'students' => Student::orderBy('updated_at', 'desc')->get(),
+            'tingkatan' => $tingkatan,
+            'jurusan' => $jurusan,
+            'tipe_rule' => $tipeRule,
+            'urutan' => $urutan,
+            'classes' => Kelas::all(),
         ]);
     }
 
@@ -71,24 +86,17 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         $rules = [
             'nama' => 'required|max:255',
-            'nis' => 'required|unique:students',
+            'nis' => 'required|min:8|unique:students',
+            'tingkatan_kelas' => 'required',
+            'jurusan_kelas' => 'required',
+            'urutan_kelas' => 'required',
             'jenis_kelamin' => 'required',
+            'notelp' => 'min:8|'
         ];
 
         $requestData = $request->all();
-
-        // if ($request->pelanggaran_id != null) {
-        //     $rules['pelanggaran_id'] = 'required';
-        //     $requestData['pelanggaran_id'] = $request->pelanggaran_id;
-        // }
-
-        // if ($request->penghargaan_id != null) {
-        //     $rules['penghargaan_id'] = 'required';
-        //     $requestData['penghargaan_id'] = $request->penghargaan_id;
-        // }
 
         foreach (Kelas::all() as $kelas) {
             if ($request->tingkatan_kelas == $kelas->tingkatan && $request->jurusan_kelas == $kelas->jurusan && $request->urutan_kelas == $kelas->nama) {
@@ -97,34 +105,36 @@ class StudentController extends Controller
             }
         }
 
-        // foreach (RuleData::all() as $rule) {
-        //     if ($request->rule_data_id == $rule->id) {
-        //         $requestData['point'] = $rule->point;
-        //         $rules['point']  = 'required';
-        //     }
-        // }
-        // dd($requestData);
         $request->merge(['class_id' => $requestData['class_id']]);
         $request->merge(['point' => $requestData['point']]);
-        // $request->merge(['pelanggaran_id' => $requestData['pelanggaran_id']]);
-        // $request->merge(['penghargaan_id' => $requestData['penghargaan_id']]);
+
+        $validator = Validator::make($requestData, $rules);
+
+        if ($validator->fails()) {
+            return redirect(route('students.index'))->withErrors($validator);
+        }
+
+        // 3 Tahap
+        $validated = $validator->validate();
+
+        $student = Student::create($validated);
+
+        User::create([
+            'name' => $request->nama,
+            'username' => $request->nis,
+            'gender' => $request->jenis_kelamin,
+            'role' => 'siswa',
+            'email' => "$request->nis@gmail.com",
+            'password' => Hash::make($request->nis)
+        ]);
+
+        $user = User::where('username', $request->nis)->get()[0]->id;
+        $student->user_id = $user;
+        $student->save();
 
 
-        $validatedData = $request->validate($rules);
 
-        Student::create($validatedData);
-        // Student::pelanggarans()->attach([$request->pelanggaran_id]);
-        // $student = Student::where('id', $request->id)->get();
-        // dd(Student::where('id', $request->id)->get());
-        // if ($request->pelanggaran_id != null) {
-        //     $student->pelanggarans()->attach([$request->pelanggaran_id]);
-        // }
-        // if ($request->penghargaan_id != null) {
-        //     $student->penghargaans()->attach([$request->penghargaan_id]);
-        // }
-
-
-        $title = $validatedData['nama'];
+        $title = $request['nama'];
 
         return redirect(route('students.index'))->with('success', "Data Siswa <strong>$title</strong> berhasil <strong>ditambahkan</strong>!");
     }
@@ -206,9 +216,9 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        $title = $student->nama;
         Student::destroy($student->id);
 
-        $title = $student->nama;
-        return redirect(route('students.index'))->with('success', "Siswa <strong>$title</strong> telah <strong>dihapus!</strong>");
+        return redirect(route('students.index'))->with('success', "Siswa <strong>$title</strong> telah berhasil <strong>dihapus!</strong>");
     }
 }

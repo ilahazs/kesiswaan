@@ -2,15 +2,14 @@
 @section('heading-title', $title)
 @section('breadcrumb')
    <li class="breadcrumb-item">
-      <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
+      <a href="{{ route('dashboard.index') }}">Home</a>
    </li>
-   <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('pelanggaran.students.index') }}" class="text-decoration-none">Data Pelanggaran
+   <li class="breadcrumb-item">
+      <a href="{{ route('pelanggaran.students.index') }}">Data Pelanggaran
          Siswa</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('pelanggaran.students.edit', $student->id) }}"
-         class="text-decoration-none {{ Request::is('pelanggaran/students/' . $student->nis . '/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      {{ $title }}
    </li>
 @endsection
 @section('container')

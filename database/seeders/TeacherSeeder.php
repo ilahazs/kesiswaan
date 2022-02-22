@@ -18,7 +18,7 @@ class TeacherSeeder extends Seeder
             'nama' => 'Windah Basudara',
             // 'class_id' => 8,
             'nip' => '19860926',
-            'user_id' => 3,
+            'user_id' => 5,
         ]);
     }
 }

@@ -11,6 +11,7 @@
  */
 :root {
    /* --blue: #4e73df; */
+   --main-color: #2c2e3e;
    --blue: rgb(0, 20, 66);
    --indigo: #6610f2;
    --purple: #6f42c1;
@@ -2002,6 +2003,15 @@ select.form-control:focus::-ms-value {
    margin-bottom: 0;
    font-size: inherit;
    line-height: 1.5
+}
+
+.form-label, label, .modal-body>h4, .card-header {
+   color: #000;
+}
+
+.card-title {
+   color: rgb(60, 60, 60);
+
 }
 
 .col-form-label-lg {
@@ -5626,12 +5636,15 @@ a.close.disabled {
 }
 
 .modal-open {
-   overflow: hidden
+   overflow: hidden;
+   /* transition: all .5s ease-in; */
 }
 
 .modal-open .modal {
    overflow-x: hidden;
-   overflow-y: auto
+   overflow-y: auto;
+   /* transition: all .5s ease-in; */
+
 }
 
 .modal {
@@ -5654,7 +5667,10 @@ a.close.disabled {
 }
 
 .modal.fade .modal-dialog {
-   transition: transform .3s ease-out;
+   transition: transform .4s ease-out;
+   /* transition: all .5s ease-out; */
+   /*make it smooth*/
+
    transform: translate(0, -50px)
 }
 
@@ -5767,7 +5783,8 @@ a.close.disabled {
 
 .modal-title {
    margin-bottom: 0;
-   line-height: 1.5
+   line-height: 1.5;
+   color: #000;
 }
 
 .modal-body {
@@ -9767,7 +9784,7 @@ a.text-info:focus, a.text-info:hover {
 }
 
 .text-warning {
-   color: #f6c23e !important
+   color: #ffb700 !important
 }
 
 a.text-warning:focus, a.text-warning:hover {
@@ -10329,7 +10346,7 @@ a:focus {
 }
 
 .topbar .navbar-search {
-   width: 25rem
+   width: 45rem
 }
 
 .topbar .navbar-search input {
@@ -10614,6 +10631,14 @@ a:focus {
    margin: 0 1rem 1rem
 }
 
+.sidebar.toggled hr.sidebar-divider {
+   margin: 0 1rem 0
+}
+
+.sidebar.toggled .sidebar-toggle-btn {
+   margin-top: 1rem;
+}
+
 .sidebar .sidebar-heading {
    text-align: center;
    padding: 0 1rem;
@@ -10747,7 +10772,8 @@ a:focus {
       -webkit-animation-duration: .2s;
       animation-duration: .2s;
       -webkit-animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1);
-      animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1)
+      animation-timing-function: transform cubic-bezier(.18, 1.25, .4, 1), opacity cubic-bezier(0, 1, .4, 1);
+      transition: 1s;
    }
 
    .sidebar.toggled .nav-item .collapse .collapse-inner {
@@ -10799,7 +10825,7 @@ a:focus {
 
    .sidebar.toggled .nav-item .nav-link i {
       font-size: 1.7rem;
-      line-height: 1em;
+      line-height: 1.5em;
       vertical-align: -.2em;
    }
 
@@ -10827,6 +10853,7 @@ a:focus {
       text-align: center;
       font-weight: normal;
       display: none;
+      margin-bottom: 0%;
    }
 }
 

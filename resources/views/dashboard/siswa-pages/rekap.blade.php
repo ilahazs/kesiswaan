@@ -13,7 +13,7 @@
    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" type="text/css">
 
    @if (session('success'))
-      <div class="col-lg-11">
+      <div class="col-lg-12">
          <div class="alert alert-success alert-dismissible fade show" role="alert">
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             {!! session('success') !!}
@@ -21,7 +21,7 @@
       </div>
    @endif
 
-   <div class="table-responsive mt-3 col-lg-12  mb-4">
+   <div class="table-responsive mt-3 mb-4">
 
       <div class="card shadow-sm mb-2">
          <div class="card-body">
@@ -48,7 +48,7 @@
                   </tr>
                </thead>
                <tbody>
-                  @foreach ($pelanggarans as $pelanggaran)
+                  @foreach ($student->pelanggarans as $pelanggaran)
                      <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pelanggaran->nama }}</td>

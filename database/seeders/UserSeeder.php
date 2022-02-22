@@ -15,57 +15,60 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
+        // For user has role admin
         User::create([
             'name' => 'Admin',
             'username' => 'admin',
             'email' => 'admin@gmail.com',
-            'gender' => 'L',
             'role' => 'admin',
             'password' => Hash::make('admin'),
         ]);
         User::create([
-            'name' => 'Guru Bijak',
-            'username' => 'guru',
-            'gender' => 'L',
+            'name' => 'KS01',
+            'username' => 'ks01',
+            'email' => 'ks01@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
+        User::create([
+            'name' => 'BK01',
+            'username' => 'bk01',
+            'email' => 'bk01@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
+
+        User::create([
+            'name' => 'BK02',
+            'username' => 'bk02',
+            'email' => 'bk02@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('admin'),
+        ]);
+
+        // For user has role teacher
+        User::create([
+            'name' => 'WK01',
+            'username' => 'wk01',
             'role' => 'guru',
-            'email' => 'guru@gmail.com',
+            'email' => 'wk01@gmail.com',
             'password' => Hash::make('password')
         ]);
 
         User::create([
-            'name' => 'Windah Basudara',
-            'username' => 'windahbasudara',
-            'gender' => 'L',
+            'name' => 'WK02',
+            'username' => 'wk02',
+            'email' => 'wk02@gmail.com',
             'role' => 'guru',
-            'email' => '19860926@gmail.com',
-            'password' => Hash::make('password')
-        ]);
-
-
-
-        User::create([
-            'name' => 'Siswa hebat',
-            'username' => 'siswa',
-            'gender' => 'P',
-            'role' => 'siswa',
-            'email' => 'siswa@gmail.com',
             'password' => Hash::make('password')
         ]);
 
         User::create([
-            'name' => 'Ilham Prabu Zaky S',
-            'username' => 'ilhamprabuzakys',
-            'gender' => 'L',
-            'role' => 'siswa',
-            'email' => '1920118111@gmail.com',
+            'name' => 'WK03',
+            'username' => 'wk03',
+            'email' => 'wk03@gmail.com',
+            'role' => 'guru',
             'password' => Hash::make('password')
         ]);
-        // User::create([
-        //     'name' => 'Pengguna 3',
-        //     'username' => 'pengguna3',
-        //     'gender' => 'L',
-        //     'email' => 'pengguna3@gmail.com',
-        //     'password' => Hash::make('password')
-        // ]);
     }
 }

@@ -1,7 +1,5 @@
 @extends('dashboard.layouts.main')
-@section('heading-title', 'Dashboard')
-@section('container')
-
+@section('flash-message')
    @if (session('success'))
       <div class="col-lg-12">
          <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -11,6 +9,16 @@
          </div>
       </div>
    @endif
+@endsection
+@section('heading-title', 'Dashboard')
+@section('breadcrumb')
+   <li class="breadcrumb-item" aria-current="page">
+      {{ $title }}
+   </li>
+@endsection
+@section('container')
+
+
 
    <!-- Content Row -->
    <div class="row">

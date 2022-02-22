@@ -1,12 +1,20 @@
 @extends('dashboard.layouts.main')
 @section('heading-title', $title)
+@section('flash-message')
+   @if (session('success'))
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+         <button type="button" class="btn-close close" data-dismiss="alert" aria-label="Close"><span
+               aria-hidden="true">×</span></button>
+         {!! session('success') !!}
+      </div>
+   @endif
+@endsection
 @section('breadcrumb')
    <li class="breadcrumb-item">
       <a href="{{ route('dashboard.index') }}" class="text-decoration-none">Home</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('students.index') }}"
-         class="text-decoration-none {{ Request::is('students') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      {{ $title }}
    </li>
 @endsection
 @section('container')
@@ -15,24 +23,29 @@
    {{-- <link href="{{ asset('assets-niceadmin/css/style.css') }}" rel="stylesheet"> --}}
 
    <link href="{{ asset('assets-niceadmin/vendor/simple-datatables/style.css') }}" rel="stylesheet">
-
-
-   @if (session('success'))
-      <div class="col-lg-12">
-         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <button type="button" class="btn-close close" data-dismiss="alert" aria-label="Close"><span
-                  aria-hidden="true">×</span></button>
-            {!! session('success') !!}
-         </div>
-      </div>
-   @endif
+   <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
    <div class="card">
       <div class="card-body">
-         <div class="table-responsive mt-3 col-lg-12">
-            <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Create new student</a>
+         <div class="table-responsive my-3">
+            {{-- <a href="{{ route('students.create') }}" class="btn btn-primary mb-3">Create new student</a> --}}
+            <button type="button" class="btn btn-primary btn-new-data mb-3" data-toggle="modal"
+               data-target="#createDataStudent">
+               Tambah data
+               siswa <i class="fas fa-plus"></i></button>
+            @include('dashboard.students.modal.create')
 
-            <a href="{{ route('exportstudents') }}" class="btn btn-success mx-2 mb-3">Export Data Siswa</a>
+
+            @if (!empty($errors))
+               <script>
+                  $(function() {
+                     $('#createDataStudent').modal('show');
+                  });
+               </script>
+            @endif
+
+            <a href="{{ route('exportstudents') }}" class="btn btn-success btn-new-data mx-2 mb-3">Export Data Siswa</a>
 
             {{-- <div class="search-bar">
                <form class="search-form d-flex align-items-center" method="POST" action="#">
@@ -41,7 +54,7 @@
                </form>
             </div><!-- End Search Bar --> --}}
 
-            <table class="table table-bordered table-sm datatable" id="master-students">
+            <table class="table table-bordered able-responsive-md datatable" id="master-students">
                <thead>
                   <tr>
                      <th scope="col">#</th>
@@ -117,7 +130,7 @@
                         </td>
                         <td class="{{ $student->point >= 70 ? 'text-primary' : 'text-danger' }}">
                            {{ $student->poin_pelanggaran }}</td>
-                        <td>
+                        <td class="{{ $colorPenghargaan }}">
                            {{ $student->poin_penghargaan }}
                            {{-- @foreach ($student->pelanggarans as $pelanggaran)
                               {{ $pelanggaran->nama }}
@@ -137,7 +150,7 @@
                            </button>
                            @include('dashboard.students.modal.show')
                            <a href="{{ route('students.edit', $student->nis) }}"
-                              class="badge bg-success text-decoration-none text-white mx-2 py-2">
+                              class="badge bg-success text-decoration-none text-white mx-1 py-2">
                               <i class="las la-edit"
                                  style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
                            </a>
@@ -160,6 +173,15 @@
 
       </div>
    </div>
+
+
+   @if (!empty($errors))
+      <script>
+         $(function() {
+            $('#createDataStudent').modal('show');
+         });
+      </script>
+   @endif
 
    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" type="text/javascript"></script>
    <script>

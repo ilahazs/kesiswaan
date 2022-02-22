@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\KlasifikasiPenghargaan;
 use App\Models\Penghargaan;
 use Illuminate\Http\Request;
 
@@ -15,9 +16,11 @@ class PenghargaanController extends Controller
     public function index()
     {
         $penghargaans = Penghargaan::orderBy('updated_at', 'desc')->get();
+        $jenisKlasifikasi = KlasifikasiPenghargaan::get();
 
         return view('dashboard.penghargaan.index',  [
             'title' => 'Data Penghargaan',
+            'jenisKlasifikasi' => $jenisKlasifikasi
         ], compact('penghargaans'));
     }
 
@@ -28,10 +31,10 @@ class PenghargaanController extends Controller
      */
     public function create()
     {
-        $jenis = ['ringan', 'sedang', 'tinggi'];
-
+        $jenis = KlasifikasiPenghargaan::all();
         return view('dashboard.penghargaan.create', [
             'title' => 'Tambah Data Baru',
+            'jenis' => $jenis,
         ], compact('jenis'));
     }
 
@@ -46,36 +49,28 @@ class PenghargaanController extends Controller
         // dd($request->all());
         $rules = [
             'nama' => 'required',
-            'tingkatan' => 'required',
-            'poin' => 'required',
             'keterangan' => 'max:255',
         ];
 
-        // $requestData = $request->all();
-        // dd($requestData);
+        $requestData = $request->all();
 
-        // if ($request->jenis == 'ringan') {
-        //     $requestData['poin'] = 20;
-        //     $rules['poin'] = 'required';
-        // } elseif ($request->jenis == 'sedang') {
-        //     $requestData['poin'] = 30;
-        //     $rules['poin'] = 'required';
-        // } elseif ($request->jenis == 'tinggi') {
-        //     $requestData['poin'] = 50;
-        //     $rules['poin'] = 'required';
-        // }
+        foreach (KlasifikasiPenghargaan::all() as $klasifikasi) {
+            if ($request->jenis == $klasifikasi->jenis) {
+                $requestData['poin'] = $klasifikasi->poin;
+                $requestData['klasifikasi_id'] = $klasifikasi->id;
+                $rules['poin'] = 'required';
+                $rules['klasifikasi_id'] = 'required';
+            }
+        }
 
-
-        // $request->merge(['poin' => $requestData['poin']]);
+        $request->merge(['poin' => $requestData['poin']]);
+        $request->merge(['klasifikasi_id' => $requestData['klasifikasi_id']]);
         // return $request->all();
 
         $validatedData = $request->validate($rules);
-        // dd($validatedData);
 
         Penghargaan::create($validatedData);
         $title = $validatedData['nama'];
-
-
         toastr()->success("Data Penghargaan baru berhasil <strong>ditambahkan</strong>!");
         return redirect(route('penghargaan.index'));
     }
@@ -118,30 +113,30 @@ class PenghargaanController extends Controller
         // dd($request->jenis);
         $rules = [
             'nama' => 'required',
-            'keterangan' => 'required',
-            'poin' => 'required',
+            'keterangan' => 'max:255',
         ];
 
         $requestData = $request->all();
 
-        if ($request->jenis == 'ringan') {
-            $requestData['poin'] = 20;
-            $rules['poin'] = 'required';
-        } elseif ($request->jenis == 'sedang') {
-            $requestData['poin'] = 30;
-            $rules['poin'] = 'required';
-        } elseif ($request->jenis == 'tinggi') {
-            $requestData['poin'] = 50;
-            $rules['poin'] = 'required';
+        foreach (KlasifikasiPenghargaan::all() as $klasifikasi) {
+            if ($request->tingkatan == $klasifikasi->tingkatan) {
+                $requestData['poin'] = $klasifikasi->poin;
+                $requestData['klasifikasi_id'] = $klasifikasi->id;
+                $rules['poin'] = 'required';
+                $rules['klasifikasi_id'] = 'required';
+            }
         }
-        // dd($requestData);
+
+
         $request->merge(['poin' => $requestData['poin']]);
+        $request->merge(['klasifikasi_id' => $requestData['klasifikasi_id']]);
         // return $request->all();
+
         $validatedData = $request->validate($rules);
+
         Penghargaan::where('id', $penghargaan->id)->update($validatedData);
         $title = $penghargaan->nama;
-
-        toastr()->success("Data Penghargaan: <strong>$title</strong> berhasil <strong>diubah</strong>!");
+        toastr()->success("Data penghargaan <strong>$title</strong> berhasil <strong>diubah</strong>!");
         return redirect(route('penghargaan.index'));
     }
 

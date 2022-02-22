@@ -130,7 +130,7 @@
                                  style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
                            </button>
                            @include('dashboard.students.modal.show')
-                           <a href="https://wa.me/6285162783743" target="_blank" class="mx-2"><img
+                           <a href="https://wa.me/{{ $student->notelp }}" target="_blank" class="mx-2"><img
                                  src="{{ asset('img/wa2.png') }}" class="img-fluid" alt="wa" width="30px"></a>
                            {{-- <a href="{{ route('students.edit', $student->nis) }}"
                         class="badge bg-success text-decoration-none text-white mx-2">

@@ -12,7 +12,6 @@
    <title>{{ config('app.name') }} | {{ __('Dashboard') }}</title>
 
    <!-- Custom fonts for this template-->
-   <link href="{{ asset('assets/line-awesome/css/line-awesome.min.css') }}" rel="stylesheet" type="text/css">
    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/all.min.css') }}">
    <link
       href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
@@ -21,6 +20,9 @@
       href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
       rel="stylesheet">
    {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
+   <link rel="stylesheet" href="{{ asset('assets/line-awesome/css/line-awesome.min.css') }}">
+   {{-- <link rel="stylesheet" href="path/to/line-awesome/css/line-awesome-font-awesome.min.css"> --}}
+
    <link rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
    <link rel="icon" href="{{ asset('img/logo-smkn4bdg.png') }}">
@@ -35,7 +37,12 @@
          opacity: .9;
       }
 
+      .btn-new-data {
+         margin: 0 0 1px 10px;
+      }
+
    </style>
+   <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 
 <body id="page-top">
@@ -65,6 +72,18 @@
                   <h1 class="h3 mb-0 text-gray-800">@yield('heading-title')</h1>
                   <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                         class="fas fa-download fa-sm text-white-50"></i> Simpan PDF</a>
+               </div>
+
+               @yield('flash-message')
+
+               {{-- Breadcrumb --}}
+               <div class="x-breadcrumb">
+                  <nav aria-label="breadcrumb">
+                     <ol class="breadcrumb bg-white shadow-sm">
+                        @yield('breadcrumb')
+
+                     </ol>
+                  </nav>
                </div>
 
                @yield('container')
@@ -102,7 +121,7 @@
    <!-- Bootstrap core JavaScript-->
    <script src="{{ asset('assets/vendor/jquery/jquery.min.js') }}"></script>
    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+   {{-- <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> --}}
 
    <!-- Core plugin JavaScript-->
    <script src="{{ asset('assets/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
