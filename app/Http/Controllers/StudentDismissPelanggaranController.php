@@ -33,7 +33,7 @@ class StudentDismissPelanggaranController extends Controller
             for ($i = 0; $i < count($request->pelanggaran); $i++) {
                 $pelanggaranDapat = Pelanggaran::where('id', $request->pelanggaran[$i])->get();
                 foreach ($pelanggaranDapat as $p) {
-                    $student->poin_pelanggaran += $p->poin;
+                    $student->poin_pelanggaran += $p->klasifikasi->poin;
                     if ($student->poin_pelanggaran < 0) {
                         $student->poin_pelanggaran = 0;
                     }
@@ -70,7 +70,7 @@ class StudentDismissPelanggaranController extends Controller
             for ($i = 0; $i < count($request->penghargaan); $i++) {
                 $penghargaanDapat = Pelanggaran::where('id', $request->penghargaan[$i])->get();
                 foreach ($penghargaanDapat as $p) {
-                    $student->poin_penghargaan += $p->poin;
+                    $student->poin_penghargaan += $p->klasifikasi->poin;
                     if ($student->poin_penghargaan < 0) {
                         $student->poin_penghargaan = 0;
                     }

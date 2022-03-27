@@ -70,5 +70,13 @@ class UserSeeder extends Seeder
             'role' => 'guru',
             'password' => Hash::make('password')
         ]);
+
+        User::create([
+            'name' => 'Windah Basudara',
+            'username' => '1920110999',
+            'email' => '1920110999@gmail.com',
+            'role' => 'guru',
+            'password' => Hash::make('1920110999')
+        ]);
     }
 }

@@ -28,7 +28,7 @@
             data-toggle="modal" data-target="#createPelanggaran">
             Tambah data pelanggaran
          </button>
-         <a href="{{ route('klasifikasi-pelanggaran.index') }}" class="btn btn-outline-success btn-new-data">Ubah
+         <a href="{{ route('klasifikasi-pelanggaran.index') }}" class="btn btn-success btn-new-data">Ubah
             Klasifikasi</a>
          <div class="table-responsive mt-3 col-lg-12">
 

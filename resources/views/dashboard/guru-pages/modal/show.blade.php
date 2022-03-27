@@ -42,7 +42,7 @@
                            </div>
                            <div class="col-md-6">
                               <input type="text" disabled readonly class="form-control bg-white {{ $colorPoint }}"
-                                 id="staticEmail" value="{{ $pelanggaran->poin }}">
+                                 id="staticEmail" value="{{ $pelanggaran->klasifikasi->poin }}">
                            </div>
                         </div>
                         <div class="mb-3 row">

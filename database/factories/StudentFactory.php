@@ -24,6 +24,7 @@ class StudentFactory extends Factory
             'class_id' => mt_rand(1, 54),
             'nama' => $this->faker->name(),
             'nis' => $this->faker->unique()->bothify('192011####'),
+            'notelp' => $this->faker->numerify('081##########'),
             'jenis_kelamin' => $this->faker->randomElement(['L', 'P']),
             'poin_penghargaan' => 0,
             'poin_penghargaan' => 0,

@@ -31,7 +31,7 @@ class User extends Authenticatable
         'last_login_ip',
     ]; */
     protected $guarded = ['id'];
-    protected $load = ['author', 'category'];
+    protected $load = ['laporans'];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,9 +52,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function authenticated(Request $request, $user)
-    {
-    }
+    // public function authenticated(Request $request, $user)
+    // {
+    // }
 
     public function hasRole($role)
     {
@@ -68,5 +68,10 @@ class User extends Authenticatable
     public function address()
     {
         return $this->hasOne(Address::class, 'user_id', 'id');
+    }
+
+    public function laporans()
+    {
+        return $this->hasMany(Laporan::class);
     }
 }

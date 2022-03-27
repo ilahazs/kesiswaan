@@ -3,6 +3,7 @@
 use App\Http\Controllers\DashboardContoller;
 use App\Http\Controllers\KlasifikasiPelanggaranController;
 use App\Http\Controllers\KlasifikasiPenghargaanController;
+use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PelanggaranController;
 use App\Http\Controllers\PenghargaanController;
@@ -28,6 +29,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('index', ['title' => 'Home']);
 })->name('index');
+
+Route::get('/chart', function () {
+    return view('dashboard.chartbar', ['title' => 'Home']);
+})->name('chart');
+
+
 
 Route::get('/about', function () {
     return view('about', ['title' => 'About']);
@@ -57,8 +64,10 @@ Route::get('/dashboard/', function () {
     ]);
 })->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard/', [DashboardContoller::class, 'index'])->name('dashboard.index');
+    Route::resource('/laporan', LaporanController::class);
 
 
 
@@ -179,54 +188,11 @@ Route::middleware([Siswa::class, 'auth'])->group(function () {
 
 Route::middleware([Guru::class, 'auth'])->group(function () {
     /* Khusus untuk role siswa */
-    Route::get('/guru/rekap', function () {
-        $k = '';
-        $guru = '';
-        foreach (Teacher::all() as $teacher) {
-            if ($teacher->user_id == Auth::user()->id) {
-                $guru = $teacher;
-            }
-        }
-        // dd($guru->nama);
-        foreach (Kelas::all() as $kelas) {
-            if ($kelas->teacher_id != null && $kelas->teacher_id == $guru->id) {
-                $k = $kelas;
-            }
-        }
+    Route::get('/guru/rekap_pdf', [TeacherController::class, 'rekap_pdf'])->name('rekappdf');
+    Route::get('/guru/viewrekap_pdf', [TeacherController::class, 'viewrekap_pdf'])->name('viewrekappdf');
 
-        $students = Student::where('class_id', $k->id)->get();
-
-        // Student::where('id', 7)->update([
-        //     'notelp' => '081324086956'
-        // ]);
-
-        return view('dashboard.guru-pages.rekap', [
-            'title' => 'Data Kelasku',
-            'students' => $students,
-            // 'pelanggarans' => $pelanggarans,
-        ]);
-    })->name('guru.rekap');
-
-    Route::get('/guru', function () {
-        $k = '';
-        $guru = '';
-        foreach (Teacher::all() as $teacher) {
-            if ($teacher->user_id == Auth::user()->id) {
-                $guru = $teacher;
-            }
-        }
-        // dd($guru->nama);
-        foreach (Kelas::all() as $kelas) {
-            if ($kelas->teacher_id != null && $kelas->teacher_id == $guru->id) {
-                $k = $kelas;
-            }
-        }
-        return view('dashboard.guru-pages.guru', [
-            'title' => 'Data Guru',
-            'guru' => $guru,
-            'kelas' => $k
-        ]);
-    })->name('guru.index');
+    Route::get('/guru/rekap',  [TeacherController::class, 'rekap_kelas'])->name('guru.rekap');
+    Route::get('/guru',  [TeacherController::class, 'index'])->name('guru.index');
 
     Route::get('exportkelas', [TeacherController::class, 'export_students_kelas'])->name('exportkelas');
 });

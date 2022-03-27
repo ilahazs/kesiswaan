@@ -61,7 +61,7 @@
                         </div>
                         <div class="mb-3 row">
                            <div class="col-md-5">
-                              <label for="staticEmail" class="col-form-label">Poin Pelanggaran</label>
+                              <label for="staticEmail" class="col-form-label">Poin Total</label>
                            </div>
                            <div class="col-md-1 mt-1">
                               <label>:</label>
@@ -69,7 +69,19 @@
                            <div class="col-md-6">
                               <input type="text" disabled readonly
                                  class="form-control bg-white {{ $colorPelanggaran }}" id="staticEmail"
-                                 value="{{ $student->poin_pelanggaran }}">
+                                 value="{{ $student->poin_total }}">
+                           </div>
+                        </div>
+                        <div class="mb-3 row">
+                           <div class="col-md-5">
+                              <label for="staticEmail" class="col-form-label">Poin Pelanggaran</label>
+                           </div>
+                           <div class="col-md-1 mt-1">
+                              <label>:</label>
+                           </div>
+                           <div class="col-md-6">
+                              <input type="text" disabled readonly class="form-control bg-white text-danger"
+                                 id="staticEmail" value="{{ $student->poin_pelanggaran }}">
                            </div>
                         </div>
                         <div class="mb-3 row">
@@ -145,13 +157,13 @@
                                  $jenis = '';
                                  $colorPelanggaran = '';
                                  
-                                 if ($pelanggaran->poin <= 20) {
+                                 if ($pelanggaran->klasifikasi->poin <= 20) {
                                      $colorPelanggaran = 'success';
                                      $jenis = 'ringan';
-                                 } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
+                                 } elseif ($pelanggaran->klasifikasi->poin <= 30 && $pelanggaran->klasifikasi->poin >= 21) {
                                      $colorPelanggaran = 'warning';
                                      $jenis = 'sedang';
-                                 } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
+                                 } elseif ($pelanggaran->klasifikasi->poin <= 50 && $pelanggaran->klasifikasi->poin >= 31) {
                                      $colorPelanggaran = 'danger';
                                      $jenis = 'berat';
                                  } else {
@@ -165,7 +177,7 @@
                                     <span
                                        class="badge bg-secondary badge-pill text-white">{{ $student->updated_at->diffForHumans() }}</span>
                                     <span
-                                       class="badge bg-{{ $colorPelanggaran }} badge-pill text-white">{{ $pelanggaran->poin }}</span>
+                                       class="badge bg-{{ $colorPelanggaran }} badge-pill text-white">{{ $pelanggaran->klasifikasi->poin }}</span>
                                  </div>
                               </li>
                            @empty

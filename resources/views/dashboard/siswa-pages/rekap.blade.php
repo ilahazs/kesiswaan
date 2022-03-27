@@ -28,7 +28,7 @@
             <div class="d-flex justify-content-between align-items-center">
                <h5>Data Pelanggaran</h5>
                <div class="justify-content-end">
-                  <a href="{{ route('siswa.rekap') }}" class="btn btn-success">
+                  <a href="{{ route('siswa.shop') }}" class="btn btn-success">
                      <i class="fas fa-shopping-cart me-2"></i>
                      Kunjungi shop poin</a>
                </div>
@@ -57,13 +57,13 @@
                               $jenis = '';
                               $colorPoint = '';
                               
-                              if ($pelanggaran->poin <= 20) {
+                              if ($pelanggaran->klasifikasi->poin <= 20) {
                                   $colorPoint = 'text-success';
                                   $jenis = 'ringan';
-                              } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
+                              } elseif ($pelanggaran->klasifikasi->poin <= 30 && $pelanggaran->klasifikasi->poin >= 21) {
                                   $colorPoint = 'text-warning';
                                   $jenis = 'sedang';
-                              } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
+                              } elseif ($pelanggaran->klasifikasi->poin <= 50 && $pelanggaran->klasifikasi->poin >= 31) {
                                   $colorPoint = 'text-danger';
                                   $jenis = 'berat';
                               } else {
@@ -71,9 +71,9 @@
                                   $jenis = 'error';
                               }
                            @endphp
-                           <span class="{{ $colorPoint }}">{{ $pelanggaran->poin }}</span>
+                           <span class="{{ $colorPoint }}">{{ $pelanggaran->klasifikasi->poin }}</span>
                         </td>
-                        <td>{{ $pelanggaran->keterangan }}</td>
+                        <td>{{ $pelanggaran->klasifikasi->keterangan }}</td>
                         <td>{{ $student->updated_at->diffForHumans() }}</td>
 
 
@@ -81,10 +81,11 @@
                            <div class="d-flex align-items-center justify-content-center h-100">
 
                               <button type="button" class="badge bg-primary border-0 text-decoration-none text-white me-3"
-                                 data-bs-toggle="modal" data-bs-target="#DetailPelanggaran{{ $pelanggaran->id }}">
+                                 data-toggle="modal" data-target="#DetailPelanggaran{{ $pelanggaran->id }}">
                                  <i class="las la-eye"
                                     style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
                               </button>
+
                               @include('dashboard.siswa-pages.modal.show')
                            </div>
                         </td>
@@ -124,13 +125,13 @@
                               $jenis = '';
                               $colorPoint = '';
                               
-                              if ($penghargaan->poin <= 20) {
+                              if ($penghargaan->klasifikasi->poin <= 20) {
                                   $colorPoint = 'text-success';
                                   $jenis = 'ringan';
-                              } elseif ($penghargaan->poin <= 30 && $penghargaan->poin >= 21) {
+                              } elseif ($penghargaan->klasifikasi->poin <= 30 && $penghargaan->klasifikasi->poin >= 21) {
                                   $colorPoint = 'text-warning';
                                   $jenis = 'sedang';
-                              } elseif ($penghargaan->poin <= 50 && $penghargaan->poin >= 31) {
+                              } elseif ($penghargaan->klasifikasi->poin <= 50 && $penghargaan->klasifikasi->poin >= 31) {
                                   $colorPoint = 'text-danger';
                                   $jenis = 'berat';
                               } else {
@@ -138,7 +139,7 @@
                                   $jenis = 'error';
                               }
                            @endphp
-                           <span class="{{ $colorPoint }}">{{ $penghargaan->poin }}</span>
+                           <span class="{{ $colorPoint }}">{{ $penghargaan->klasifikasi->poin }}</span>
                         </td>
                         <td>{{ $penghargaan->keterangan }}</td>
                         <td>{{ $student->updated_at->diffForHumans() }}</td>
@@ -148,7 +149,7 @@
                            <div class="d-flex align-items-center justify-content-center h-100">
 
                               <button type="button" class="badge bg-primary border-0 text-decoration-none text-white"
-                                 data-bs-toggle="modal" data-bs-target="#DetailPenghargaan{{ $penghargaan->id }}">
+                                 data-toggle="modal" data-target="#DetailPenghargaan{{ $penghargaan->id }}">
                                  <span data-feather="eye"></span>
                               </button>
                               @include('dashboard.siswa-pages.modal.show2')

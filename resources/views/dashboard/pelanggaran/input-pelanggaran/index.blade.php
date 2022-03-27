@@ -96,7 +96,8 @@
                               <select class="form-control form-control-sm" name="rekap_pelanggaran" id="rekap_pelanggaran">
                                  <option disabled selected>List pelanggaran</option>
                                  @foreach ($student->pelanggarans as $pelanggaran)
-                                    <option disabled>{{ $pelanggaran->nama . ' | ' . $pelanggaran->poin }}</option>
+                                    <option disabled>{{ $pelanggaran->nama . ' | ' . $pelanggaran->klasifikasi->poin }}
+                                    </option>
                                  @endforeach
                               </select>
                            </div>

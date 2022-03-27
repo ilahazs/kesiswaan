@@ -51,7 +51,7 @@
                                        <label>:</label>
                                     </div>
                                     <div class="col-md-6">
-                                       <select class="form-control" name="jenis" id="jenis">
+                                       <select class="form-control" name="tingkatan" id="jenis">
                                           <option disabled selected>Select Jenis</option>
                                           @foreach ($jenisKlasifikasi as $j)
                                              @if (old('jenis', $penghargaan->klasifikasi->tingkatan) === $j->tingkatan)

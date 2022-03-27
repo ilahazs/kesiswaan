@@ -1,11 +1,11 @@
 <!-- Modal -->
 
-<div class="modal fade text-left" id="createTeacher" data-backdrop="static" data-keyboard="false" tabindex="-1"
-   aria-labelledby="createTeacherLabel" aria-hidden="true">
+<div class="modal fade text-left" id="tambahGuru" data-backdrop="static" data-keyboard="false" tabindex="-1"
+   aria-labelledby="tambahGuruLabel" aria-hidden="true">
    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
          <div class="modal-header">
-            <h5 class="modal-title" id="createTeacherLabel">{{ __('Tambah Data Waka') }}
+            <h5 class="modal-title" id="tambahGuruLabel">{{ __('Tambah Data Waka') }}
             </h5>
             <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                <span aria-hidden="true">×</span>
@@ -146,26 +146,3 @@
       </div>
    </div>
 </div>
-
-
-@if (!empty($errors))
-   <script>
-      // $(function() {
-      //    $('#editTeacher').modal('show');
-      // });
-
-      $(document).ready(function() {
-         $("#createTeacher").modal('show');
-         // $('.create-btn').click(function(e) {
-         //    e.preventDefault();
-         //    $("#modalCreate").modal('show');
-
-         // });
-
-         // function create(e) {
-         //    e.preventDefault();
-         //    $("#modalCreate").modal('show');
-         // }
-      });
-   </script>
-@endif

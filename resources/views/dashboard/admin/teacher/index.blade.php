@@ -22,9 +22,11 @@
    <div class="card card-shadow mb-5" style="border-radius: 25px">
       <div class="card-body" style="background-color: white">
          <button type="button" class="btn bg-primary btn-new-data border-0 text-decoration-none text-white"
-            data-toggle="modal" data-target="#createTeacher">
+            data-toggle="modal" data-target="#tambahGuru">
             Tambah data wakel
          </button>
+         @include('dashboard.admin.teacher.modal.create')
+
          <div class="table-responsive mt-3 col-lg-12">
             <table class="table table-responsive-lg">
                <thead>
@@ -37,7 +39,7 @@
                   </tr>
                </thead>
                <tbody>
-                  @foreach ($teachers as $teacher)
+                  @forelse ($teachers as $teacher)
                      <tr>
                         <th scope="row">{{ $loop->iteration }}</th>
                         <td>{{ $teacher->nama }}</td>
@@ -84,12 +86,20 @@
                                     style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
                            </form>
                         </td>
-                        @include('dashboard.admin.teacher.modal.show')
-                        @include('dashboard.admin.teacher.modal.create')
-                        @include('dashboard.admin.teacher.modal.edit')
+
 
                      </tr>
-                  @endforeach
+
+                     @include('dashboard.admin.teacher.modal.show')
+                     @include('dashboard.admin.teacher.modal.edit')
+                  @empty
+               <tbody class="text-center">
+                  <td>
+                     <h3>Data masih kosong</h3>
+
+                  </td>
+               </tbody>
+               @endforelse
                </tbody>
             </table>
          </div>

@@ -114,13 +114,13 @@
                                  $jenis = '';
                                  $color = '';
                                  
-                                 if ($pelanggaran->poin <= 20) {
+                                 if ($pelanggaran->klasifikasi->poin <= 20) {
                                      $color = 'success';
                                      $jenis = 'ringan';
-                                 } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
+                                 } elseif ($pelanggaran->klasifikasi->poin <= 30 && $pelanggaran->klasifikasi->poin >= 21) {
                                      $color = 'warning';
                                      $jenis = 'sedang';
-                                 } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
+                                 } elseif ($pelanggaran->klasifikasi->poin <= 50 && $pelanggaran->klasifikasi->poin >= 31) {
                                      $color = 'danger';
                                      $jenis = 'berat';
                                  } else {
@@ -134,7 +134,7 @@
                                     <span
                                        class="badge bg-secondary badge-pill my-1 text-white">{{ $student->updated_at->diffForHumans() }}</span>
                                     <span
-                                       class="badge bg-{{ $color }} badge-pill my-1 text-white">{{ $pelanggaran->poin }}</span>
+                                       class="badge bg-{{ $color }} badge-pill my-1 text-white">{{ $pelanggaran->klasifikasi->poin }}</span>
                                  </div>
                               </li>
                            @empty

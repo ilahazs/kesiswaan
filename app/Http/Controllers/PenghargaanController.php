@@ -63,6 +63,7 @@ class PenghargaanController extends Controller
             }
         }
 
+        // dd($requestData);
         $request->merge(['poin' => $requestData['poin']]);
         $request->merge(['klasifikasi_id' => $requestData['klasifikasi_id']]);
         // return $request->all();
@@ -110,7 +111,7 @@ class PenghargaanController extends Controller
      */
     public function update(Request $request, Penghargaan $penghargaan)
     {
-        // dd($request->jenis);
+        // dd($request->tingkatan);
         $rules = [
             'nama' => 'required',
             'keterangan' => 'max:255',
@@ -119,7 +120,9 @@ class PenghargaanController extends Controller
         $requestData = $request->all();
 
         foreach (KlasifikasiPenghargaan::all() as $klasifikasi) {
-            if ($request->tingkatan == $klasifikasi->tingkatan) {
+            if ($klasifikasi->tingkatan == request('tingkatan')) {
+                // dd($request->tingkatan == $klasifikasi->tingkatan);
+                // dd('sama');
                 $requestData['poin'] = $klasifikasi->poin;
                 $requestData['klasifikasi_id'] = $klasifikasi->id;
                 $rules['poin'] = 'required';

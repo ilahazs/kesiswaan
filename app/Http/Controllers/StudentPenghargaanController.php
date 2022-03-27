@@ -90,7 +90,8 @@ class StudentPenghargaanController extends Controller
         for ($i = 0; $i < count($request->penghargaan); $i++) {
             $penghargaanDapat = Penghargaan::where('id', $request->penghargaan[$i])->get();
             foreach ($penghargaanDapat as $p) {
-                $student->poin_penghargaan += $p->poin;
+                $student->poin_penghargaan += $p->klasifikasi->poin;
+                $student->poin_total += $p->klasifikasi->poin;
             }
         }
         $student->save();

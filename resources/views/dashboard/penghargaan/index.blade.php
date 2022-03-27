@@ -44,7 +44,7 @@
                   if ($penghargaan->poin > 0 ) {
                      $colorPoint = 'text-success';
                   } else {
-                     $colorPoint = 'text-secondary';
+                     $colorPoint = 'text-success';
                   }
                   @endphp">
                            <strong>{{ $penghargaan->klasifikasi->tingkatan }}</strong>
@@ -70,12 +70,6 @@
                               <i class="las la-edit"
                                  style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
                            </button>
-
-                           {{-- <a href="{{ route('penghargaan.edit', $penghargaan->id) }}"
-                              class="badge bg-success text-decoration-none text-white mx-1 py-2">
-                              <i class="las la-edit"
-                                 style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
-                           </a> --}}
 
                            <form action="{{ route('penghargaan.destroy', $penghargaan->id) }}" method="POST">
                               @method('delete')

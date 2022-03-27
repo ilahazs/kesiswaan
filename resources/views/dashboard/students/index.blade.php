@@ -54,13 +54,14 @@
                </form>
             </div><!-- End Search Bar --> --}}
 
-            <table class="table table-bordered able-responsive-md datatable" id="master-students">
+            <table class="table table-bordered table-responsive-md datatable" id="master-students">
                <thead>
                   <tr>
                      <th scope="col">#</th>
                      <th scope="col">Nama</th>
                      <th scope="col">NIS</th>
                      <th scope="col">Kelas</th>
+                     <th scope="col">Poin</th>
                      <th scope="col">Pelanggaran</th>
                      <th scope="col">Penghargaan</th>
                      <th scope="col">Updated</th>
@@ -71,7 +72,8 @@
                   @foreach ($students as $student)
                      <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $student->nama }}</td>
+                        <td><a href="{{ route('students.show', $student->nis) }}" class="text-decoration-underline"
+                              style="color: rgb(95, 95, 95)">{{ $student->nama }}</a></td>
                         <td>{{ $student->nis }}</td>
                         @php
                            $romawiTingkatan = '';
@@ -128,7 +130,9 @@
 
                            {{ $concatKelas }}
                         </td>
-                        <td class="{{ $student->point >= 70 ? 'text-primary' : 'text-danger' }}">
+                        <td class="{{ $student->poin_total >= 3000 ? 'text-success' : 'text-warning' }}">
+                           {{ $student->poin_total }}</td>
+                        <td class="{{ $student->point >= 70 ? 'text-danger' : 'text-danger' }}">
                            {{ $student->poin_pelanggaran }}</td>
                         <td class="{{ $colorPenghargaan }}">
                            {{ $student->poin_penghargaan }}

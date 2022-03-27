@@ -17,6 +17,48 @@
    <link rel="icon" href="{{ asset('img/logo-smkn4bdg.png') }}">
 
    <style>
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus,
+      textarea:-webkit-autofill,
+      textarea:-webkit-autofill:hover,
+      textarea:-webkit-autofill:focus,
+      select:-webkit-autofill,
+      select:-webkit-autofill:hover,
+      select:-webkit-autofill:focus {
+         border: 1px solid rgb(0, 140, 175);
+         -webkit-text-fill-color: rgb(255, 255, 255);
+         -webkit-box-shadow: 0 0 0px 1000px #3b426a inset;
+         transition: background-color 5000s ease-in-out 0s;
+      }
+
+      label:-webkit-autofill,
+      label:-webkit-autofill:hover,
+      label:-webkit-autofill:focus {
+         color: white;
+         -webkit-text-fill-color: rgb(255, 255, 255);
+
+      }
+
+      /* input:-webkit-autofill::first-line {
+         font: 400 15px/18px 'SourceSansPro', sans-serif;
+         color: white;
+      } */
+
+      .form-floating>.form-control:-webkit-autofill~label {
+         /* opacity: 1; */
+         color: rgb(184, 184, 184);
+         transform: scale(.85) translateY(-.5rem) translateX(.15rem)
+      }
+
+      .form-floating>.form-control:-webkit-autofill {
+         border: 1px solid rgb(0, 42, 82);
+      }
+
+
+
+
+
       .bd-placeholder-img {
          font-size: 1.125rem;
          text-anchor: middle;
@@ -25,11 +67,12 @@
          user-select: none;
       }
 
+      /*
       input:-webkit-autofill {
          background-color: #202f6b !important;
          background-image: none !important;
          color: #000000 !important;
-      }
+      } */
 
       @media (min-width: 768px) {
          .bd-placeholder-img-lg {
@@ -50,7 +93,7 @@
          padding-bottom: 40px;
          /* background-color: #f5f5f5; */
          /* background-image: url('../../public/img/background-auth.jpg'); */
-         background-image: url('{{ asset('img/bg-auth.jpg') }}');
+         background-image: url('{{ asset('img/background-auth.jpeg') }}');
          background-repeat: no-repeat;
          background-attachment: fixed;
          background-size: cover;
@@ -135,12 +178,6 @@
 
       .form-signin .form-floating:focus label {
          color: rgb(0, 0, 0);
-      }
-
-      .form-floating>.form-control:-webkit-autofill~label {
-         /* opacity: 1; */
-         color: #000000;
-         transform: scale(.85) translateY(-.5rem) translateX(.15rem)
       }
 
 
@@ -256,8 +293,7 @@
 
    <main class="form-signin">
       <a href="{{ route('index') }}">
-         <img class="mb-4" src="{{ asset('img/logo-smkn4bdg.png') }}" alt="Logo SMKN 4 Bandung" width="120"
-            height="120">
+         <img class="mb-4" src="{{ asset('img/logo-smkn4bdg.png') }}" alt="Logo SMKN 4 Bandung" width="120" height="120">
       </a>
       <h1 class="h3 mb-2 fw-normal text-white">{{ $title }}</h1>
 

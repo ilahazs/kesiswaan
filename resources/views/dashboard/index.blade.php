@@ -20,6 +20,8 @@
 
 
 
+
+
    <!-- Content Row -->
    <div class="row">
 
@@ -76,7 +78,7 @@
          </div>
       </div> --}}
 
-      <!-- Earnings (Monthly) Card Example -->
+      {{-- <!-- Earnings (Monthly) Card Example -->
       <div class="col-xl-3 col-md-6 mb-4">
          <div class="card border-left-info shadow h-100 py-2">
             <div class="card-body">
@@ -102,7 +104,7 @@
                </div>
             </div>
          </div>
-      </div>
+      </div> --}}
 
       <!-- Pending Requests Card Example -->
       <div class="col-xl-3 col-md-6 mb-4">
@@ -123,9 +125,77 @@
       </div>
    </div>
 
+
+   <div class="panel card">
+      <div id="chartPelangaran">
+      </div>
+   </div>
+
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   <script src="https://code.highcharts.com/highcharts.js"></script>
+   <script>
+      Highcharts.chart('chartPelangaran', {
+         chart: {
+            type: 'column'
+         },
+         title: {
+            text: 'Statistik Pelanggaran & Penghargaan'
+         },
+         subtitle: {
+            text: 'Pelanggaran & Penghargaan Siswa Perbulan'
+         },
+         xAxis: {
+            categories: [
+               'Jan',
+               'Feb',
+               'Mar',
+               'Apr',
+               'May',
+               // 'Jun',
+               // 'Jul',
+               // 'Aug',
+               // 'Sep',
+               // 'Oct',
+               // 'Nov',
+               // 'Dec'
+            ],
+            crosshair: true
+         },
+         yAxis: {
+            min: 0,
+            title: {
+               text: 'Jumlah data (item)'
+            }
+         },
+         tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            // pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+            //    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+         },
+         plotOptions: {
+            column: {
+               pointPadding: 0.2,
+               borderWidth: 0
+            }
+         },
+         series: [{
+            name: 'Pelanggaran',
+            data: [100.9, 71.5, 106.4, 129.2, 144.0]
+
+         }, {
+            name: 'Penghargaan',
+            data: [83.6, 78.8, 98.5, 93.4, 106.0]
+
+         }]
+      });
+   </script>
    <!-- Content Row -->
 
-   <div class="row">
+   {{-- <div class="row">
 
       <!-- Area Chart -->
       <div class="col-xl-8 col-lg-7">
@@ -349,7 +419,10 @@
          </div>
 
       </div>
-   </div>
+   </div> --}}
+
+
+
 
 
 

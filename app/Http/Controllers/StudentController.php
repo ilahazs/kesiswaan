@@ -66,13 +66,11 @@ class StudentController extends Controller
         $urutan = [1, 2, 3];
         $data_pelanggaran = Pelanggaran::all();
         $data_penghargaan = Penghargaan::all();
-        $tipeRule = ['Pelanggaran', 'Penghargaan'];
 
         return view('dashboard.students.create', [
             'title' => 'Tambahkan Siswa Baru',
             'tingkatan' => $tingkatan,
             'jurusan' => $jurusan,
-            'tipe_rule' => $tipeRule,
             'urutan' => $urutan,
             'classes' => Kelas::all(),
         ], compact('data_pelanggaran', 'data_penghargaan'));
@@ -147,7 +145,28 @@ class StudentController extends Controller
      */
     public function show(Student $student)
     {
-        //
+        $colorPelanggaran = '';
+
+        if ($student->poin_pelanggaran <= 20) {
+            $colorPelanggaran = 'text-success';
+            $jenis = 'ringan';
+        } elseif ($student->poin_pelanggaran <= 30 && $student->poin_pelanggaran >= 21) {
+            $colorPelanggaran = 'text-warning';
+            $jenis = 'sedang';
+        } elseif ($student->poin_pelanggaran <= 50 && $student->poin_pelanggaran >= 31) {
+            $colorPelanggaran = 'text-danger';
+            $jenis = 'berat';
+        } else {
+            $colorPelanggaran = 'text-danger';
+            $jenis = 'error';
+        }
+        $colorPenghargaan = 'text-success';
+
+        return view('dashboard.students.show', [
+            'title' => 'Detail Siswa',
+            'colorPelanggaran' => $colorPelanggaran,
+            'colorPenghargaan' => $colorPenghargaan,
+        ], compact('student'));
     }
 
     /**
@@ -219,6 +238,7 @@ class StudentController extends Controller
         $title = $student->nama;
         Student::destroy($student->id);
 
-        return redirect(route('students.index'))->with('success', "Siswa <strong>$title</strong> telah berhasil <strong>dihapus!</strong>");
+        toastr()->success("Data Siswa $title berhasil <strong>dihapus</strong>!");
+        return redirect(route('students.index'));
     }
 }

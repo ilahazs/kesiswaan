@@ -1,7 +1,7 @@
 <!-- Modal -->
 
-<div class="modal fade text-left" id="DetailPelanggaran{{ $pelanggaran->id }}" data-bs-backdrop="static"
-   data-bs-keyboard="false" tabindex="-1" aria-labelledby="DetailPelanggaran{{ $pelanggaran->id }}Label"
+<div class="modal fade text-left" id="DetailPelanggaran{{ $pelanggaran->id }}" data-backdrop="static"
+   data-keyboard="false" tabindex="-1" aria-labelledby="DetailPelanggaran{{ $pelanggaran->id }}Label"
    aria-hidden="true">
    <div class="modal-dialog modal-lg modal-dialog-scrollable">
       <div class="modal-content">
@@ -9,11 +9,11 @@
             <h5 class="modal-title" id="DetailPelanggaran{{ $pelanggaran->id }}Label">
                {{ __('Detail Pelanggaranku') }}
             </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">×</span>
+            </button>
          </div>
          <div class="modal-body">
-            <h4>
-               {{ $pelanggaran->nama }}</h4>
             <div class="row">
                <div class="col-md-12">
                   <div class="card mb-3 px-0 py-0">
@@ -41,8 +41,8 @@
                               <label>:</label>
                            </div>
                            <div class="col-md-6">
-                              <input type="text" disabled readonly class="form-control bg-white {{ $colorPoint }}"
-                                 id="staticEmail" value="{{ $jenis }}">
+                              <input type="text" disabled readonly class="form-control bg-white" id="staticEmail"
+                                 value="{{ $pelanggaran->klasifikasi->jenis }}">
                            </div>
                         </div>
 
@@ -55,7 +55,7 @@
                            </div>
                            <div class="col-md-6">
                               <input type="text" disabled readonly class="form-control bg-white {{ $colorPoint }}"
-                                 id="staticEmail" value="{{ $pelanggaran->poin }}">
+                                 id="staticEmail" value="{{ $pelanggaran->klasifikasi->poin }}">
                            </div>
                         </div>
                         <div class="mb-3 row">
@@ -91,7 +91,7 @@
          </div>
 
          <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
          </div>
       </div>
    </div>

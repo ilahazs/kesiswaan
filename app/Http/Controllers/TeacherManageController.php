@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Kelas;
+use App\Models\Student;
 use App\Models\Teacher;
 use App\Models\User;
 use Hash;
@@ -25,7 +26,7 @@ class TeacherManageController extends Controller
         $jurusan = ['RPL', 'MM', 'TAVI', 'TKJ', 'TOI', 'TITL'];
         $urutan = [1, 2, 3];
         return view('dashboard.admin.teacher.index', [
-            'title' => 'Semua Guru Walikeas',
+            'title' => 'Semua Guru Walikelas',
             'teachers' => Teacher::orderBy('updated_at', 'desc')->get(),
         ], compact('tingkatan', 'jurusan', 'urutan'));
     }
@@ -68,12 +69,14 @@ class TeacherManageController extends Controller
 
         $validated = $request->validate($rules);
         $teacher = Teacher::create($validated);
-        $kelasID = '';
+        $kelasID = 0;
 
         foreach (Kelas::all() as $kelas) {
             if ($request->tingkatan_kelas == $kelas->tingkatan && $request->jurusan_kelas == $kelas->jurusan && $request->urutan_kelas == $kelas->nama) {
                 $kelasID = $kelas->id;
-                Kelas::where('id', $kelasID)->update('teacher_id', $teacher->id);
+                $kelasUbah = $kelas;
+                $kelasUbah->teacher_id = $teacher->id;
+                $kelasUbah->save();
             }
         }
 
@@ -104,7 +107,6 @@ class TeacherManageController extends Controller
      */
     public function edit(Teacher $teacher)
     {
-        //
     }
 
     /**
@@ -116,7 +118,48 @@ class TeacherManageController extends Controller
      */
     public function update(Request $request, Teacher $teacher)
     {
-        //
+        // dd($request->all());
+        $rules = [
+            'nama' => 'required',
+            'nip' => 'required',
+            'tingkatan_kelas' => 'required',
+            'jurusan_kelas' => 'required',
+            'urutan_kelas' => 'required',
+        ];
+
+        if ($request->nip != $teacher->nip) {
+            $nipOld = $teacher->nip;
+            $rules['nip'] = 'required|unique:teachers';
+            $teacher->nip = $request->nip;
+            $teacher->save();
+
+            $user = User::where('username', $nipOld)->get()[0];
+            $user->username = $request->nip;
+            $user->email = "$request->nip@gmail.com";
+            $user->save();
+        }
+
+        if ($request->tingkatan_kelas != $teacher->kelas->tingkatan || $request->jurusan_kelas != $teacher->kelas->jurusan || $request->urutan_kelas != $teacher->kelas->nama) {
+            foreach (Kelas::all() as $kelas) {
+                if ($kelas->teacher_id == $teacher->id) {
+                    $kelas->teacher_id = null;
+                    $kelas->save();
+                    // dd('berhasil');
+                }
+            }
+        }
+
+        foreach (Kelas::all() as $kelas) {
+            if ($request->tingkatan_kelas == $kelas->tingkatan && $request->jurusan_kelas == $kelas->jurusan && $request->urutan_kelas == $kelas->nama) {
+                // dd($kelas);  
+                $kelas->teacher_id = $teacher->id;
+                $kelas->save();
+            }
+        }
+
+        $title = $teacher->nama;
+        toastr()->success("Data Guru $title berhasil <strong>diubah</strong>!");
+        return redirect(route('teachers.index'));
     }
 
     /**
@@ -127,6 +170,18 @@ class TeacherManageController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        //
+        $title = $teacher->nama;
+        Teacher::destroy($teacher->id);
+
+        $kelas = Kelas::where('teacher_id', $teacher->id)->get()[0];
+        $kelas->teacher_id = null;
+        $kelas->save();
+
+        $user = User::where('username', $teacher->nip)->get()[0];
+        User::destroy($user->id);
+
+
+        toastr()->success("Data Guru $title berhasil <strong>dihapus</strong>!");
+        return redirect(route('teachers.index'));
     }
 }

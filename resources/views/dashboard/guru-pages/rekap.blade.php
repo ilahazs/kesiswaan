@@ -28,12 +28,7 @@
             <a href="{{ route('exportkelas') }}" class="btn btn-success mx-2 mb-3"><i
                   class="fas fa-download me-4"></i><span class="ms-2">Export Data Siswa</span></a>
 
-            {{-- <div class="search-bar">
-         <form class="search-form d-flex align-items-center" method="POST" action="#">
-            <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-            <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-         </form>
-      </div><!-- End Search Bar --> --}}
+            <a href="{{ route('rekappdf') }}" class="btn btn-primary mx-2 mb-3" target="_blank">CETAK PDF</a>
 
             <table class="table table-bordered table-sm datatable" id="students-kelas">
                <thead>

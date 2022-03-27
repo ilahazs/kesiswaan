@@ -32,7 +32,7 @@
                                     class="form-control  @error('nama')
                                  is-invalid
                               @enderror"
-                                    id="nama" value="{{ old('nama', $teacher->nama) }}">
+                                    name="nama" id="nama" value="{{ old('nama', $teacher->nama) }}">
                                  @error('nama')
                                     <div class="invalid-feedback">
                                        {{ $message }}
@@ -54,7 +54,7 @@
                                     class="form-control  @error('nip')
                                  is-invalid
                               @enderror"
-                                    id="nip" value="{{ old('nip', $teacher->nip) }}">
+                                    name="nip" id="nip" value="{{ old('nip', $teacher->nip) }}">
                                  @error('nip')
                                     <div class="invalid-feedback">
                                        {{ $message }}
@@ -124,6 +124,8 @@
                                        @endforeach
                                     </select>
                                  </div>
+                                 <input type="hidden" name="class_id" value="{{ $teacher->kelas->id }}">
+
 
                               </div>
                            </div>

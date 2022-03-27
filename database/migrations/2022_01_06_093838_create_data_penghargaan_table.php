@@ -17,7 +17,8 @@ class CreateDataPenghargaanTable extends Migration
             $table->id();
             $table->string('nama');
             $table->foreignId('klasifikasi_id');
-            // $table->integer('poin');
+            $table->integer('poin')->nullable();
+
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

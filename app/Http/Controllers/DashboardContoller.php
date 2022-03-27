@@ -21,7 +21,7 @@ class DashboardContoller extends Controller
                     $guru = $teacher;
                 }
             }
-            // dd($guru->nama);
+            // dd($guru);
             foreach (Kelas::all() as $kelas) {
                 if ($kelas->teacher_id != null && $kelas->teacher_id == $guru->id) {
                     $k = $kelas;

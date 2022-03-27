@@ -5,7 +5,6 @@
    </div>
 @endsection
 @section('container')
-
    <form action="{{ route('login-authenticate') }}" method="POST" autocomplete="off">
       @csrf
       {{-- <div class="form-floating">
@@ -27,9 +26,8 @@
 
       {{-- Username/Email --}}
       <div class="form-floating">
-         <input id="login" type="text"
-            class="form-control{{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}" name="login"
-            value="{{ old('username') ?: old('email') }}" required autofocus>
+         <input id="login" type="text" class="form-control {{ $errors->has('username') || $errors->has('email') ? ' is-invalid' : '' }}" name="login" value="{{ old('username') ?: old('email') }}"
+                required autofocus>
 
          @if ($errors->has('username') || $errors->has('email'))
             <span class="invalid-feedback">
@@ -43,8 +41,7 @@
 
 
       <div class="form-floating">
-         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password"
-            placeholder="Password" required autofocus value="{{ old('password') }}">
+         <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required autofocus value="{{ old('password') }}">
          @error('password')
             <div class="invalid-feedback">{{ $message }}</div>
          @enderror
@@ -62,5 +59,4 @@
 
       <button class="w-100 btn btn-lg btn-primary btn-auth" type="submit">Sign in</button>
    </form>
-
 @endsection

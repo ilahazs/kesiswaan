@@ -9,8 +9,7 @@
          Siswa</a>
    </li>
    <li class="breadcrumb-item" aria-current="page">
-      <a href="{{ route('penghargaan.students.edit', $student->id) }}"
-         class="text-decoration-none {{ Request::is('penghargaan/students/' . $student->nis . '/edit') ? 'text-secondary' : '' }}">{{ $title }}</a>
+      {{ $title }}
    </li>
 @endsection
 @section('container')
@@ -119,8 +118,27 @@
       <div class="col-lg-5">
          <div class="card shadow-sm">
             <div class="card-body">
-               <h4 class="card-title">Penghargaan</h4>
-               <p class="card-text">Terakhir perubahan : {{ $student->updated_at->diffForHumans() }}</p>
+               <div class="row d-flex justify-content-start">
+                  <div class="col-lg-9">
+                     <h4 class="card-title">Penghargaan</h4>
+                     <p class="card-text">Terakhir perubahan : {{ $student->updated_at->diffForHumans() }}</p>
+                  </div>
+                  <div class="col-lg-3 d-flex justify-content-end">
+
+                     <div>
+                        <a href="{{ route('penghargaan.students.edit', $student->nis) }}"
+                           class="badge bg-success text-decoration-none text-white mx-1 py-2">
+                           <i class="las la-plus"
+                              style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
+                        </a>
+                        <a href="{{ route('penghargaan.students.dismiss', $student->nis) }}"
+                           class="badge bg-danger text-decoration-none text-white me-1 py-2">
+                           <i class="las la-minus"
+                              style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
+                        </a>
+                     </div>
+                  </div>
+               </div>
             </div>
             <ul class="list-group list-group-flush">
                @forelse ($student->penghargaans as $penghargaan)
@@ -128,13 +146,13 @@
                      $jenis = '';
                      $color = '';
                      
-                     if ($penghargaan->poin <= 20) {
+                     if ($penghargaan->klasifikasi->poin <= 20) {
                          $color = 'success';
                          $jenis = 'ringan';
-                     } elseif ($penghargaan->poin <= 30 && $penghargaan->poin >= 21) {
+                     } elseif ($penghargaan->klasifikasi->poin <= 30 && $penghargaan->klasifikasi->poin >= 21) {
                          $color = 'warning';
                          $jenis = 'sedang';
-                     } elseif ($penghargaan->poin <= 50 && $penghargaan->poin >= 31) {
+                     } elseif ($penghargaan->klasifikasi->poin <= 50 && $penghargaan->klasifikasi->poin >= 31) {
                          $color = 'danger';
                          $jenis = 'berat';
                      } else {
@@ -143,7 +161,8 @@
                      }
                   @endphp
                   <li class="list-group-item d-flex justify-content-between align-items-center">{{ $penghargaan->nama }}
-                     <span class="badge bg-{{ $color }} badge-pill text-white">{{ $penghargaan->poin }}</span>
+                     <span
+                        class="badge bg-{{ $color }} badge-pill text-white">{{ $penghargaan->klasifikasi->poin }}</span>
                   </li>
                @empty
                   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -166,17 +185,24 @@
                @method('put')
 
                <div class="card-header">
-                  Tambah penghargaan baru
+                  <span class="mb-0"> Tambah penghargaan baru</span>
+                  <div class="row d-flex justify-content-start">
+                     <div class="row justify-content-end col-lg-12">
+                        <button type="submit" class="btn btn-primary " style="padding: 5px 70px; margin-top: -25px">
+                           <i class="fas fa-save"></i>
+                           Simpan</button>
+                     </div>
+                  </div>
                </div>
                <ul class="list-group list-group-flush">
                   @forelse ($penghargaans as $penghargaan)
                      @php
                         $color = '';
-                        if ($penghargaan->poin <= 20) {
+                        if ($penghargaan->klasifikasi->poin <= 20) {
                             $color = 'success';
-                        } elseif ($penghargaan->poin <= 30 && $penghargaan->poin >= 21) {
+                        } elseif ($penghargaan->klasifikasi->poin <= 30 && $penghargaan->klasifikasi->poin >= 21) {
                             $color = 'warning';
-                        } elseif ($penghargaan->poin <= 50 && $penghargaan->poin >= 31) {
+                        } elseif ($penghargaan->klasifikasi->poin <= 50 && $penghargaan->klasifikasi->poin >= 31) {
                             $color = 'danger';
                         } else {
                             $color = 'secondary';
@@ -188,7 +214,7 @@
                         {{ $penghargaan->nama }}
                         <div class="justify-content-end">
                            <span
-                              class="badge bg-{{ $color }} badge-pill text-white me-3 px-2">{{ $penghargaan->poin }}</span>
+                              class="badge bg-{{ $color }} badge-pill text-white me-3 px-2">{{ $penghargaan->klasifikasi->poin }}</span>
                            <div class="form-check form-check-inline d-inline-flex ms-3 py-1 px-3">
                               <input class="form-check-input" type="checkbox" name="penghargaan[]" id="x"
                                  value="{{ $penghargaan->id }}">
@@ -205,9 +231,10 @@
                      </li>
                   @endforelse
 
-                  <div class="d-flex justify-content-center my-1 mx-3">
-                     <div class="row col-lg-2">
-                        <button type="submit" class="btn btn-primary">Save</button>
+                  <div class="d-flex justify-content-center">
+                     <div class="row col-lg-2 my-2">
+                        <button type="submit" class="btn btn-primary" style="padding: 5px 50px">
+                           <i class="fas fa-save"></i> Simpan</button>
                      </div>
                   </div>
                </ul>

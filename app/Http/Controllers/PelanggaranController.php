@@ -173,3 +173,4 @@ class PelanggaranController extends Controller
         return redirect(route('pelanggaran.index'));
     }
 }
+w

@@ -28,7 +28,7 @@ class DatabaseSeeder extends Seeder
             KlasifikasiPenghargaanSeeder::class,
         ]);
         // User::factory(3)->create();
-        Student::factory(50)->create();
+        Student::factory(100)->create();
         // Student::find(2)->pelanggarans()->attach([1, 2, 3]);
     }
 }

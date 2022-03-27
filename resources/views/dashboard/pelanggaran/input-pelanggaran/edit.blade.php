@@ -118,8 +118,32 @@
       <div class="col-lg-5">
          <div class="card shadow-sm">
             <div class="card-body">
-               <h4 class="card-title">Pelanggaran</h4>
-               <p class="card-text">Terakhir perubahan : {{ $student->updated_at->diffForHumans() }}</p>
+               <div class="row d-flex justify-content-start">
+                  <div class="col-lg-9">
+                     <h4 class="card-title">Pelanggaran</h4>
+                     <p class="card-text">Terakhir perubahan : {{ $student->updated_at->diffForHumans() }}</p>
+                  </div>
+                  <div class="col-lg-3 d-flex justify-content-end">
+
+                     <div>
+                        <a href="{{ route('pelanggaran.students.edit', $student->nis) }}"
+                           class="badge bg-success text-decoration-none text-white mx-1 py-2">
+                           <i class="las la-plus"
+                              style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
+                        </a>
+                        <a href="{{ route('pelanggaran.students.dismiss', $student->nis) }}"
+                           class="badge bg-danger text-decoration-none text-white me-1 py-2">
+                           <i class="las la-minus"
+                              style="font-size: 1.33333em; line-height: .75em; vertical-align: -.1em"></i>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+
+
+
+
+
             </div>
             <ul class="list-group list-group-flush">
                @forelse ($student->pelanggarans as $pelanggaran)
@@ -127,22 +151,23 @@
                      $jenis = '';
                      $color = '';
                      
-                     if ($pelanggaran->poin <= 20) {
+                     if ($pelanggaran->klasifikasi->poin <= 20) {
                          $color = 'success';
                          $jenis = 'ringan';
-                     } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
+                     } elseif ($pelanggaran->klasifikasi->poin <= 30 && $pelanggaran->klasifikasi->poin >= 21) {
                          $color = 'warning';
                          $jenis = 'sedang';
-                     } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
+                     } elseif ($pelanggaran->klasifikasi->poin <= 50 && $pelanggaran->klasifikasi->poin >= 31) {
                          $color = 'danger';
                          $jenis = 'berat';
                      } else {
-                         $color = 'secondary';
+                         $color = 'dark';
                          $jenis = 'error';
                      }
                   @endphp
                   <li class="list-group-item d-flex justify-content-between align-items-center">{{ $pelanggaran->nama }}
-                     <span class="badge bg-{{ $color }} badge-pill text-white">{{ $pelanggaran->poin }}</span>
+                     <span
+                        class="badge bg-{{ $color }} badge-pill text-white">{{ $pelanggaran->klasifikasi->poin }}</span>
                   </li>
                @empty
                   <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -168,8 +193,11 @@
                   <span class="mb-0"> Tambah pelanggaran baru</span>
                   <div class="row d-flex justify-content-start">
                      <div class="row justify-content-end col-lg-12">
-                        <button type="submit" class="btn btn-primary "
-                           style="padding: 5px 70px; margin-top: -25px">Save</button>
+                        <button type="submit" class="btn btn-primary " style="padding: 5px 70px; margin-top: -25px">
+                           <i class="fas fa-save"></i>
+                           Simpan</button>
+
+
                      </div>
                   </div>
 
@@ -184,21 +212,21 @@
                   @forelse ($pelanggarans as $pelanggaran)
                      @php
                         $color = '';
-                        if ($pelanggaran->poin <= 20) {
+                        if ($pelanggaran->klasifikasi->poin <= 20) {
                             $color = 'success';
-                        } elseif ($pelanggaran->poin <= 30 && $pelanggaran->poin >= 21) {
+                        } elseif ($pelanggaran->klasifikasi->poin <= 30 && $pelanggaran->klasifikasi->poin >= 21) {
                             $color = 'warning';
-                        } elseif ($pelanggaran->poin <= 50 && $pelanggaran->poin >= 31) {
+                        } elseif ($pelanggaran->klasifikasi->poin <= 50 && $pelanggaran->klasifikasi->poin >= 31) {
                             $color = 'danger';
                         } else {
-                            $color = 'secondary';
+                            $color = 'dark';
                         }
                      @endphp
                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         {{ $pelanggaran->nama }}
                         <div class="justify-content-end px-2">
                            <span
-                              class="badge bg-{{ $color }} badge-pill me-3 text-white px-2">{{ $pelanggaran->poin }}</span>
+                              class="badge bg-{{ $color }} badge-pill me-3 text-white px-2">{{ $pelanggaran->klasifikasi->poin }}</span>
                            <div class="form-check form-check-inline d-inline-flex ms-3 py-1 px-3">
                               <input class="form-check-input" type="checkbox" name="pelanggaran[]" id="x"
                                  value="{{ $pelanggaran->id }}">
@@ -217,7 +245,8 @@
 
                   <div class="d-flex justify-content-center">
                      <div class="row col-lg-2 my-2">
-                        <button type="submit" class="btn btn-primary" style="padding: 5px 50px">Save</button>
+                        <button type="submit" class="btn btn-primary" style="padding: 5px 50px">
+                           <i class="fas fa-save"></i> Simpan</button>
                      </div>
                   </div>
                </ul>

@@ -13,18 +13,18 @@
 
    <!-- Custom fonts for this template-->
    <link rel="stylesheet" href="{{ asset('assets/font-awesome/css/all.min.css') }}">
-   <link
-      href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet">
-   <link
-      href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-      rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Poppins:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Inter:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+   {{-- <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&display=swap"
+      rel="stylesheet"> --}}
    {{-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> --}}
    <link rel="stylesheet" href="{{ asset('assets/line-awesome/css/line-awesome.min.css') }}">
    {{-- <link rel="stylesheet" href="path/to/line-awesome/css/line-awesome-font-awesome.min.css"> --}}
 
-   <link rel="stylesheet"
-      href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
+   <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/font-awesome-line-awesome/css/all.min.css">
    <link rel="icon" href="{{ asset('img/logo-smkn4bdg.png') }}">
 
    <!-- Custom styles for this template-->
@@ -70,8 +70,7 @@
                <!-- Page Heading -->
                <div class="d-sm-flex align-items-center justify-content-between mb-4">
                   <h1 class="h3 mb-0 text-gray-800">@yield('heading-title')</h1>
-                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-                        class="fas fa-download fa-sm text-white-50"></i> Simpan PDF</a>
+                  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Simpan PDF</a>
                </div>
 
                @yield('flash-message')
@@ -97,7 +96,7 @@
          <!-- End of Main Content -->
 
          <!-- Footer -->
-         @include('dashboard.layouts.footer')
+         {{-- @include('dashboard.layouts.footer') --}}
          <!-- End of Footer -->
 
       </div>

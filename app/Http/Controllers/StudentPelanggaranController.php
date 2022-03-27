@@ -98,7 +98,8 @@ class StudentPelanggaranController extends Controller
         for ($i = 0; $i < count($request->pelanggaran); $i++) {
             $pelanggaranDapat = Pelanggaran::where('id', $request->pelanggaran[$i])->get();
             foreach ($pelanggaranDapat as $p) {
-                $student->poin_pelanggaran += $p->poin;
+                $student->poin_pelanggaran += $p->klasifikasi->poin;
+                $student->poin_total -= $p->klasifikasi->poin;
             }
         }
         $student->save();

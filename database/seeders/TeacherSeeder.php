@@ -16,8 +16,8 @@ class TeacherSeeder extends Seeder
     {
         Teacher::create([
             'nama' => 'Windah Basudara',
-            // 'class_id' => 8,
-            'nip' => '19860926',
+            // 'class_id' => 18,
+            'nip' => '1920110999',
             'user_id' => 5,
         ]);
     }
